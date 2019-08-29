@@ -87,9 +87,10 @@ __Step6:__ Profit
 
 
 ![obj_detect](object%20recognition%20plan.jpg)
+____
 
 ## The Ailu Robot
-____
+
 
 The Ailu robot works in the following way, it simply sping arounf teh object, while filing at 30 fps, and it creates 2 types of images,
 A color image and a depth Images.
@@ -129,6 +130,22 @@ We want to have the image processing all done on one central server, so the clie
 Like this:
 
 ![AILU plan](plan%20for%20AILU.jpg)
+
+### Improvements needed:
+
+#### 1. We need to make the robot faster (either by spinning faster but also by making able to sping continuously)
+#### 2. We need to improve the quality of the images
+#### 3. We need to make it scalable
+
+____
+
+## The big picture:
+
+The end Goal of AndroBotics is to make it's own super-advanced environment awareness systems, able to recognize it's environment as well as objects and memorize the location and properties of those objects. But to get there we need money and data, so we will start by providing this service to anyone that needs it. We currently beat the competiton by a land slide in terms of the costs and production time so we have a great market an future infront of us.
+
+We are currently working with professor Steve Young to greate a dataset of images to recognize weeds in a filed and we are working on a SBIR grant with the NSF for $225,000.00  
+
+
 
 
 
