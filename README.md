@@ -6,6 +6,7 @@ Points:
 -  how to do object detection
 -  the big picture
 -  This is a startup, expectations
+____
 
 
 ## Description of the AILU project:
@@ -13,6 +14,8 @@ Points:
 AILU stands for Automated Imaging and Labeling Unit, the purpose of this robot is to take images of object, lots of images of lots of objects.
 
 Why? We want to make robots able to recognize any objects, especially weird and unfamilliar ones, and many companies have werd objects that they want their robots to recognize, currently it's not possible for them to obtain the object detection model that they need. And there is a market wide open for us.
+
+____
 
 ## Object detection
 
@@ -68,7 +71,7 @@ So the data folder ends up looking somethings like this:
 
 ![folder](folder_eaxmple.png)
 
-The way you prepare the data for object detection goes as follows:
+### 2 formating the data and training the model:
 
 __Step1:__ All the XML files are converted to CSV 
 
@@ -84,6 +87,9 @@ __Step6:__ Profit
 
 
 ![obj_detect](object%20recognition%20plan.jpg)
+
+## The Ailu Robot
+____
 
 
 
