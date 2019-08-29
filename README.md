@@ -1,5 +1,6 @@
 # AILU
 
+#### The information disclosed in the document is confidential and you are not allowed to share or distribute it with anyone.
 
 Points:
 -  description of the project
@@ -125,7 +126,7 @@ So far the Ailu robot has three major components:
 
 #### In the future:
 
-We want to have the image processing all done on one central server, so the client would jsut record the files, and sends them to the server.
+We want to have the image processing all done on one central server, so the client would just record the files, and sends them to the server.
 
 Like this:
 
@@ -146,6 +147,10 @@ The end Goal of AndroBotics is to make it's own super-advanced environment aware
 We are currently working with professor Steve Young to greate a dataset of images to recognize weeds in a filed and we are working on a SBIR grant with the NSF for $225,000.00  
 
 
+## This is a startup:
 
+People come and go and things change a lot especially during this very early stage of the project. I cannot make any proises as to what the team will look like when we finally get the grant and start this company properly, but I can promise that we are all going to learn a ton and hopefully have a lot of fun in the process. 
+
+You don't need to commit to anything right now, work on it in the time that you have, lets keep eachother updated on our progress and share what we learned with eachother. 
 
 
