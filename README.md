@@ -70,7 +70,23 @@ So the data folder ends up looking somethings like this:
 
 The way you prepare the data for object detection goes as follows:
 
+__Step1:__ All the XML files are converted to CSV 
+
+__Step2:__ The CSV file along with the images are convered to a tf_record file 
+
+__Step3:__ The tf_record file is consumed by the training model
+
+__Step4:__ Boom you have a trained computer model
+
+__Step5:__ ????
+
+__Step6:__ Profit
+
+
 ![obj_detect](object%20recognition%20plan.jpg)
+
+
+
 
 
 
