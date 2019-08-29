@@ -27,63 +27,63 @@ The basics of how to use the API goes as follow:
 
 And an XML file with the same name, that contains the metadata of the object:
 
-  <?xml version="1.0"?>
+    <?xml version="1.0"?>
 
-  -<annotation>
+    -<annotation>
 
-  <folder>realsense</folder>
+    <folder>realsense</folder>
 
-  <filename>1566946802.2614963.png</filename>
+    <filename>1566946802.2614963.png</filename>
 
-  <path>F:/realsense-python/thresholding/data/realsense/1566946802.2614963.png</path>
-
-
-  -<source>
-
-  <database>AndroBotics</database>
-
-  </source>
+    <path>F:/realsense-python/thresholding/data/realsense/1566946802.2614963.png</path>
 
 
-  -<size>
+    -<source>
 
-  <width>640</width>
+    <database>AndroBotics</database>
 
-  <height>480</height>
-
-  <depth>3</depth>
-
-  </size>
-
-  <segmented>0</segmented>
+    </source>
 
 
-  -<box>
+    -<size>
 
-  <name>watch</name>
+    <width>640</width>
 
-  <pose>Unspecified</pose>
+    <height>480</height>
 
-  <truncated>0</truncated>
+    <depth>3</depth>
 
-  <difficult>0</difficult>
+    </size>
+
+    <segmented>0</segmented>
 
 
-  -<bndbox>
+    -<box>
 
-  <xmin>269</xmin>
+    <name>watch</name>
 
-  <ymin>81</ymin>
+    <pose>Unspecified</pose>
 
-  <xmax>495</xmax>
+    <truncated>0</truncated>
 
-  <ymax>415</ymax>
+    <difficult>0</difficult>
 
-  </bndbox>
 
-  </box>
+    -<bndbox>
 
-  </annotation>
+    <xmin>269</xmin>
+
+    <ymin>81</ymin>
+
+    <xmax>495</xmax>
+
+    <ymax>415</ymax>
+
+    </bndbox>
+
+    </box>
+
+    </annotation>
 
 
 
