@@ -70,7 +70,7 @@ So the data folder ends up looking somethings like this:
 
 The way you prepare the data for object detection goes as follows:
 
-![obj_detect](object recognition plan.jpg)
+![obj_detect](object%20recognition%20plan.jpg)
 
 
 
