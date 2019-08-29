@@ -116,10 +116,10 @@ Adding on top of that the data augmentation techniques will increase that x10.
 
 ### The PLan for AILU:
 
-So far the Ailu robot has Three major components:
+So far the Ailu robot has three major components:
 
 -    A firmware that controls the actual motors of the robot, This is coded in C++ and running on an Arduino Mega
--    A CLient that conrols the robot and that starts and stops the recording of the camera 
+-    A CLient that controls the robot and that starts and stops the recording of the camera 
 -    An image processing script that loads the video recorded by the client and does all the figuring out of where is the object and then saves the image along with the XML file
 
 #### In the future:
