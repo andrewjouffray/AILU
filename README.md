@@ -30,59 +30,34 @@ And an XML file with the same name, that contains the metadata of the object:
     <?xml version="1.0"?>
 
     -<annotation>
+        <folder>realsense</folder>
+        <filename>1566946802.2614963.png</filename>
+        <path>F:/realsense-python/thresholding/data/realsense/1566946802.2614963.png</path>
 
-    <folder>realsense</folder>
+        -<source>
+            <database>AndroBotics</database>
+        </source>
 
-    <filename>1566946802.2614963.png</filename>
+        -<size>
+            <width>640</width>
+            <height>480</height>
+            <depth>3</depth>
+        </size>
+        <segmented>0</segmented>
 
-    <path>F:/realsense-python/thresholding/data/realsense/1566946802.2614963.png</path>
+        -<box>
+            <name>watch</name>
+            <pose>Unspecified</pose>
+            <truncated>0</truncated>
+            <difficult>0</difficult>
 
-
-    -<source>
-
-    <database>AndroBotics</database>
-
-    </source>
-
-
-    -<size>
-
-    <width>640</width>
-
-    <height>480</height>
-
-    <depth>3</depth>
-
-    </size>
-
-    <segmented>0</segmented>
-
-
-    -<box>
-
-    <name>watch</name>
-
-    <pose>Unspecified</pose>
-
-    <truncated>0</truncated>
-
-    <difficult>0</difficult>
-
-
-    -<bndbox>
-
-    <xmin>269</xmin>
-
-    <ymin>81</ymin>
-
-    <xmax>495</xmax>
-
-    <ymax>415</ymax>
-
-    </bndbox>
-
-    </box>
-
+            -<bndbox>
+                <xmin>269</xmin>
+                <ymin>81</ymin>
+                <xmax>495</xmax>
+                <ymax>415</ymax>
+            </bndbox>
+         </box>
     </annotation>
 
 
