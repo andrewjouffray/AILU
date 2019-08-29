@@ -93,7 +93,7 @@ ____
 ## The Ailu Robot
 
 
-The Ailu robot works in the following way, it simply sping arounf teh object, while filing at 30 fps, and it creates 2 types of images,
+The Ailu robot works in the following way, it simply sping arounf the object, while filing at 30 fps, and it creates 2 types of images,
 A color image and a depth Images.
 
 #### first we take the depth image and apply color to it:
