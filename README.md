@@ -114,5 +114,21 @@ A color image and a depth Images.
 The coordinates / metadata and the images are then saved under the same name, one as a XML file and one as a PNG file. The robot can get 300 images in 10 seconds, making it possible to get 105,000 images in 30 minutes.  
 Adding on top of that the data augmentation techniques will increase that x10. 
 
+### The PLan for AILU:
+
+So far the Ailu robot has Three major components:
+
+-    A firmware that controls the actual motors of the robot, This is coded in C++ and running on an Arduino Mega
+-    A CLient that conrols the robot and that starts and stops the recording of the camera 
+-    An image processing script that loads the video recorded by the client and does all the figuring out of where is the object and then saves the image along with the XML file
+
+#### In the future:
+
+We want to have the image processing all done on one central server, so the client would jsut record the files, and sends them to the server.
+
+Like this:
+
+![AILU plan](plan%20for%20AILU.jpg)
+
 
 
