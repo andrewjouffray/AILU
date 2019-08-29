@@ -66,6 +66,6 @@ And an XML file with the same name, that contains the metadata of the object:
 
 So the data folder ends up looking somethings like this:
 
-1[folder](folder_eaxmple.png)
+![folder](folder_eaxmple.png)
 
 
