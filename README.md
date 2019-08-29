@@ -23,7 +23,7 @@ The basics of how to use the API goes as follow:
 ### 1 Images:
 We need a lot of images, especially if we need to recognize a lot of different objects, here is an example of images (the green box will not be used in the actual images)
 
-![exampe_image](test_img1)
+![exampe_image](test_img1.png)
 
 
 
