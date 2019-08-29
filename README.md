@@ -92,7 +92,7 @@ __Step6:__ Profit
 ____
 
 The Ailu robot works in the following way, it simply sping arounf teh object, while filing at 30 fps, and it creates 2 types of images,
-A color image and a depth Imagem.
+A color image and a depth Images.
 
 #### first we take the depth image and apply color to it:
 
@@ -106,10 +106,13 @@ A color image and a depth Imagem.
 
 ![threshed](threshed.png)
 
-#### Now that we have a prceise region of intrest we can simply overlap the two images, and get that same region in the color image
+#### Now that we have a precise region of intrest we can simply overlap the two images, and get that same region in the color image
 
 ![color](color.png)
 
+
+The coordinates / metadata and the images are then saved under the same name, one as a XML file and one as a PNG file. The robot can get 300 images in 10 seconds, making it possible to get 105,000 images in 30 minutes.  
+Adding on top of that the data augmentation techniques will increase that x10. 
 
 
 
