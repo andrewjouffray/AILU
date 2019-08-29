@@ -91,7 +91,24 @@ __Step6:__ Profit
 ## The Ailu Robot
 ____
 
+The Ailu robot works in the following way, it simply sping arounf teh object, while filing at 30 fps, and it creates 2 types of images,
+A color image and a depth Imagem.
 
+#### first we take the depth image and apply color to it:
+
+![depth](depth.png)
+
+#### Then we only keep the blue color and turn all the rest black:
+
+![normal](normal.png)
+
+#### Then we apply a couple filters:
+
+![threshed](threshed.png)
+
+#### Now that we have a prceise region of intrest we can simply overlap the two images, and get that same region in the color image
+
+![color](color.png)
 
 
 
