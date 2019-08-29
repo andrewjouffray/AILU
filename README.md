@@ -21,7 +21,9 @@ We plan on using the tensorflow object detection API to train our computer model
 The basics of how to use the API goes as follow:
 
 ### 1 Images:
+We need a lot of images, especially if we need to recognize a lot of different objects, here is an example of images (the green box will not be used in the actual images)
 
+![exampe_image](test_img1)
 
 
 
@@ -46,12 +48,12 @@ And an XML file with the same name, that contains the metadata of the object:
         <segmented>0</segmented>
 
         -<box>
-            <name>watch</name>
+            <name>little box</name> // name of the object
             <pose>Unspecified</pose>
             <truncated>0</truncated>
             <difficult>0</difficult>
 
-            -<bndbox>
+            -<bndbox>             // position of the object 
                 <xmin>269</xmin>
                 <ymin>81</ymin>
                 <xmax>495</xmax>
