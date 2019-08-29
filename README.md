@@ -68,4 +68,9 @@ So the data folder ends up looking somethings like this:
 
 ![folder](folder_eaxmple.png)
 
+The way you prepare the data for object detection goes as follows:
+
+![folder](object detection plan.jpg)
+
+
 
