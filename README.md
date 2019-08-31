@@ -27,7 +27,7 @@ The basics of how to use the API goes as follow:
 ### 1 Images:
 We need a lot of images, especially if we need to recognize a lot of different objects, here is an example of images (the green box will not be used in the actual images)
 
-![exampe_image](test_img1.png)
+![exampe_image](docs/imgs/test_img1.png)
 
 
 
@@ -70,7 +70,7 @@ And an XML file with the same name, that contains the metadata of the object:
 
 So the data folder ends up looking somethings like this:
 
-![folder](folder_eaxmple.png)
+![folder](docs/imgs/folder_eaxmple.png)
 
 ### 2 formating the data and training the model:
 
@@ -87,7 +87,7 @@ __Step5:__ ????
 __Step6:__ Profit
 
 
-![obj_detect](object%20recognition%20plan.jpg)
+![obj_detect](docs/imgs/object%20recognition%20plan.jpg)
 ____
 
 ## The Ailu Robot
@@ -98,19 +98,19 @@ A color image and a depth Images.
 
 #### first we take the depth image and apply color to it:
 
-![depth](depth.png)
+![depth](docs/imgs/depth.png)
 
 #### Then we only keep the blue color and turn all the rest black:
 
-![normal](normal.png)
+![normal](docs/imgs/normal.png)
 
 #### Then we apply a couple filters:
 
-![threshed](threshed.png)
+![threshed](docs/imgs/threshed.png)
 
 #### Now that we have a precise region of intrest we can simply overlap the two images, and get that same region in the color image
 
-![color](color.png)
+![color](docs/imgs/color.png)
 
 
 The coordinates / metadata and the images are then saved under the same name, one as a XML file and one as a PNG file. The robot can get 300 images in 10 seconds, making it possible to get 105,000 images in 30 minutes.  
@@ -130,7 +130,7 @@ We want to have the image processing all done on one central server, so the clie
 
 Like this:
 
-![AILU plan](plan%20for%20AILU.jpg)
+![AILU plan](docs/imgs/plan%20for%20AILU.jpg)
 
 ### Improvements needed:
 
