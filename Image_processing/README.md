@@ -91,3 +91,29 @@ directory for the .bag file and that the file is not setup to stream from the ca
 -    `    rs.config.enable_device_from_file(config, "<path to the .bag file>")`
 
 Again make sure that you are streaming from the file at the correct resolution and fps.
+
+## main.py
+
+This is the main file, it simply calls the Chunk.loadChunk() function and records the time that it took
+save all 300 images in the .bag file
+
+## Chunk.py
+`Chunk.loadChunk(<path to the .bag file>, <alpha value to be used>, <path to save the images and XML files>)`
+
+This file contains the loadChunk() function that loads the .bag file, streams the depth and color images and 
+sends the depth image to the Utils.getROI() function to get the region of interest
+in the image.
+It then calls the Workers.save_images() so actually save the images  
+
+## Utils.py
+`utils.getROI(depth_image, alpha)`
+
+Pass the depth image abd the alpha settings, and it will return a list of coordinates of gerions of intrest in the image like this:
+
+`[[x1, y1, x2, y2]]`
+
+## Workers.py
+`Workers.save_images(color_image, <list of regions of interest>, <path to save the images and XML files>)`
+
+The save_image() function will save the color image as a png and write an XML file with the same name, containing the 
+coordinates of the regions of interest in the image.  
