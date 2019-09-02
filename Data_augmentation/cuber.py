@@ -8,7 +8,8 @@ IMG_WIDTH = 640
 DIVISOR = 16
 
 # cuts an image into little pieces and re-assembles in a random way
-# You would need to re-paste the roi on top of that cubed image
+# You would need to re-paste the roi on top of that cubed image outside of that function
+# img cuber only modifies the background
 def img_cuber(img):
     height_div = int(480 / DIVISOR)
     width_div = int(640 / DIVISOR)
