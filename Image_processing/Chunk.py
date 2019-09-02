@@ -5,7 +5,7 @@ import utils
 import cv2
 
 # Loads the bag files, processes each images and saves them with their XML file
-def loadChunk(file_name, alpha, dir):
+def loadChunk(file_name, alpha, save_dir):
     pipeline = rs.pipeline()
     config = rs.config()
 
@@ -50,7 +50,7 @@ def loadChunk(file_name, alpha, dir):
 
         im_count += 1
         # Saves the images along with their XML files
-        Workers.save_images(color_image, rois, dir)
+        Workers.save_images(color_image, rois, save_dir)
 
         # Breaks the loop after 300 image
         if im_count == 300:
