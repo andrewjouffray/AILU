@@ -99,40 +99,7 @@ try:
 
         # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
         depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=alphaKey), cv2.COLORMAP_JET)
-        # depth_colormap = cv2.blur(depth_colormap, (30, 30))
-
-        # viewImage(depth_colormap)
-
         hsv_depth = cv2.cvtColor(depth_colormap, cv2.COLOR_BGR2HSV)
-
-
-
-        # hsv_depth = object_mask(hsv_depth)
-        #
-        #
-        # gray_depth = cv2.cvtColor(hsv_depth, cv2.COLOR_BGR2GRAY)
-        # ret, threshold = cv2.threshold(gray_depth, 240, 255, 0)
-        # cv2.imshow('normal', threshold)
-        #
-        # rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (10, 10))
-        # threshold = cv2.morphologyEx(threshold, cv2.MORPH_OPEN, rect_kernel)
-        #
-        # rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (80, 80))
-        # threshold = cv2.morphologyEx(threshold, cv2.MORPH_CLOSE, rect_kernel)
-        #
-        # cv2.imshow('threshed', threshold)
-        # contours, hierarchy = cv2.findContours(threshold,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
-        # img2 = color_image.copy()
-        # for c in contours:
-        #
-        #     area = cv2.contourArea(c)
-        #     if area > 1000:
-        #         x, y, w, h = cv2.boundingRect(c)
-        #         roi = color_image[y:y+h, x:x+w]
-        #         img2 = img_cuber(img2)
-        #         img2[y:y+h, x:x+w]=roi
-        #         cv2.rectangle(color_image,(x,y),(x+w,y+h),(0,255,0),3)
-        #         cv2.rectangle(hsv_depth,(x,y),(x+w,y+h),(0,255,0),3)
 
         for roi in rois:
             x1 = roi[0]
