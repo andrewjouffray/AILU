@@ -4,12 +4,20 @@ from time import time
 from cv2 import imwrite
 import numpy as np
 
+
+# This function saves the image and write the xml file
 def save_images(img, rois):
-    # print(len(img))
+
+    # Use the current time in ms as name
     name = str(time())
+
+    # Saves the image
     imwrite("./data/realsense/"+name+".png", img)
+
+    # folder to save the images in
     FOLDER_NAME = "realsense"
 
+    # This will only save the first roi, we need to make it be able so save all the rois in the future.
     roi = rois[0]
     print(roi)
     x1 = roi[0]
@@ -18,15 +26,18 @@ def save_images(img, rois):
     y2 = roi[3]
     print(x1, y1, x2, y2)
 
+    # get the height a width of image
     img_np = img
     height = np.size(img_np, 0)
     width = np.size(img_np, 1)
 
+    # XML starts here
     annotation = ET.Element("annotation")
     ET.SubElement(annotation, "folder").text = FOLDER_NAME
     ET.SubElement(annotation, "filename").text = name + ".png"
+    # This path is important, this is where the XML files will be saved
     ET.SubElement(annotation,
-                  "path").text = "F:/realsense-python/thresholding/data/" + FOLDER_NAME + "/" + name + ".png"
+                  "path").text = "C:/Users/Andrew/Documents/realsense-python/thresholding/AILU/Image_processing/data/" + FOLDER_NAME + "/" + name + ".png"
 
     source = ET.SubElement(annotation, "source")
     ET.SubElement(source, "database").text = "AndroBotics"
@@ -37,18 +48,21 @@ def save_images(img, rois):
     ET.SubElement(size, "depth").text = "3"
     ET.SubElement(annotation, "segmented").text = "0"
 
+    # Change the name depending on what the object is
     object0 = ET.SubElement(annotation, "box")
     ET.SubElement(object0, "name").text = "watch"
     ET.SubElement(object0, "pose").text = "Unspecified"
     ET.SubElement(object0, "truncated").text = "0"
     ET.SubElement(object0, "difficult").text = "0"
 
+    # This is where the region containing the object is defined
     bndbox = ET.SubElement(object0, "bndbox")
     ET.SubElement(bndbox, "xmin").text = str(x1)
     ET.SubElement(bndbox, "ymin").text = str(y1)
     ET.SubElement(bndbox, "xmax").text = str(x2)
     ET.SubElement(bndbox, "ymax").text = str(y2)
 
+    # Writes the XML file
     tree = ET.ElementTree(annotation)
     tree.write("F:/realsense-python/thresholding/data/" + FOLDER_NAME + "/" + name + ".xml")
 

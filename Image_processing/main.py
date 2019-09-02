@@ -11,7 +11,7 @@ if __name__ == '__main__':
     roi_chunk = []
 
     start = time.time()
-    Chunk.loadChunk("object_detection.bag")
+    Chunk.loadChunk("./bag_files/object_detection.bag")
     end = time.time()
     save_time = end - start
 

@@ -2,6 +2,7 @@ import numpy as np
 import pyrealsense2 as rs
 import Workers
 import utils
+import cv2
 
 # Loads the bag files, processes each images and saves them with their XML file
 def loadChunk(file_name):
@@ -14,6 +15,7 @@ def loadChunk(file_name):
     # config.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 30)
     config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
     config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+    profile = pipeline.start(config)
 
     align_to = rs.stream.color
     align = rs.align(align_to)
@@ -36,6 +38,15 @@ def loadChunk(file_name):
 
         # Gets the regions of interest in the image
         rois = utils.getROI(depth_image)
+
+        for roi in rois:
+            x1 = roi[0]
+            y1 = roi[1]
+            x2 = roi[2]
+            y2 = roi[3]
+            cv2.rectangle(color_image, (x1, y1), (x2, y2), (0, 255, 0), 3)
+
+
 
         im_count += 1
         # Saves the images along with their XML files
