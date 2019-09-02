@@ -23,12 +23,6 @@ You must install the latest Microsoft Visual Studio Community
     │    └── object_detection.bag           // Video file containing the color a depth streams
     ├── data/
     │   └── realsense/                      // Images and XML files saved here
-    ├── Image_resources_data_augmnetation/  // Images that can be used in data augmentation 
-    │   ├── background.jpg
-    │   ├── DSC03356.JPG
-    │   ├── DSC03368.JPG
-    │   ├── DSC03412.JPG
-    │   └── DSC03421.JPG
     └── legacy/                             // Old code and test
     │   ├── 3D thresholding.ipynb
     │   ├── 3D thresholding.py

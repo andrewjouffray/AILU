@@ -40,52 +40,9 @@ align_to = rs.stream.color
 align = rs.align(align_to)
 
 
-IMG_HEIGHT = 360
-IMG_WIDTH = 640
-DIVISOR = 16
-
 # This determines the threshold distance
 alpha = 0.16
 
-
-
-def img_cuber(img):
-    height_div = int(360 / DIVISOR)
-    width_div = int(640 / DIVISOR)
-    posY = 0
-    posX = 0
-    
-    cube_img = []
-    
-    for i in range(DIVISOR):
-        for j in range(DIVISOR):
-            roi = img[posY:posY+height_div, posX:posX+width_div]
-            posY += height_div
-            cube_img.append(roi)
-            
-        posX += width_div
-        posY = 0
-        
-        
-    shuffle(cube_img)
-
-    posY = 0
-    posX = 0
-    
-    count = 0
-    
-    for i in range(DIVISOR):
-        for j in range(DIVISOR):
-            img[posY:posY+height_div, posX:posX+width_div] = cube_img[count]
-#             print(count)
-            count += 1
-            posY += height_div
-            cube_img.append(roi)
-            
-        posX += width_div
-        posY = 0
-        
-    return img
 
 # Start streaming
 alphaKey = 0.12
