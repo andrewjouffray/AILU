@@ -36,6 +36,9 @@ IMG_HEIGHT = 360
 IMG_WIDTH = 640
 DIVISOR = 16
 
+# This determines the threshold distance
+alpha = 0.16
+
 
 
 def img_cuber(img):
@@ -95,7 +98,7 @@ try:
         depth_image = np.asanyarray(aligned_depth_frame.get_data())
         color_image = np.asanyarray(color_frame.get_data())
 
-        rois = utils.getROI(depth_image)
+        rois = utils.getROI(depth_image, alpha)
 
         # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
         depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=alphaKey), cv2.COLORMAP_JET)

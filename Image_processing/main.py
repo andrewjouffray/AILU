@@ -3,30 +3,24 @@ import time
 # import Workers
 import Chunk
 
+# Those are not currently used, but we could have it choose it's resolution and fps
 res = [1920, 1080]
 fps = 30
+
 if __name__ == '__main__':
+
+    alpha = 0.16
+    file_path = "./bag_files/object_detection.bag"
+    save_dir = "C:/Users/Andrew/Documents/realsense-python/thresholding/AILU/Image_processing/data/realsense"
 
     image_chunk = []
     roi_chunk = []
 
     start = time.time()
-    Chunk.loadChunk("./bag_files/object_detection.bag")
+    Chunk.loadChunk(file_path, alpha, save_dir)
     end = time.time()
     save_time = end - start
 
-
-    # jobs = []
-    # start = time.time()
-    # print("img "+str(len(image_chunk)))
-    # print("roi "+str(len(roi_chunk)))
-    # for i in range(len(image_chunk)):
-    #     p = mp.Process(target=Workers.save_images, args=(image_chunk[i],roi_chunk[i],))
-    #     jobs.append(p)
-    #     p.start()
-    # p.join()
-    # end = time.time()
-    # save_time = end - start
     print(300, "images in:", save_time, "seconds ||", 300 / save_time, "images per second")
 
 

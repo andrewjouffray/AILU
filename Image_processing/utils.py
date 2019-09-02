@@ -22,10 +22,10 @@ def viewImage(img):
     cv2.destroyAllWindows()
 
 # Returns the pixel coordinates for the region of interest in the image
-def getROI(depth_image):
+def getROI(depth_image, alpha):
 
     # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
-    depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.16), cv2.COLORMAP_JET)
+    depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=alpha), cv2.COLORMAP_JET)
 
     # Changes the depth image from BGR to HSV
     hsv_depth = cv2.cvtColor(depth_colormap, cv2.COLOR_BGR2HSV)
