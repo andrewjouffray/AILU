@@ -39,12 +39,12 @@ def loadChunk(file_name, alpha, save_dir):
         # Gets the regions of interest in the image
         rois = utils.getROI(depth_image, alpha)
 
-        for roi in rois:
-            x1 = roi[0]
-            y1 = roi[1]
-            x2 = roi[2]
-            y2 = roi[3]
-            cv2.rectangle(color_image, (x1, y1), (x2, y2), (0, 255, 0), 3)
+        # for roi in rois:
+        #     x1 = roi[0]
+        #     y1 = roi[1]
+        #     x2 = roi[2]
+        #     y2 = roi[3]
+        #     cv2.rectangle(color_image, (x1, y1), (x2, y2), (0, 255, 0), 3)
 
 
 
