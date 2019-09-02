@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2b87eaa-44a1-4bf1-8041-22b108e3db9a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Image_processing/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image_processing/bag_saver.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image_processing/Bag_saver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image_processing/legacy/Untitled.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image_processing/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image_processing/Utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_processing/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Image_processing/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +15,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Image_processing/Bag_saver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="42" column="90" selection-start-line="42" selection-start-column="90" selection-end-line="42" selection-end-column="90" />
+            <state relative-caret-position="170">
+              <caret line="10" selection-start-line="10" selection-end-line="18" selection-end-column="56" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -92,8 +88,8 @@
         <entry file="file://$PROJECT_DIR$/Image_processing/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="314">
-                <caret line="43" column="57" lean-forward="true" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="57" />
+              <first_editor relative-caret-position="365">
+                <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
               </first_editor>
               <second_editor />
             </state>
@@ -146,6 +142,11 @@
             <path>
               <item name="AILU" type="b2602c69:ProjectViewProjectNode" />
               <item name="AILU" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AILU" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AILU" type="462c0819:PsiDirectoryNode" />
+              <item name="Firmware &amp; Client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AILU" type="b2602c69:ProjectViewProjectNode" />
@@ -278,12 +279,12 @@
       <workItem from="1567275874438" duration="105000" />
       <workItem from="1567382412471" duration="1160000" />
       <workItem from="1567383621932" duration="6491000" />
-      <workItem from="1567440463407" duration="9237000" />
+      <workItem from="1567440463407" duration="9878000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16993000" />
+    <option name="totallyTimeSpent" value="17634000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -363,38 +364,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Image_processing/Bag_saver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="42" column="90" selection-start-line="42" selection-start-column="90" selection-end-line="42" selection-end-column="90" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Image_processing/legacy/Untitled.ipynb">
       <provider selected="true" editor-type-id="jupyter-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Image_processing/viewer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Image_processing/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="99" selection-start-line="14" selection-start-column="99" selection-end-line="14" selection-end-column="99" />
-          <folding>
-            <element signature="e#31#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Image_processing/Chunk.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -416,6 +387,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Image_processing/Bag_saver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="18" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Image_processing/Workers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -426,11 +407,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Image_processing/viewer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Image_processing/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="99" selection-start-line="14" selection-start-column="99" selection-end-line="14" selection-end-column="99" />
+          <folding>
+            <element signature="e#31#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Image_processing/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="314">
-            <caret line="43" column="57" lean-forward="true" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="57" />
+          <first_editor relative-caret-position="365">
+            <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
           </first_editor>
           <second_editor />
         </state>
