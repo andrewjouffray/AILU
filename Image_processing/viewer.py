@@ -3,14 +3,14 @@ import numpy as np
 import cv2
 import time
 from random import shuffle
-import utils
+import Utils
 
 # Configure depth and color streams
 pipeline = rs.pipeline()
 config = rs.config()
 
 # Do you want to stream video from the camera or from a file?
-from_camera = False
+from_camera = True
 
 if from_camera:
 
@@ -63,7 +63,7 @@ try:
         depth_image = np.asanyarray(aligned_depth_frame.get_data())
         color_image = np.asanyarray(color_frame.get_data())
 
-        rois = utils.getROI(depth_image, alpha)
+        rois = Utils.getROI(depth_image, alpha)
 
         # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
         depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=alphaKey), cv2.COLORMAP_JET)

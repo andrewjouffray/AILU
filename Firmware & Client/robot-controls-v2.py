@@ -1,7 +1,7 @@
 import serial
 import sys
 sys.path.insert(1, '../Image_processing')
-import bag_saver
+import Bag_saver
 from time import sleep
 
 
@@ -31,6 +31,6 @@ bytesData = data.encode()
 ser.write(bytesData)
 
 # start recording and saves the file as object_detection.bag
-bag_saver.save_bag()
+Bag_saver.save_bag()
 print('done')
 ser.close()

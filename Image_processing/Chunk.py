@@ -1,7 +1,7 @@
 import numpy as np
 import pyrealsense2 as rs
 import Workers
-import utils
+import Utils
 import cv2
 
 # Loads the bag files, processes each images and saves them with their XML file
@@ -37,7 +37,7 @@ def loadChunk(file_name, alpha, save_dir):
         color_image = np.asanyarray(color_frame.get_data())
 
         # Gets the regions of interest in the image
-        rois = utils.getROI(depth_image, alpha)
+        rois = Utils.getROI(depth_image, alpha)
 
         # for roi in rois:
         #     x1 = roi[0]
