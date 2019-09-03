@@ -17,20 +17,37 @@ ser.write(b'g\n')
 
 # wait for the z axis to go all the way down
 sleep(60)
-
 # pitch the camera 120 degrees (0 degrees is vertical looking up)
 data = "o120\n"
-
-# encodes the data to bytes, and writes it to the arduino
 bytesData = data.encode()
 ser.write(bytesData)
 
-# rotate all the way around the object
-data = "a355\n"
-bytesData = data.encode()
-ser.write(bytesData)
+for i in range(10):
+    # rotate all the way around the object
+    data = "a355\n"
+    bytesData = data.encode()
+    ser.write(bytesData)
 
-# start recording and saves the file as object_detection.bag
-Bag_saver.save_bag()
-print('done')
-ser.close()
+    # start recording and saves the file as object_detection.bag
+    Bag_saver.save_bag()
+    sleep(20)
+
+    # Move up 30 mm
+    data = "w30\n"
+    bytesData = data.encode()
+    ser.write(bytesData)
+    sleep(2)
+
+    ser.write(b't\n')
+    Bag_saver.save_bag()
+
+    sleep(20)
+
+    # Move up 30 mm
+    data = "w30\n"
+    bytesData = data.encode()
+    ser.write(bytesData)
+    sleep(2)
+
+    print('done')
+    ser.close()

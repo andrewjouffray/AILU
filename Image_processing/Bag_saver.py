@@ -1,6 +1,7 @@
 import pyrealsense2 as rs
 import numpy as np
 import cv2
+import time
 
 def save_bag():
 
@@ -16,7 +17,7 @@ def save_bag():
     config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 
     # This will save the color and depth recording as a .bag
-    config.enable_record_to_file('object_detection.bag')
+    config.enable_record_to_file(str(time.time())+'object_detection.bag')
 
     # Start streaming
     pipeline.start(config)
@@ -51,7 +52,7 @@ def save_bag():
             cv2.waitKey(1)
             e2 = cv2.getTickCount()
             t = (e2 - e1) / cv2.getTickFrequency()
-            if t>10: # records for 10 seconds
+            if t>19: # records for 10 seconds
                 print("Done!")
                 break
 
