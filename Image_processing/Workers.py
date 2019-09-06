@@ -9,13 +9,13 @@ import numpy as np
 def save_images(img, rois, save_dir):
 
     # Use the current time in ms as name
-    name = str(time())
+    name = "roi" + str(time())
 
     # Saves the image
-    imwrite(save_dir+"realsense/"+name+".png", img)
+    imwrite(save_dir+"images/test/"+name+".png", img)
 
     # folder to save the images in
-    FOLDER_NAME = "realsense"
+    FOLDER_NAME = "images/test"
 
     # This will only save the first roi, we need to make it be able so save all the rois in the future.
     roi = rois[0]
@@ -49,8 +49,8 @@ def save_images(img, rois, save_dir):
     ET.SubElement(annotation, "segmented").text = "0"
 
     # Change the name depending on what the object is
-    object0 = ET.SubElement(annotation, "box")
-    ET.SubElement(object0, "name").text = "watch"
+    object0 = ET.SubElement(annotation, "object")
+    ET.SubElement(object0, "name").text = "string"
     ET.SubElement(object0, "pose").text = "Unspecified"
     ET.SubElement(object0, "truncated").text = "0"
     ET.SubElement(object0, "difficult").text = "0"

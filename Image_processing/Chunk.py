@@ -53,7 +53,7 @@ def loadChunk(file_name, alpha, save_dir):
         Workers.save_images(color_image, rois, save_dir)
 
         # Breaks the loop after 300 image
-        if im_count == 300:
+        if im_count == 570:
             print("STOP")
             break
 

@@ -10,7 +10,7 @@ pipeline = rs.pipeline()
 config = rs.config()
 
 # Do you want to stream video from the camera or from a file?
-from_camera = True
+from_camera = False
 
 if from_camera:
 
@@ -27,7 +27,7 @@ if from_camera:
 
 else:
     # Load video from a .bag file
-    rs.config.enable_device_from_file(config, "./bag_files/object_detection.bag")
+    rs.config.enable_device_from_file(config, "../Firmware & Client/1567530118.8195329object_detection.bag")
 
     # Make sure the resolution settings match those of the .bag file
     config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)

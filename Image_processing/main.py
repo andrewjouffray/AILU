@@ -11,8 +11,8 @@ if __name__ == '__main__':
 
     # alpha sets the depth sensitivity of the camera
     alpha = 0.16
-    file_path = "./bag_files/object_detection.bag"
-    save_dir = "C:/Users/Andrew/Documents/realsense-python/thresholding/AILU/Image_processing/data/"
+    file_path = "../Firmware & Client/1567530425.493768object_detection.bag"
+    save_dir = "F:/AILU_data/"
 
     image_chunk = []
     roi_chunk = []

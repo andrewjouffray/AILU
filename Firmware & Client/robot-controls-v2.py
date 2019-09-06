@@ -30,7 +30,7 @@ for i in range(10):
 
     # start recording and saves the file as object_detection.bag
     Bag_saver.save_bag()
-    sleep(20)
+    sleep(1)
 
     # Move up 30 mm
     data = "w30\n"
@@ -41,7 +41,7 @@ for i in range(10):
     ser.write(b't\n')
     Bag_saver.save_bag()
 
-    sleep(20)
+    sleep(1)
 
     # Move up 30 mm
     data = "w30\n"
@@ -50,4 +50,3 @@ for i in range(10):
     sleep(2)
 
     print('done')
-    ser.close()
