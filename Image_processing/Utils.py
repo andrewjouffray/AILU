@@ -6,8 +6,8 @@ import cv2
 def object_mask(hsv_img):
 
     # Color range for light blue
-    keepl = np.array([93, 235, 234])
-    keeph = np.array([133, 275, 274])
+    keepl = np.array([81, 235, 234])
+    keeph = np.array([121, 275, 275])
     keep_mask = cv2.inRange(hsv_img, keepl, keeph)
     # turns them all to white
     hsv_img[keep_mask > 0] = ([255,255,255])
@@ -45,7 +45,7 @@ def getROI(depth_image, alpha):
     threshold = cv2.morphologyEx(threshold, cv2.MORPH_OPEN, rect_kernel)
 
     # Fills the black space between white pixels that are at least 60 pixels close
-    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (60, 60))
+    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (80, 80))
     threshold = cv2.morphologyEx(threshold, cv2.MORPH_CLOSE, rect_kernel)
     filtered = threshold
 
