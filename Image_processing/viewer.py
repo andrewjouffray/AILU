@@ -11,6 +11,7 @@ config = rs.config()
 
 # Do you want to stream video from the camera or from a file?
 from_camera = True
+red_exclusion = False
 
 if from_camera:
 
@@ -81,28 +82,10 @@ try:
         color_image = np.asanyarray(color_frame.get_data())
 
         rois = Utils.getROI(depth_image, alpha)
+        if red_exclusion:
+            rois = Utils.getROI_red_exclution(color_image, rois)
 
-        # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
-        depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=alphaKey), cv2.COLORMAP_JET)
-        hsv_depth = cv2.cvtColor(depth_colormap, cv2.COLOR_BGR2HSV)
-
-        # for roi in rois:
-        roi = rois[0]
-        x1 = roi[0]
-        y1 = roi[1]
-        x2 = roi[2]
-        y2 = roi[3]
-        cv2.rectangle(color_image, (x1, y1), (x2, y2), (0, 255, 0), 3)
-        cv2.rectangle(hsv_depth, (x1, y1), (x2, y2), (0, 255, 0), 3)
-
-        # Stack both images horizontally
-        # images = np.hstack((color_image, depth_colormap))
-
-        # Show images
-        cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
-        cv2.imshow('color_image', color_image)
-        cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
-        cv2.imshow('depth_colormap', depth_colormap)
+        Utils.draw_and_show(color_image, rois)
         if cv2.waitKey(1) & 0xFF ==ord('q'):
             break
 
