@@ -40,6 +40,18 @@ def red_exclution_object_mask(hsv_img):
     # turns them all to black
     hsv_img[keep_mask > 0] = ([255,255,255])
 
+    keepl = np.array([0, 70, 50])
+    keeph = np.array([10, 255, 225])
+    keep_mask = cv2.inRange(hsv_img, keepl, keeph)
+    # turns them all to black
+    hsv_img[keep_mask > 0] = ([255,255,255])
+
+    keepl = np.array([170, 70, 50])
+    keeph = np.array([180, 255, 255])
+    keep_mask = cv2.inRange(hsv_img, keepl, keeph)
+    # turns them all to black
+    hsv_img[keep_mask > 0] = ([255,255,255])
+
     return hsv_img
 
 
@@ -141,12 +153,12 @@ def getROI_red_exclution(color_image_og, rois):
         # All the pixels that are not white, become black
         ret, threshold = cv2.threshold(gray_color, 240, 255, cv2.THRESH_BINARY_INV)
         # normal = threshold
-        rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (10, 10))
-        threshold = cv2.morphologyEx(threshold, cv2.MORPH_OPEN, rect_kernel)
+        # rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (10, 10))
+        # threshold = cv2.morphologyEx(threshold, cv2.MORPH_OPEN, rect_kernel)
         # Show images
         # # images = np.hstack((gray_depth, filtered))
-        # cv2.namedWindow('threshold images', cv2.WINDOW_AUTOSIZE)
-        # cv2.imshow('threshold images', threshold)
+        cv2.namedWindow('threshold images', cv2.WINDOW_AUTOSIZE)
+        cv2.imshow('threshold images', threshold)
 
         # Gives us the contours around the object of interest
         contours, hierarchy = cv2.findContours(threshold,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)

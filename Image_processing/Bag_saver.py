@@ -13,11 +13,11 @@ def save_bag():
     # config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
     # config.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 30)
 
-    config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-    config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+    config.enable_stream(rs.stream.depth, 1280, 720, rs.format.z16, 30)
+    config.enable_stream(rs.stream.color, 1920, 1080, rs.format.bgr8, 30)
 
     # This will save the color and depth recording as a .bag
-    config.enable_record_to_file(str(time.time())+'object_detection.bag')
+    config.enable_record_to_file("F:/realsense/dirty_clothing"+str(time.time())+'object_detection.bag')
 
     # Start streaming
     pipeline.start(config)

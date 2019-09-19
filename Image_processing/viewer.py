@@ -6,17 +6,19 @@ from random import shuffle
 import Utils
 
 # Configure depth and color streams
+cap = cv2.VideoCapture(2)
 pipeline = rs.pipeline()
 config = rs.config()
 
 # Do you want to stream video from the camera or from a file?
 from_camera = True
-red_exclusion = False
+red_exclusion = True
+use_external_cam = True
 
 if from_camera:
 
     config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-    config.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 30)
+    config.enable_stream(rs.stream.color, 1920, 1080, rs.format.bgr8, 30)
 
     profile = pipeline.start(config)
 
@@ -51,12 +53,13 @@ chunk_list = []
 
 try:
     while True:
-
         # Wait for a coherent pair of frames: depth and color
         frames = pipeline.wait_for_frames()
         aligned_frames = align.process(frames)
         aligned_depth_frame = aligned_frames.get_depth_frame()
         color_frame = aligned_frames.get_color_frame()
+
+
 
         if not aligned_depth_frame or not color_frame:
             raise RuntimeError("Could not acquire depth or color frames.")
@@ -79,7 +82,12 @@ try:
         aligned_depth_frame = hole_filling.process(aligned_depth_frame)
 
         depth_image = np.asanyarray(aligned_depth_frame.get_data())
-        color_image = np.asanyarray(color_frame.get_data())
+
+
+        if use_external_cam:
+            ret, color_image = cap.read()
+        else:
+            color_image = np.asanyarray(color_frame.get_data())
 
         rois = Utils.getROI(depth_image, alpha)
         if red_exclusion:

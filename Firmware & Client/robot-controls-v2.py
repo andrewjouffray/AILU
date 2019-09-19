@@ -22,7 +22,7 @@ data = "o120\n"
 bytesData = data.encode()
 ser.write(bytesData)
 
-for i in range(10):
+for i in range(5):
     # rotate all the way around the object
     data = "a355\n"
     bytesData = data.encode()
