@@ -12,8 +12,8 @@ config = rs.config()
 
 # Do you want to stream video from the camera or from a file?
 from_camera = True
-red_exclusion = True
-use_external_cam = True
+red_exclusion = False
+use_external_cam = 1
 
 if from_camera:
 
@@ -30,7 +30,7 @@ if from_camera:
 
 else:
     # Load video from a .bag file
-    rs.config.enable_device_from_file(config, "F:/AILU_data/bag_files/1567530161.3578224object_detection.bag")
+    rs.config.enable_device_from_file(config, "E:/AILU_data/bag_files/1567530161.3578224object_detection.bag")
 
     # Make sure the resolution settings match those of the .bag file
     config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
@@ -84,16 +84,25 @@ try:
         depth_image = np.asanyarray(aligned_depth_frame.get_data())
 
 
-        if use_external_cam:
+        if use_external_cam == 1:
             ret, color_image = cap.read()
+        elif use_external_cam == 2:
+            color_image = np.asanyarray(color_frame.get_data())
+            ret, color_image2 = cap.read()
         else:
             color_image = np.asanyarray(color_frame.get_data())
 
         rois = Utils.getROI(depth_image, alpha)
+        masked_color = Utils.apply_mask_to_color_Image(color_image, depth_image, 0.16)
+
         if red_exclusion:
             rois = Utils.getROI_red_exclution(color_image, rois)
+        # TODO: use a square instead of a circle and use the min-area rectangle to get the precise image area with the
+        # desired color, then threshold that new image
 
-        Utils.draw_and_show(color_image, rois)
+        Utils.draw_and_show(masked_color, rois, "image")
+        # if color_image2.any():
+        #     Utils.draw_and_show(color_image2, rois, "image2")
         if cv2.waitKey(1) & 0xFF ==ord('q'):
             break
 

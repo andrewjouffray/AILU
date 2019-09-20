@@ -10,10 +10,31 @@ def object_mask(hsv_img):
     keeph = np.array([116, 275, 275])
     keep_mask = cv2.inRange(hsv_img, keepl, keeph)
     # turns them all to white
-    hsv_img[keep_mask > 0] = ([255,255,255])
+    # hsv_img[keep_mask > 0] = ([255,255,255])
 
     # Returns an image wher all the pixels that were light blue are now all white
-    return hsv_img
+    return keep_mask
+
+def object_mask_return_mask(hsv_img):
+
+    # Color range for light blue[ 76 235 235] [116 275 275]
+    keepl = np.array([76, 235, 235])
+    keeph = np.array([116, 275, 275])
+    keep_mask = cv2.inRange(hsv_img, keepl, keeph)
+
+    # Returns an image wher all the pixels that were light blue are now all white
+    return keep_mask
+
+def black_mask(img):
+
+    # Color range for light blue[ 76 235 235] [116 275 275]
+    keepl = np.array([0, 0, 0])
+    keeph = np.array([116, 0, 0])
+    keep_mask = cv2.inRange(img, keepl, keeph)
+
+    # Returns an image wher all the pixels that were light blue are now all white
+    return keep_mask
+
 
 def red_exclution_object_mask(hsv_img):
 
@@ -57,6 +78,8 @@ def red_exclution_object_mask(hsv_img):
 
 def green_exclution_object_mask(hsv_img):
 
+    # TODO: add hsv values for green
+
     # Color range for light blue[ 76 235 235] [116 275 275]
     keepl = np.array([76, 235, 235])
     keeph = np.array([116, 275, 275])
@@ -83,7 +106,9 @@ def getROI(depth_image, alpha):
     hsv_depth = cv2.cvtColor(depth_colormap, cv2.COLOR_BGR2HSV)
 
     # Turns all blue pixels into white pixels
-    hsv_depth = object_mask(hsv_depth)
+    keep_mask = object_mask(hsv_depth)
+
+    hsv_depth[keep_mask > 0] = ([255, 255, 255])
 
     # Makes the depth image Black and White
     gray_depth = cv2.cvtColor(hsv_depth, cv2.COLOR_BGR2GRAY)
@@ -135,8 +160,14 @@ def getROI_red_exclution(color_image_og, rois):
         ogy1 = roi[1]
         ogx2 = roi[2]
         ogy2 = roi[3]
-        cv2.rectangle(color_image, (ogx1, ogy1), (ogx2, ogy2), (0, 0, 255), 80)
+
+        # vertical_midpoint = int(ogy2/2)
+        # horizontal_midpoint = int(ogx2/2)
+        #
+        # triangle1 = np.array([(ogx1, ogy1), (ogx1, vertical_midpoint), (horizontal_midpoint, ogy1)])
         roi_color = color_image[ogy1:ogy2, ogx1:ogx2]
+        # cv2.drawContours(color_image, [triangle1], 0, (0, 0, 255), -1)
+        cv2.rectangle(color_image, (ogx1, ogy1), (ogx2, ogy2), (0, 0, 255), 80)
 
         # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
         # depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=alpha), cv2.COLORMAP_JET)
@@ -170,7 +201,7 @@ def getROI_red_exclution(color_image_og, rois):
             # Gets the area of each contours in the image
             area = cv2.contourArea(c)
             # save the x1, y1, x2, y2, coordinates of that contour if it's larger than 1000 pixels
-            if area > 3000:
+            if area > 2000:
                 x, y, w, h = cv2.boundingRect(c)
                 xy_coordinates = [x+ogx1, y+ogy1, x+w+ogx1, y+h+ogy1]
                 valid_contours.append(xy_coordinates)
@@ -183,12 +214,47 @@ def getROI_red_exclution(color_image_og, rois):
     else:
         return [[0, 0, 0, 0]]
 
-def draw_and_show(image, roi):
+def apply_mask_to_color_Image(color_image_og, depth_image, alpha):
+
+    background_image = cv2.imread("../Data_augmentation/Image_resources_data_augmentation/1.png")
+
+    color_image = color_image_og.copy()
+
+    height, width, channels = color_image.shape
+    background_image = cv2.resize(background_image, (width, height))
+    # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
+    depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=alpha), cv2.COLORMAP_JET)
+
+    # Changes the depth image from BGR to HSV
+    hsv_depth = cv2.cvtColor(depth_colormap, cv2.COLOR_BGR2HSV)
+
+    # Turns all blue pixels into white pixels
+    mask = object_mask(hsv_depth)
+
+    # Saves the pixels in the mask, and blacks out all other pixels
+    res = cv2.bitwise_and(color_image,color_image, mask=mask)
+
+    blk_mask = black_mask(res)
+
+    color_image[blk_mask != 0] = [0, 0, 0]
+    background_image[blk_mask == 0] = [0, 0, 0]
+
+    img = background_image + color_image
+
+    # res2 = cv2.bitwise_and(color_image, color_image, mask=blk_mask)
+
+    # color_image[blk_mask > 0] = background_image
+
+    # color_image[mask > 0] = ([255, 255, 255])
+
+    return img
+
+def draw_and_show(image, roi, name):
     roi = roi[0]
     x1 = roi[0]
     y1 = roi[1]
     x2 = roi[2]
     y2 = roi[3]
     cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
-    cv2.namedWindow('color_image', cv2.WINDOW_AUTOSIZE)
-    cv2.imshow('color_image', image)
+    cv2.namedWindow(name, cv2.WINDOW_AUTOSIZE)
+    cv2.imshow(name, image)
