@@ -13,7 +13,7 @@ config = rs.config()
 # Do you want to stream video from the camera or from a file?
 from_camera = True
 red_exclusion = False
-use_external_cam = 1
+use_external_cam = 3
 
 if from_camera:
 
@@ -69,11 +69,11 @@ try:
 
         frame = decimation.process(aligned_depth_frame)
 
-        spatial = rs.spatial_filter()
-        spatial.set_option(rs.option.filter_magnitude, 5)
-        spatial.set_option(rs.option.filter_smooth_alpha, 1)
-        spatial.set_option(rs.option.filter_smooth_delta, 50)
-        aligned_depth_frame = spatial.process(aligned_depth_frame)
+        # spatial = rs.spatial_filter()
+        # spatial.set_option(rs.option.filter_magnitude, 5)
+        # spatial.set_option(rs.option.filter_smooth_alpha, 1)
+        # spatial.set_option(rs.option.filter_smooth_delta, 50)
+        # aligned_depth_frame = spatial.process(aligned_depth_frame)
 
         temporal = rs.temporal_filter()
         aligned_depth_frame = temporal.process(aligned_depth_frame)
@@ -93,7 +93,7 @@ try:
             color_image = np.asanyarray(color_frame.get_data())
 
         rois = Utils.getROI(depth_image, alpha)
-        masked_color = Utils.apply_mask_to_color_Image(color_image, depth_image, 0.16)
+        masked_color = Utils.green_screen_depth(color_image, depth_image, 0.16)
 
         if red_exclusion:
             rois = Utils.getROI_red_exclution(color_image, rois)

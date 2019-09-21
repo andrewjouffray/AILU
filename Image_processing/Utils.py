@@ -75,6 +75,56 @@ def red_exclution_object_mask(hsv_img):
 
     return hsv_img
 
+def red_exclution_object_mask_black(hsv_img):
+
+    #[-18 203 185] [ 22 243 225]
+    #[-20 235 235] [ 20 275 275]
+    # Color range for red [-18 171 175] [ 22 211 215]
+
+
+    keepl = np.array([-18, 171, 175])
+    keeph = np.array([22, 211, 215])
+    keep_mask = cv2.inRange(hsv_img, keepl, keeph)
+    # turns them all to black
+    hsv_img[keep_mask > 0] = ([0,0,0])
+
+    keepl = np.array([-18, 203, 185])
+    keeph = np.array([22, 243, 225])
+    keep_mask = cv2.inRange(hsv_img, keepl, keeph)
+    # turns them all to black
+    hsv_img[keep_mask > 0] = ([0,0,0])
+
+    keepl = np.array([-20, 235, 235])
+    keeph = np.array([20, 275, 275])
+    keep_mask = cv2.inRange(hsv_img, keepl, keeph)
+    # turns them all to black
+    hsv_img[keep_mask > 0] = ([0,0,0])
+
+    keepl = np.array([0, 70, 50])
+    keeph = np.array([10, 255, 225])
+    keep_mask = cv2.inRange(hsv_img, keepl, keeph)
+    # turns them all to black
+    hsv_img[keep_mask > 0] = ([0,0,0])
+
+    keepl = np.array([170, 70, 50])
+    keeph = np.array([180, 255, 255])
+    keep_mask = cv2.inRange(hsv_img, keepl, keeph)
+    # turns them all to black
+    hsv_img[keep_mask > 0] = ([0,0,0])
+
+    return hsv_img
+
+def green_exclution_object_mask_black(hsv_img):
+
+
+    keepl = np.array([30, 100, 50])
+    keeph = np.array([90, 255, 255])
+    keep_mask = cv2.inRange(hsv_img, keepl, keeph)
+    # turns them all to black
+    hsv_img[keep_mask > 0] = ([0,0,0])
+
+    return hsv_img
+
 
 def green_exclution_object_mask(hsv_img):
 
@@ -167,7 +217,7 @@ def getROI_red_exclution(color_image_og, rois):
         # triangle1 = np.array([(ogx1, ogy1), (ogx1, vertical_midpoint), (horizontal_midpoint, ogy1)])
         roi_color = color_image[ogy1:ogy2, ogx1:ogx2]
         # cv2.drawContours(color_image, [triangle1], 0, (0, 0, 255), -1)
-        cv2.rectangle(color_image, (ogx1, ogy1), (ogx2, ogy2), (0, 0, 255), 80)
+        cv2.rectangle(color_image, (ogx1, ogy1), (ogx2, ogy2), (0, 0, 255), 120)
 
         # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
         # depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=alpha), cv2.COLORMAP_JET)
@@ -234,6 +284,7 @@ def apply_mask_to_color_Image(color_image_og, depth_image, alpha):
     # Saves the pixels in the mask, and blacks out all other pixels
     res = cv2.bitwise_and(color_image,color_image, mask=mask)
 
+
     blk_mask = black_mask(res)
 
     color_image[blk_mask != 0] = [0, 0, 0]
@@ -241,13 +292,59 @@ def apply_mask_to_color_Image(color_image_og, depth_image, alpha):
 
     img = background_image + color_image
 
-    # res2 = cv2.bitwise_and(color_image, color_image, mask=blk_mask)
-
-    # color_image[blk_mask > 0] = background_image
-
-    # color_image[mask > 0] = ([255, 255, 255])
 
     return img
+
+def red_screen_depth(color_image_og, depth_image_og, alpha):
+
+    # background_image = cv2.imread("../Data_augmentation/Image_resources_data_augmentation/1.png")
+
+    color_image = color_image_og.copy()
+    depth_image = depth_image_og.copy()
+
+
+    depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=alpha), cv2.COLORMAP_JET)
+
+    # Changes the depth image from BGR to HSV
+    hsv_depth = cv2.cvtColor(depth_colormap, cv2.COLOR_BGR2HSV)
+
+
+    # Turns all blue pixels into white pixels
+    mask = object_mask(hsv_depth)
+
+    # Saves the pixels in the mask, and blacks out all other pixels
+    res = cv2.bitwise_and(color_image,color_image, mask=mask)
+
+    hsv_color = cv2.cvtColor(res, cv2.COLOR_BGR2HSV)
+    masked_red = red_exclution_object_mask_black(hsv_color)
+    color_image = cv2.cvtColor(masked_red, cv2.COLOR_HSV2BGR)
+
+    return color_image
+
+def green_screen_depth(color_image_og, depth_image_og, alpha):
+
+
+    color_image = color_image_og.copy()
+    depth_image = depth_image_og.copy()
+
+
+    depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=alpha), cv2.COLORMAP_JET)
+
+    # Changes the depth image from BGR to HSV
+    hsv_depth = cv2.cvtColor(depth_colormap, cv2.COLOR_BGR2HSV)
+
+
+    # Turns all blue pixels into white pixels
+    mask = object_mask(hsv_depth)
+
+    # Saves the pixels in the mask, and blacks out all other pixels
+    res = cv2.bitwise_and(color_image,color_image, mask=mask)
+
+    hsv_color = cv2.cvtColor(res, cv2.COLOR_BGR2HSV)
+    masked_red = green_exclution_object_mask_black(hsv_color)
+    color_image = cv2.cvtColor(masked_red, cv2.COLOR_HSV2BGR)
+
+    return color_image
 
 def draw_and_show(image, roi, name):
     roi = roi[0]
