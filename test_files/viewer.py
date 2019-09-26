@@ -11,6 +11,14 @@ cap = cv2.VideoCapture(2)
 pipeline = rs.pipeline()
 config = rs.config()
 
+
+height = 1080
+width = 1920
+fourcc = cv2.VideoWriter_fourcc('M','J','P','G')
+fps = 20
+video_filename = 'output.avi'
+out = cv2.VideoWriter(video_filename, fourcc, fps, (width, height))
+
 # Do you want to stream video from the camera or from a file?
 from_camera = True
 use_external_cam = 1
@@ -82,12 +90,17 @@ try:
 
         rois = getROI.using_color(blacked_color_img)
 
+        out.write(blacked_color_img)
+
         display.draw_and_show(blacked_color_img, rois, "blacked out image")
+
+
 
         if cv2.waitKey(1) & 0xFF ==ord('q'):
             break
-
+    out.release()
     cv2.destroyAllWindows()
+
     
 finally:
 
