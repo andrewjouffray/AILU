@@ -14,15 +14,15 @@ augmenting the data to allow for more accurate computer models in diverse enviro
 The module is called ailu_python and includes functions to process the images, augment data, and 
 other utilities.
 
-Module: [ailu_python](ailu_python):
+#### Module: [ailu_python](ailu_python):
 -   [ailu_python.image_processing](ailu_python/image_processing/README.md) 
 -   [ailu_python.data_augmentation](ailu_python/data_augmentation/README.md)
 -   [ailu_python.utils](ailu_python/utils/README.md)
 
-robot_controls:
+#### robot_controls:
 -  [basic files to control the AILU robot](robot_controls/README.md)
 
-examples:
+#### examples:
 -   several simple examples on how to use the ailu_python module
 -   test data that you can use
 

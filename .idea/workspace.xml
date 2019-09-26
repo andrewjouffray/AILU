@@ -2,56 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d9421f3-2762-4818-b90a-920bd49a5e0f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ailu_python/image_processing/getROI.py" beforeDir="false" afterPath="$PROJECT_DIR$/ailu_python/image_processing/getROI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ailu_python/image_processing/masks.py" beforeDir="false" afterPath="$PROJECT_DIR$/ailu_python/image_processing/masks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Image_resources_data_augmentation/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Image_resources_data_augmentation/2019-09-14 (1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Image_resources_data_augmentation/2019-09-14 (2).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Image_resources_data_augmentation/2019-09-14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Image_resources_data_augmentation/DSC03356.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Image_resources_data_augmentation/DSC03368.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Image_resources_data_augmentation/DSC03412.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Image_resources_data_augmentation/DSC03421.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Image_resources_data_augmentation/background.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/bag_files/object_detection.bag" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.1748617.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.1748617.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.190803.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.190803.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.207757.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.207757.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.2377787.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.2377787.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.403335.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.403335.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.535981.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.535981.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.702535.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.702535.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.904034.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/realsense/1566946795.904034.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/Bag_saver.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/Chunk.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/Workers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/legacy/15frames_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/legacy/3D thresholding.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/legacy/3D thresholding.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/legacy/Contourer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/legacy/cam_link_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/legacy/cam_test.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/legacy/color_picker.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/legacy/contouring.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/legacy/scaling_and_cropping .ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/legacy/scaling_and_cropping .py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/legacy/square_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/legacy/view_mp_test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/legacy/viewer.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/output.avi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/video_saver.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_files/viewer.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -158,7 +109,7 @@
       <workItem from="1569290664517" duration="5907000" />
       <workItem from="1569375915838" duration="327000" />
       <workItem from="1569376632082" duration="603000" />
-      <workItem from="1569448208961" duration="10973000" />
+      <workItem from="1569448208961" duration="11246000" />
     </task>
     <servers />
   </component>
