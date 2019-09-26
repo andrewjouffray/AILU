@@ -15,12 +15,12 @@ def depth_mask_return_mask(hsv_img):
 # looks or pixels in a certain range of color and returns a mask
 def black_mask_return_mask(img):
 
-    # Color range for light blue[ 76 235 235] [116 275 275]
+    # Color range for black
     keepl = np.array([0, 0, 0])
     keeph = np.array([116, 0, 0])
     keep_mask = cv2.inRange(img, keepl, keeph)
 
-    # Returns an image wher all the pixels that were light blue are now all white
+    # Returns an image where all the pixels that were light blue are now all white
     return keep_mask
 
 
