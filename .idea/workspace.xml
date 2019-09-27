@@ -2,19 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d9421f3-2762-4818-b90a-920bd49a5e0f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/examples/load_video_from_avi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ailu_python/data_augmentation/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ailu_python/data_augmentation/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ailu_python/data_augmentation/cuber.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ailu_python/data_augmentation/shearing.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/Bag_saver.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/Chunk.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/Workers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/data/output.avi" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data/output.avi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/video_saver.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/viewer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data/Image_resources_data_augmentation/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data/Image_resources_data_augmentation/2019-09-14 (1).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data/Image_resources_data_augmentation/2019-09-14 (2).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data/Image_resources_data_augmentation/2019-09-14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data/Image_resources_data_augmentation/DSC03356.JPG" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data/Image_resources_data_augmentation/DSC03356.JPG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data/Image_resources_data_augmentation/DSC03368.JPG" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data/Image_resources_data_augmentation/DSC03368.JPG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data/Image_resources_data_augmentation/DSC03412.JPG" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data/Image_resources_data_augmentation/DSC03412.JPG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data/Image_resources_data_augmentation/DSC03421.JPG" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data/Image_resources_data_augmentation/DSC03421.JPG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data/bag_files/object_detection.bag" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -145,7 +142,7 @@
       <workItem from="1569375915838" duration="327000" />
       <workItem from="1569376632082" duration="603000" />
       <workItem from="1569448208961" duration="11307000" />
-      <workItem from="1569541620279" duration="4349000" />
+      <workItem from="1569541620279" duration="4661000" />
     </task>
     <servers />
   </component>

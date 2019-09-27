@@ -7,17 +7,17 @@ This is where a lot of work needs to be done.
 ### Dependecies:
 -   OpenCV for python `pip install opencv-python`
 
-##Project description:
+## Project description:
 Add new functions to the `ailu_python.data_augmentation` module, this is extremely important.
 
-###functions needed:
+### functions needed:
 - duplicate the ROIs
 - rotate the ROIs
 - scale up or down the ROIs
 - perform geometric transformations on the ROIs
 - change the backgrounds
 
-###Basic process:
+### Basic process:
 
 load the .avi file'
 
