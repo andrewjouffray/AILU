@@ -52,6 +52,8 @@ This is similar except it is used to get an object sitting on the red circle.
 
 - a single blacked out image with only the object close to the camera and on the red circle showing.
 
+___
+___
 ## .getROI
 
 This file contains functions that allows you to find the region of pixels around an object of interest 
@@ -66,6 +68,9 @@ it creates a bounding box around this contour and returns the coordinates.
 
 #### Output:
 - `[[x1, y1, x2, y2],[x1, y1, x2, y2]]` a list of coordinates for each bounding boxes
+
+___
+___
 
 ## .masks
 
