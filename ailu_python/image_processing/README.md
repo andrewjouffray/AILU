@@ -81,3 +81,36 @@ this is the mask used on the depth color to find the nearest objects
 -   `hsv_img` this is the depth image converted into H S V values
 
 #### Output:
+-   a mask over each light blue pixels (light blue pixels represent close objects)
+___
+### masks.black_mask_return_mask()
+
+this is the mask used on blacked out image to find all the black pixels
+
+#### Arguments:
+-   `img` this is the simple blacked out image from one of the .getObject functions
+
+#### Output:
+-   a mask over each black pixels
+___
+### masks.red_mask_return_hsv()
+
+This is a mask used on blacked out image from the getObject.using_depth(), where we do a second
+mask to get all the red pixels.
+
+#### Arguments:
+-   `hsv_img` this is the hsv version of the blacked out image from one of the .getObject functions
+
+#### Output:
+-   an hsv_image where all red pixels are turned black
+___
+### masks.green_mask_return_hsv()
+
+This is another mask used on blacked out image from the getObject.using_depth(), where we do a second
+mask to get all the green pixels.
+
+#### Arguments:
+-   `hsv_img` this is the hsv version of the blacked out image from one of the .getObject functions
+
+#### Output:
+-   an hsv_image where all green pixels are turned black
