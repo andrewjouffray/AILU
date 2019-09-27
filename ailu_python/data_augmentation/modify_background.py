@@ -1,38 +1,31 @@
 import cv2
 import sys
-sys.path.insert(1, '../')
-from image_processing import masks
+# sys.path.insert(1, '../')
+import ailu_python.image_processing.masks as masks
 
-def black_to_image(color_image_og, depth_image_og, alpha):
+def black_to_image(blacked_img_og, background_image):
 
-    background_image = cv2.imread("../Data_augmentation/Image_resources_data_augmentation/DSC03356.jpg")
 
-    color_image = color_image_og.copy()
-    depth_image = depth_image_og.copy()
+    # makes a copy of the blacked image
+    blacked_img = blacked_img_og.copy()
 
-    height, width, channels = color_image.shape
+    # gets dimensions of the blacked_image
+    height, width, channels = blacked_img.shape
 
+    # resize the background image to match the blacked out image
     background_image = cv2.resize(background_image, (width, height))
 
-    # Apply colormap on depth image (image must be converted to 8-bit per pixel first)
-    depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=alpha), cv2.COLORMAP_JET)
+    # get all the blacked pixels
+    blk_mask = masks.black_mask_return_mask(blacked_img)
 
-    # Changes the depth image from BGR to HSV
-    hsv_depth = cv2.cvtColor(depth_colormap, cv2.COLOR_BGR2HSV)
+    # all pixels that were not black are going to have the blacked out image on them
+    blacked_img[blk_mask != 0] = [0, 0, 0]
 
-    # Turns all blue pixels into white pixels
-    mask = masks.object_mask(hsv_depth)
-
-    # Saves the pixels in the mask, and blacks out all other pixels
-    res = cv2.bitwise_and(color_image,color_image, mask=mask)
-
-
-    blk_mask = masks.black_mask_return_mask(res)
-
-    color_image[blk_mask != 0] = [0, 0, 0]
+    # all pixels that were black are going to have the background image on them
     background_image[blk_mask == 0] = [0, 0, 0]
 
-    img = background_image + color_image
+    # add the two together
+    img = background_image + blacked_img
 
 
     return img
