@@ -2,7 +2,6 @@
 
 This is where a lot of work needs to be done.
 
-[Go back](../../)
 
 ### Dependecies:
 -   OpenCV for python `pip install opencv-python`
