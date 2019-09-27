@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1d9421f3-2762-4818-b90a-920bd49a5e0f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ailu_python/data_augmentation/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ailu_python/data_augmentation/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ailu_python/image_processing/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ailu_python/image_processing/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -136,7 +134,7 @@
       <workItem from="1569375915838" duration="327000" />
       <workItem from="1569376632082" duration="603000" />
       <workItem from="1569448208961" duration="11307000" />
-      <workItem from="1569541620279" duration="5254000" />
+      <workItem from="1569541620279" duration="7906000" />
     </task>
     <servers />
   </component>
