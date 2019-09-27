@@ -48,6 +48,10 @@ rest completely blacked out.
 
 For this steps we use ailu_python.image_processing.getObject.using_depth_and_green(). To get the object of interest.
 
+we use:
+    
+    ailu_python.image_processing.getObject.using_depth_and_green(color_image, depth_image, 0.16)
+
 This is what the result looks like:
 
 ![processed image](./docs/imgs/screen_capture_2_no_roi.png)
@@ -62,7 +66,11 @@ and then put a new background instead of the black pixels
 
 sample video file in ./examples/data/output.avi
 
-Load the video file and get the ROI:
+Load the video, and frame by frame do the following:
+
+Get the ROI using
+
+    rois = getROI.using_color(<frame from the video>)
 
 ![roi image](docs/imgs/screen_capture_2.png)
 
