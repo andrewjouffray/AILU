@@ -1,7 +1,7 @@
 import cv2
 
 # open video from avi file
-cap = cv2.VideoCapture('./data/output.avi')
+cap = cv2.VideoCapture('./data/1569604389.9166079output.avi')
 while True:
 
     # read each frame

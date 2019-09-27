@@ -3,7 +3,7 @@ import ailu_python.image_processing.getROI as getROI
 import ailu_python.utils.display as display
 
 # open video from avi file
-cap = cv2.VideoCapture('./data/output.avi')
+cap = cv2.VideoCapture('./data/1569604389.9166079output.avi')
 while True:
 
     # read each frame
