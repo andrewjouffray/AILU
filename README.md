@@ -36,6 +36,10 @@ a sony camera.
 
 This is what the raw images look like: 
 
+Sony NEXT5 T  and the intel realsense D435i
+
+![raw data](./docs/imgs/color_depth_cookie.JPG)
+
 
 ### Step2: process the data
 
@@ -46,9 +50,46 @@ For this steps we use ailu_python.image_processing.getObject.using_depth_and_gre
 
 This is what the result looks like:
 
+![processed image](./docs/imgs/screen_capture_2_no_roi.png)
+
 We then save all those images into a video file.
+
 
 ### Step3: augment the data
 
-Now that we have a video file with hundreds of blacked out images, we can find teh ROI, modify it
+Now that we have a video file with hundreds of blacked out images, we can find the ROI, modify it
 and then put a new background instead of the black pixels
+
+sample video file in ./examples/data/output.avi
+
+Load the video file and get the ROI:
+
+![roi image](docs/imgs/screen_capture_2.png)
+
+Remember that we won't actually draw the green rectangle, we will just get the x,y coordinates
+
+Then duplicate the ROI (between 1 and 6 copies):
+
+![roi image](docs/imgs/screen_capture_2_duplicated.png)
+
+Now modify each ROI:
+
+![roi image](docs/imgs/screen_capture_2_modified.png)
+
+Now add a random background:
+
+![roi image](docs/imgs/screen_capture_2_background.png)
+
+### Step4: save the data
+
+Save the image as png along with an xml file that contains the coordinates of all the ROI.
+
+Here is an example of what the folder would look like:
+
+![](docs/imgs/folder_eaxmple.png)
+
+### Step5: prepare the data for training:
+
+This is a basic representation of those steps:
+
+![](docs/imgs/object%20recognition%20plan.jpg)
