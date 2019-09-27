@@ -15,12 +15,12 @@ The module is called ailu_python and includes functions to process the images, a
 other utilities.
 
 #### Module: [ailu_python](ailu_python):
--   [ailu_python.image_processing](ailu_python/image_processing/README.md) 
--   [ailu_python.data_augmentation](ailu_python/data_augmentation/README.md)
--   [ailu_python.utils](ailu_python/utils/README.md)
+-   [ailu_python.image_processing](ailu_python/image_processing) 
+-   [ailu_python.data_augmentation](ailu_python/data_augmentation)
+-   [ailu_python.utils](ailu_python/utils)
 
 #### robot_controls:
--  [basic files to control the AILU robot](robot_controls/README.md)
+-  [basic files to control the AILU robot](robot_controls)
 
 #### examples:
 -   several simple examples on how to use the ailu_python module

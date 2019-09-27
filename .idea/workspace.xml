@@ -2,7 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d9421f3-2762-4818-b90a-920bd49a5e0f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/examples/load_video_from_avi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ailu_python/data_augmentation/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ailu_python/data_augmentation/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ailu_python/data_augmentation/cuber.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ailu_python/data_augmentation/shearing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/Bag_saver.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/Chunk.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/Workers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data/output.avi" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data/output.avi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/video_saver.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/viewer.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +56,29 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.viewer">
+  <component name="RunManager" selected="Python.load_video_from_avi">
+    <configuration name="load_video_from_avi" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="AILU" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/load_video_from_avi.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AILU" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -91,6 +125,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.load_video_from_avi" />
         <item itemvalue="Python.viewer" />
         <item itemvalue="Python.main" />
       </list>
@@ -110,7 +145,7 @@
       <workItem from="1569375915838" duration="327000" />
       <workItem from="1569376632082" duration="603000" />
       <workItem from="1569448208961" duration="11307000" />
-      <workItem from="1569541620279" duration="2666000" />
+      <workItem from="1569541620279" duration="4349000" />
     </task>
     <servers />
   </component>
@@ -131,6 +166,7 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/AILU$load_video_from_avi.coverage" NAME="load_video_from_avi Coverage Results" MODIFIED="1569545897906" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$viewer.coverage" NAME="viewer Coverage Results" MODIFIED="1569466473582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test_files" />
     <SUITE FILE_PATH="coverage/AILU$main.coverage" NAME="main Coverage Results" MODIFIED="1569451526265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test_files" />
   </component>
