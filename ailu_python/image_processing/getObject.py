@@ -80,7 +80,53 @@ def using_depth_and_green(color_image_og, depth_image_og, alpha):
     res = cv2.bitwise_and(color_image,color_image, mask=mask)
 
     hsv_color = cv2.cvtColor(res, cv2.COLOR_BGR2HSV)
-    masked_red = masks.green_mask_return_hsv(hsv_color)
-    color_image = cv2.cvtColor(masked_red, cv2.COLOR_HSV2BGR)
+    masked_green = masks.green_mask_return_hsv(hsv_color)
+    color_image = cv2.cvtColor(masked_green, cv2.COLOR_HSV2BGR)
 
     return color_image
+
+
+"""============================================================
+    to be used while zooming onto the green circle
+   ============================================================"""
+# returns a black image with only the object of interest visible
+def using_green(color_image_og):
+
+    color_image = color_image_og.copy()
+
+    hsv_color = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
+    masked_green = masks.green_mask_return_hsv(hsv_color)
+    color_image = cv2.cvtColor(masked_green, cv2.COLOR_HSV2BGR)
+
+    return color_image
+
+
+
+"""============================================================
+    to be used while zooming onto the blue background
+   ============================================================"""
+# returns a black image with only the object of interest visible
+def using_blue(color_image_og):
+
+    color_image = color_image_og.copy()
+
+    hsv_color = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
+    masked_blue = masks.blue_mask_return_hsv(hsv_color)
+    color_image = cv2.cvtColor(masked_blue, cv2.COLOR_HSV2BGR)
+
+    return color_image
+
+"""============================================================
+    blackens everything except green
+   ============================================================"""
+def keep_green(color_image_og):
+
+    color_image = color_image_og.copy()
+
+    hsv_color = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
+    mask = masks.green_mask_return_mask(hsv_color)
+
+    res = cv2.bitwise_and(color_image,color_image, mask=mask)
+
+    return res
+

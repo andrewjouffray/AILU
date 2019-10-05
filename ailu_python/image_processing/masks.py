@@ -23,6 +23,15 @@ def black_mask_return_mask(img):
     # Returns an image where all the pixels that were light blue are now all white
     return keep_mask
 
+def green_mask_return_mask(hsv_img):
+
+    # gets all pixels in that range of green
+    keepl = np.array([20, 50, 50])
+    keeph = np.array([90, 255, 255])
+    keep_mask = cv2.inRange(hsv_img, keepl, keeph)
+
+    return keep_mask
+
 
 # Looks or pixels in a certain range of color and returns an hsv_image with those pixels blacked out
 def red_mask_return_hsv(hsv_img):
@@ -66,6 +75,17 @@ def green_mask_return_hsv(hsv_img):
     # gets all pixels in that range of green
     keepl = np.array([30, 100, 50])
     keeph = np.array([90, 255, 255])
+    keep_mask = cv2.inRange(hsv_img, keepl, keeph)
+    # turns them all to black
+    hsv_img[keep_mask > 0] = ([0,0,0])
+
+    return hsv_img
+
+def blue_mask_return_hsv(hsv_img):
+
+    # gets all pixels in that range of green
+    keepl = np.array([95, 40, 40])
+    keeph = np.array([140, 255, 255])
     keep_mask = cv2.inRange(hsv_img, keepl, keeph)
     # turns them all to black
     hsv_img[keep_mask > 0] = ([0,0,0])
