@@ -17,9 +17,9 @@ while True:
 
     height, width = frame.shape[:2]
 
-    rois_img = getROI.getRoiImage(frame)
+    rois_img = func.getAllRoiImage(frame)
 
-    tmp = func.scale_image(rois_img[0], 0.5)
+    tmp = func.scale_image(rois_img[0], 2)
 
     # # gets the coordinates of the roi
     rois = getROI.using_color(tmp)

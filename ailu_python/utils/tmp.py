@@ -1,6 +1,7 @@
 import cv2
 import sys
 import numpy as np
+import ailu_python.image_processing.getROI as getROI
 
 
 def rotate_image(img, angle):
@@ -43,7 +44,7 @@ def scale_image(img, zoom):
     return rotated_mat
 
 def getAllRoiImage(image):
-    rois = using_color(image)
+    rois = getROI.using_color(image)
     ret = []
     for roi in rois:
         x1 = roi[0]

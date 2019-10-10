@@ -1,7 +1,7 @@
 import serial
 import sys
-sys.path.insert(1, '../image_processing')
-import Bag_saver
+sys.path.insert(1, '../examples')
+import stream_and_save
 from time import sleep
 
 
@@ -29,7 +29,7 @@ for i in range(5):
     ser.write(bytesData)
 
     # start recording and saves the file as object_detection.bag
-    Bag_saver.save_bag()
+    stream_and_save.get_video("F:/AILU_RAW/bad_milano/")
     sleep(1)
 
     # Move up 30 mm
@@ -39,7 +39,7 @@ for i in range(5):
     sleep(2)
 
     ser.write(b't\n')
-    Bag_saver.save_bag()
+    stream_and_save.get_video("F:/AILU_RAW/bad_milano/")
 
     sleep(1)
 

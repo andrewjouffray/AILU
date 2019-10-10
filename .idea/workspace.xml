@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d9421f3-2762-4818-b90a-920bd49a5e0f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/examples/hole_filling_test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/one_round.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ailu_python/image_processing/getObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/ailu_python/image_processing/getObject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ailu_python/image_processing/masks.py" beforeDir="false" afterPath="$PROJECT_DIR$/ailu_python/image_processing/masks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ailu_python/utils/tmp.py" beforeDir="false" afterPath="$PROJECT_DIR$/ailu_python/utils/tmp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/scale_example.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/scale_example.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/stream_and_save.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/stream_and_save.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/robot_controls/robot-controls-v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/robot_controls/robot-controls-v2.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,10 +29,14 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/examples" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Andrew\Documents\GitHub\AILU\examples" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Andrew\Documents\GitHub\AILU\examples\data" />
     </key>
@@ -47,29 +53,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.hole_filling_test">
-    <configuration name="change_background_example" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="AILU" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/change_background_example.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.scale_example">
     <configuration name="getROI_example" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AILU" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -114,28 +98,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="load_avi_example" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="AILU" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/load_avi_example.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AILU" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -158,13 +120,57 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="one_round" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="AILU" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/one_round.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="scale_example" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="AILU" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/scale_example.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.scale_example" />
+        <item itemvalue="Python.one_round" />
         <item itemvalue="Python.hole_filling_test" />
-        <item itemvalue="Python.getROI_example" />
-        <item itemvalue="Python.load_avi_example" />
-        <item itemvalue="Python.change_background_example" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.getROI_example" />
       </list>
     </recent_temporary>
   </component>
@@ -188,6 +194,10 @@
       <workItem from="1569627099807" duration="3347000" />
       <workItem from="1569703478621" duration="4830000" />
       <workItem from="1570116157710" duration="624000" />
+      <workItem from="1570246928445" duration="705000" />
+      <workItem from="1570489085893" duration="1114000" />
+      <workItem from="1570721156230" duration="6209000" />
+      <workItem from="1570737430523" duration="2365000" />
     </task>
     <servers />
   </component>
@@ -208,14 +218,16 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/AILU$hole_filling_test.coverage" NAME="hole_filling_test Coverage Results" MODIFIED="1569714375870" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/AILU$hole_filling_test.coverage" NAME="hole_filling_test Coverage Results" MODIFIED="1570737671464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/AILU$scale_example.coverage" NAME="scale_example Coverage Results" MODIFIED="1570739822459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$load_video_from_avi.coverage" NAME="load_video_from_avi Coverage Results" MODIFIED="1569545897906" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$stream_and_save.coverage" NAME="stream_and_save Coverage Results" MODIFIED="1569604231558" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$getROI_example.coverage" NAME="getROI_example Coverage Results" MODIFIED="1569604750366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$stream.coverage" NAME="stream Coverage Results" MODIFIED="1569603480689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$change_background_example.coverage" NAME="change_background_example Coverage Results" MODIFIED="1569604693796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$viewer.coverage" NAME="viewer Coverage Results" MODIFIED="1569466473582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test_files" />
-    <SUITE FILE_PATH="coverage/AILU$main.coverage" NAME="main Coverage Results" MODIFIED="1569604389508" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/AILU$main.coverage" NAME="main Coverage Results" MODIFIED="1570721766552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$load_avi_example.coverage" NAME="load_avi_example Coverage Results" MODIFIED="1569604736357" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/AILU$one_round.coverage" NAME="one_round Coverage Results" MODIFIED="1570739188013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
   </component>
 </project>
