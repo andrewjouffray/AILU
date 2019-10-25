@@ -17,7 +17,7 @@ def black_mask_return_mask(img):
 
     # Color range for black
     keepl = np.array([0, 0, 0])
-    keeph = np.array([116, 0, 0])
+    keeph = np.array([116, 20, 9])
     keep_mask = cv2.inRange(img, keepl, keeph)
 
     # Returns an image where all the pixels that were light blue are now all white

@@ -31,7 +31,7 @@ def save_images(img, rois, save_dir, object):
     ET.SubElement(annotation, "filename").text = name + ".png"
     # This path is important, this is where the XML files will be saved
     ET.SubElement(annotation,
-                  "path").text = save_dir + "/" + name + ".png"
+                  "path").text = save_dir + name + ".png"
 
     source = ET.SubElement(annotation, "source")
     ET.SubElement(source, "database").text = "AndroBotics"
@@ -64,6 +64,6 @@ def save_images(img, rois, save_dir, object):
 
     # Writes the XML file
     tree = ET.ElementTree(annotation)
-    tree.write(save_dir + FOLDER_NAME + "/" + name + ".xml")
+    tree.write(save_dir + name + ".xml")
 
     return

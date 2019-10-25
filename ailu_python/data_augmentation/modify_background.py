@@ -15,6 +15,7 @@ def black_to_image(blacked_img_og, background_image):
     # resize the background image to match the blacked out image
     background_image = cv2.resize(background_image, (width, height))
 
+
     # get all the blacked pixels
     blk_mask = masks.black_mask_return_mask(blacked_img)
 

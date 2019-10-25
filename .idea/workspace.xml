@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d9421f3-2762-4818-b90a-920bd49a5e0f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/examples/data_augmentation_example.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/Workers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ailu_python/data_augmentation/modify_background.py" beforeDir="false" afterPath="$PROJECT_DIR$/ailu_python/data_augmentation/modify_background.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ailu_python/image_processing/masks.py" beforeDir="false" afterPath="$PROJECT_DIR$/ailu_python/image_processing/masks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data_augmentation_example.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_augmentation_example.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/legacy/Workers.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/legacy/Workers.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,11 +34,11 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Andrew\Documents\GitHub\AILU\examples" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Andrew\Documents\GitHub\AILU\examples\data" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Andrew\Documents\GitHub\AILU\examples" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -193,7 +197,10 @@
       <workItem from="1570246928445" duration="705000" />
       <workItem from="1570489085893" duration="1114000" />
       <workItem from="1570721156230" duration="6209000" />
-      <workItem from="1570737430523" duration="11411000" />
+      <workItem from="1570737430523" duration="12948000" />
+      <workItem from="1570813716187" duration="133000" />
+      <workItem from="1571437911969" duration="8836000" />
+      <workItem from="1571515382852" duration="2736000" />
     </task>
     <servers />
   </component>
@@ -218,7 +225,7 @@
     <SUITE FILE_PATH="coverage/AILU$scale_example.coverage" NAME="scale_example Coverage Results" MODIFIED="1570739822459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$load_video_from_avi.coverage" NAME="load_video_from_avi Coverage Results" MODIFIED="1569545897906" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$stream_and_save.coverage" NAME="stream_and_save Coverage Results" MODIFIED="1569604231558" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
-    <SUITE FILE_PATH="coverage/AILU$data_augmentation_example.coverage" NAME="data_augmentation_example Coverage Results" MODIFIED="1570761498578" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/AILU$data_augmentation_example.coverage" NAME="data_augmentation_example Coverage Results" MODIFIED="1571516922688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$getROI_example.coverage" NAME="getROI_example Coverage Results" MODIFIED="1569604750366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$stream.coverage" NAME="stream Coverage Results" MODIFIED="1569603480689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$change_background_example.coverage" NAME="change_background_example Coverage Results" MODIFIED="1569604693796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
