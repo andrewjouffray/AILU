@@ -20,8 +20,8 @@ def pick_color(event,x,y,flags,param):
         pixel = image_hsv[y,x]
 
         #HUE, SATURATION, AND VALUE (BRIGHTNESS) RANGES. TOLERANCE COULD BE ADJUSTED.
-        upper =  np.array([pixel[0] + 20, pixel[1] + 20, pixel[2] + 20])
-        lower =  np.array([pixel[0] - 20, pixel[1] - 20, pixel[2] - 20])
+        upper =  np.array([pixel[0] + 40, pixel[1] + 40, pixel[2] + 40])
+        lower =  np.array([pixel[0] - 40, pixel[1] - 40, pixel[2] - 40])
         print(lower, upper)
 
         #A MONOCHROME MASK FOR GETTING A BETTER VISION OVER THE COLORS

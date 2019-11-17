@@ -26,8 +26,8 @@ def black_mask_return_mask(img):
 def green_mask_return_mask(hsv_img):
 
     # gets all pixels in that range of green
-    keepl = np.array([20, 50, 50])
-    keeph = np.array([90, 255, 255])
+    keepl = np.array([25, 50, 50])
+    keeph = np.array([100, 255, 255])
     keep_mask = cv2.inRange(hsv_img, keepl, keeph)
 
     return keep_mask
@@ -83,9 +83,21 @@ def green_mask_return_hsv(hsv_img):
 
 def blue_mask_return_hsv(hsv_img):
 
-    # gets all pixels in that range of green
-    keepl = np.array([95, 40, 40])
-    keeph = np.array([140, 255, 255])
+    # gets all pixels in that range of blue[ 68 -30  89] [148  50 169]
+    keepl = np.array([90, 40, 20])
+    keeph = np.array([175, 255, 255])
+    keep_mask = cv2.inRange(hsv_img, keepl, keeph)
+    # turns them all to black
+    hsv_img[keep_mask > 0] = ([0,0,0])
+
+    keepl = np.array([68, -30, 89])
+    keeph = np.array([148, 50, 169])
+    keep_mask = cv2.inRange(hsv_img, keepl, keeph)
+    # turns them all to black
+    hsv_img[keep_mask > 0] = ([0,0,0])
+
+    keepl = np.array([-5, -7, 90])
+    keeph = np.array([75,  73, 170])
     keep_mask = cv2.inRange(hsv_img, keepl, keeph)
     # turns them all to black
     hsv_img[keep_mask > 0] = ([0,0,0])

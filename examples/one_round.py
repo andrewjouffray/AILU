@@ -5,27 +5,35 @@ from time import sleep
 
 ser = serial.Serial("com3", 9600, timeout=0)
 sleep(2)
-option = "1"
-data = "o155\n"
+data = "o160\n"
 bytesData = data.encode()
 ser.write(bytesData)
 
-if option == "1":
 
-    data = "a355\n"
-    bytesData = data.encode()
-    ser.write(bytesData)
+data = "a355\n"
+bytesData = data.encode()
+ser.write(bytesData)
 
-    # start recording and saves the file as object_detection.bag
-    stream_and_save.get_video("F:/AILU_RAW/bad_milano/")
-    sleep(1)
-else:
+# start recording and saves the file as object_detection.bag
+stream_and_save.get_video("E:/AILU_RAW/bad_milano/")
 
+data = "s130\n"
+bytesData = data.encode()
+ser.write(bytesData)
+sleep(19)
 
-    data = "t\n"
-    bytesData = data.encode()
-    ser.write(bytesData)
+data = "o1\n"
+bytesData = data.encode()
+ser.write(bytesData)
 
-    # start recording and saves the file as object_detection.bag
-    stream_and_save.get_video("F:/AILU_RAW/bad_milano/")
-    sleep(1)
+data = "t\n"
+bytesData = data.encode()
+ser.write(bytesData)
+
+# start recording and saves the file as object_detection.bag
+stream_and_save.get_video("E:/AILU_RAW/bad_milano/")
+
+data = "w130\n"
+bytesData = data.encode()
+ser.write(bytesData)
+# sleep(12)
