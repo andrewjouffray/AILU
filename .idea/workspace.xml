@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d9421f3-2762-4818-b90a-920bd49a5e0f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/examples/legacy/video_to_background.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/stream_color_only.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ailu_python/image_processing/masks.py" beforeDir="false" afterPath="$PROJECT_DIR$/ailu_python/image_processing/masks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/legacy/color_picker.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/legacy/color_picker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ailu_python/utils/display.py" beforeDir="false" afterPath="$PROJECT_DIR$/ailu_python/utils/display.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/one_round.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/one_round.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/stream_and_save.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/stream_and_save.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/stream_color_only.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/stream_color_only.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -167,8 +166,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.stream_color_only" />
-        <item itemvalue="Python.color_picker" />
         <item itemvalue="Python.one_round" />
+        <item itemvalue="Python.color_picker" />
         <item itemvalue="Python.hole_filling_test" />
         <item itemvalue="Python.data_augmentation_example" />
       </list>
@@ -206,7 +205,9 @@
       <workItem from="1572389629326" duration="2904000" />
       <workItem from="1572972281257" duration="1961000" />
       <workItem from="1573326626024" duration="5249000" />
-      <workItem from="1573946282784" duration="3503000" />
+      <workItem from="1573946282784" duration="3555000" />
+      <workItem from="1574016637709" duration="5794000" />
+      <workItem from="1574113026837" duration="2417000" />
     </task>
     <servers />
   </component>
@@ -233,11 +234,11 @@
     <SUITE FILE_PATH="coverage/AILU$main.coverage" NAME="main Coverage Results" MODIFIED="1570721766552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$stream_and_save.coverage" NAME="stream_and_save Coverage Results" MODIFIED="1569604231558" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$viewer.coverage" NAME="viewer Coverage Results" MODIFIED="1569466473582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test_files" />
-    <SUITE FILE_PATH="coverage/AILU$stream_color_only.coverage" NAME="stream_color_only Coverage Results" MODIFIED="1573949382611" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/AILU$stream_color_only.coverage" NAME="stream_color_only Coverage Results" MODIFIED="1574114524222" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$load_avi_example.coverage" NAME="load_avi_example Coverage Results" MODIFIED="1569604736357" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$scale_example.coverage" NAME="scale_example Coverage Results" MODIFIED="1570739822459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$getROI_example.coverage" NAME="getROI_example Coverage Results" MODIFIED="1569604750366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
-    <SUITE FILE_PATH="coverage/AILU$one_round.coverage" NAME="one_round Coverage Results" MODIFIED="1573946635313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/AILU$one_round.coverage" NAME="one_round Coverage Results" MODIFIED="1574024354689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$color_picker.coverage" NAME="color_picker Coverage Results" MODIFIED="1573949301315" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples/legacy" />
     <SUITE FILE_PATH="coverage/AILU$data_augmentation_example.coverage" NAME="data_augmentation_example Coverage Results" MODIFIED="1571516922688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$change_background_example.coverage" NAME="change_background_example Coverage Results" MODIFIED="1569604693796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />

@@ -26,7 +26,7 @@ def get_video(url):
     height = 1080
     width = 1920
     fourcc = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')
-    fps = 20
+    fps = 30
     video_filename = url + str(time()) + 'output.avi'
     out = cv2.VideoWriter(video_filename, fourcc, fps, (width, height))
 
@@ -76,21 +76,21 @@ def get_video(url):
             ret, color_image = cap.read()
 
             # process the color and depth image to isolate the object of interest, returns the "blacked out" image
-            blacked_color_img = getObject.using_blue(color_image)
+            # blacked_color_img = getObject.using_blue(color_image)
 
             # get the region of interest from the blacked out image
-            rois = getROI.using_color(blacked_color_img)
+            # rois = getROI.using_color(blacked_color_img)
 
             # add the blacked out image to the video that we are saving
-            out.write(blacked_color_img)
+            out.write(color_image)
 
             # show the blacked out image and draw the roi around the object of interest at the same time
-            display.draw_and_show(blacked_color_img, rois, "blacked out image")
+            display.draw_and_show(color_image, [[0,0,0,0]], "color image")
 
             # stop recording and save teh video id we hit the 'q' key or reach 300 images taken
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
-            elif count >= 300:
+            elif count >= 630:
                 break
 
         # saves the video
