@@ -57,7 +57,6 @@ def get_video(url):
                 break
 
         # saves the video
-        out.release()
         cv2.destroyAllWindows()
 
 
