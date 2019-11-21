@@ -127,6 +127,5 @@ def keep_green(color_image_og):
     mask = masks.green_mask_return_mask(hsv_color)
 
     res = cv2.bitwise_and(color_image,color_image, mask=mask)
-
     return res
 

@@ -1,9 +1,9 @@
 import serial
 import sys
-import stream_and_save
+import stream_and_save_color
 from time import sleep
 
-folder = "E:/AILU_RAW/weeds/FP-training/FP-training"
+folder = "E:/AILU_RAW/weeds/CQL-validation/CQL-validation"
 
 ser = serial.Serial("com3", 9600, timeout=0)
 sleep(2)
@@ -20,7 +20,7 @@ ser.write(bytesData)
 sleep(27)
 
 
-data = "o132\n"
+data = "o134\n"
 bytesData = data.encode()
 ser.write(bytesData)
 
@@ -30,14 +30,14 @@ bytesData = data.encode()
 ser.write(bytesData)
 
 # start recording and saves the file as object_detection.bag
-stream_and_save.get_video(folder)
+stream_and_save_color.get_video(folder)
 
 data = "w100\n"
 bytesData = data.encode()
 ser.write(bytesData)
 sleep(19)
 
-data = "o142\n"
+data = "o144\n"
 bytesData = data.encode()
 ser.write(bytesData)
 
@@ -46,7 +46,7 @@ bytesData = data.encode()
 ser.write(bytesData)
 
 # start recording and saves the file as object_detection.bag
-stream_and_save.get_video(folder)
+stream_and_save_color.get_video(folder)
 
 data = "w100\n"
 bytesData = data.encode()
@@ -61,4 +61,4 @@ data = "a355\n"
 bytesData = data.encode()
 ser.write(bytesData)
 
-stream_and_save.get_video(folder)
+stream_and_save_color.get_video(folder)
