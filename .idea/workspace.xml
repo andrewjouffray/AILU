@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d9421f3-2762-4818-b90a-920bd49a5e0f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/examples/mask_segmenter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/mask_segmenter.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/mask_segmenter.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -208,7 +208,7 @@
       <workItem from="1574144320045" duration="3455000" />
       <workItem from="1574186867242" duration="16346000" />
       <workItem from="1574276810916" duration="690000" />
-      <workItem from="1574367810816" duration="8125000" />
+      <workItem from="1574367810816" duration="10175000" />
     </task>
     <servers />
   </component>
