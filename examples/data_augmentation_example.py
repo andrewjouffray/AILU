@@ -14,8 +14,8 @@ import Workers
 
 canvas = cv2.imread("./data/Image_resources_data_augmentation/canvas.png")
 
-directory = "./data/good_milano/"
-path_to_background = "F:/Data_aug_backgrounds/"
+directory = "E:/AILU_RAW/weeds/FP-training-extracted/"
+path_to_background = "E:/Data_aug_backgrounds/"
 count = 0
 total = 0
 train_dataset = False
@@ -105,7 +105,7 @@ for filename in os.listdir(directory):
                     # add the background
                     frame_with_background = modBackground.black_to_image(new_canvas, background_image)
 
-                    Workers.save_images(frame_with_background, rois, "C:/Users/Andrew/Documents/Tensorflow/workspace/training_demo/images/test/", "good_milano")
+                    Workers.save_images(frame_with_background, rois, "E:/AILU_RAW/segmentation_augmented_dataset/", "seedling")
 
                     # draws the roi on the image
                     # display.draw_and_show(frame_with_background, rois, 'frame from new_canvas')

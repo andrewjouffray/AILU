@@ -6,7 +6,9 @@ import ailu_python.utils.display as display
 from time import time, sleep
 import os
 import sys
+from tempfile import TemporaryFile
 
+bounds = [[0,0,0], [0,0,0]]
 mask_list = []
 
 if len(sys.argv) < 2:
@@ -31,27 +33,31 @@ def set_mask(event,x,y,_,__):
         upper = [pixel[0] + 30, pixel[1] + 30, pixel[2] + 30]
         lower = [pixel[0] - 30, pixel[1] - 30, pixel[2] - 30]
         mask_list.append([upper, lower])
-
+    elif event == cv2.EVENT_RBUTTONDOWN:
+        if len(mask_list) > 0:
+            print("deleted", mask_list[-1])
+            del mask_list[-1]
+            print(mask_list)
 
 def pauseVideo():
     while True:
         if cv2.waitKey(1) & 0xFF == ord('p'):
             break
-        elif cv2.waitKey(1) & 0xFF == ord('x'):
-            del mask_list[-1]
-            sleep(1)
 
 def apply_mask(mask_list, hsv):
 
+    # init the low and high values of the color range
     keepl = [None,None,None]
     keeph = [None,None,None]
 
     for masks in mask_list:
 
+        # if the keep values are none, set them to what ever color values are in mask_list
         if not keepl[0]:
             keepl = masks[1]
             keeph = masks[0]
 
+        # finds the lowest values in mask_list and updates keepl
         if masks[1][0] < keepl[0]:
             keepl[0] = masks[1][0]
         if masks[1][1] < keepl[1]:
@@ -59,6 +65,7 @@ def apply_mask(mask_list, hsv):
         if masks[1][2] < keepl[2]:
             keepl[2] = masks[1][2]
 
+        # finds the highest values in mask_list and updates keeph
         if masks[0][0] > keeph[0]:
             keeph[0] = masks[0][0]
         if masks[0][1] > keeph[1]:
@@ -66,6 +73,7 @@ def apply_mask(mask_list, hsv):
         if masks[0][2] > keeph[2]:
             keeph[2] = masks[0][2]
 
+    # blacks out everything except the values between keepl and keeph
     if keepl[0]:
         keepl = np.asarray(keepl)
         keeph = np.asarray(keeph)
@@ -73,9 +81,9 @@ def apply_mask(mask_list, hsv):
         res = cv2.bitwise_and(hsv, hsv, mask=keep_mask)
         image = cv2.cvtColor(res, cv2.COLOR_HSV2BGR)
 
-        return image
-
-    return hsv
+        return image, keeph, keepl
+    image = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+    return image, keeph, keepl
 
 for filename in os.listdir(path_to_file):
 
@@ -89,25 +97,27 @@ for filename in os.listdir(path_to_file):
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
 
             masked_image = hsv.copy()
-            masked_image = apply_mask(mask_list, masked_image)
+            masked_image, keeph, keepl = apply_mask(mask_list, masked_image)
+
+            bounds[0] = keepl
+            bounds[1] = keeph
 
             rois = getROI.using_color(masked_image)
             images = np.hstack((color_image, masked_image))
 
             cv2.setMouseCallback("output", set_mask)
-            # cv2.imshow('input', hsv)
-
             cv2.imshow('output', images)
-
-            # display.draw_and_show(masked_image, rois, "output")
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
             elif cv2.waitKey(20) & 0xFF == ord(' '):
                 pauseVideo()
 
+
         cv2.destroyAllWindows()
 
     except Exception as e:
         print(e)
 
+np.save('bounds', bounds)
+print("saved the array")

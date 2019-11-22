@@ -7,13 +7,14 @@ from time import time
 import os
 import sys
 
-if len(sys.argv) < 3:
+if len(sys.argv) < 4:
 
-    print("Missing arguments, source and destination e.g. python extract_features.py C:/myVidel.avi C:/data/training")
+    print("Missing arguments, source, destination, bounds e.g. python extract_features.py C:/myVidel.avi C:/data/training bounds.npy")
     exit()
 
 path_to_file = sys.argv[1]
 output_path = sys.argv[2]
+bounds_file = sys.argv[3]
 
 # checks if the file exists
 if not os.path.exists(path_to_file):
@@ -24,6 +25,12 @@ if not os.path.exists(output_path):
     os.mkdir(output_path)
     print("created directory at: ", output_path)
 
+try:
+    bounds = np.load(bounds_file)
+
+except Exception as e:
+    print(e)
+    exit()
 
 height = 1080
 width = 1920
@@ -34,24 +41,29 @@ out = cv2.VideoWriter(video_filename, fourcc, fps, (width, height))
 
 for filename in os.listdir(path_to_file):
 
-    cap = cv2.VideoCapture(filename)
+    try:
+        cap = cv2.VideoCapture(path_to_file+filename)
 
-    while cap.isOpened():
-        ret, color_image = cap.read()
+        while cap.isOpened():
+            ret, color_image = cap.read()
+            hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
+            keepl = np.asarray(bounds[0])
+            keeph = np.asarray(bounds[1])
+            keep_mask = cv2.inRange(hsv, keepl, keeph)
+            res = cv2.bitwise_and(hsv, hsv, mask=keep_mask)
+            image = cv2.cvtColor(res, cv2.COLOR_HSV2BGR)
 
-        #
-        # color_image = cv2.resize(color_image, (640, 360))
+            rois = getROI.using_color(image)
 
-        # blacked_color_img = getObject.using_blue(color_image)
-        blacked_color_img = getObject.keep_green(color_image)
+            out.write(image)
+            # display.draw_and_show(image, rois, "output")
 
-        rois = getROI.using_color(blacked_color_img)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
-        out.write(blacked_color_img)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
 
-    out.release()
-    cv2.destroyAllWindows()
+    except:
+        print("pass")
+
 

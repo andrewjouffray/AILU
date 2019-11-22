@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1d9421f3-2762-4818-b90a-920bd49a5e0f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/data_augmentation_example.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/data_augmentation_example.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/extract_features.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/extract_features.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/mask_segmenter.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/mask_segmenter.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,11 +32,13 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Andrew\Documents\GitHub\AILU\examples\data" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Andrew\Documents\GitHub\AILU\examples" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\andre\Documents\GitHub\AILU" />
+      <recent name="C:\Users\andre\Documents\GitHub\AILU\examples" />
+      <recent name="C:\Users\Andrew\Documents\GitHub\AILU\examples\data" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -49,7 +53,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.one_round">
+  <component name="RunManager" selected="Python.data_augmentation_example">
     <configuration name="color_picker" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AILU" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -162,11 +166,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.data_augmentation_example" />
         <item itemvalue="Python.one_round" />
         <item itemvalue="Python.stream_color_only" />
         <item itemvalue="Python.color_picker" />
         <item itemvalue="Python.hole_filling_test" />
-        <item itemvalue="Python.data_augmentation_example" />
       </list>
     </recent_temporary>
   </component>
@@ -208,7 +212,7 @@
       <workItem from="1574144320045" duration="3455000" />
       <workItem from="1574186867242" duration="16346000" />
       <workItem from="1574276810916" duration="690000" />
-      <workItem from="1574367810816" duration="10175000" />
+      <workItem from="1574367810816" duration="16912000" />
     </task>
     <servers />
   </component>
@@ -241,7 +245,7 @@
     <SUITE FILE_PATH="coverage/AILU$getROI_example.coverage" NAME="getROI_example Coverage Results" MODIFIED="1569604750366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$one_round.coverage" NAME="one_round Coverage Results" MODIFIED="1574370841936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$color_picker.coverage" NAME="color_picker Coverage Results" MODIFIED="1574216476323" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples/legacy" />
-    <SUITE FILE_PATH="coverage/AILU$data_augmentation_example.coverage" NAME="data_augmentation_example Coverage Results" MODIFIED="1571516922688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/AILU$data_augmentation_example.coverage" NAME="data_augmentation_example Coverage Results" MODIFIED="1574386342557" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
     <SUITE FILE_PATH="coverage/AILU$change_background_example.coverage" NAME="change_background_example Coverage Results" MODIFIED="1569604693796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
   </component>
 </project>
