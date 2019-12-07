@@ -30,8 +30,8 @@ def set_mask(event,x,y,_,__):
         pixel = hsv[y, x]
 
         # HUE, SATURATION, AND VALUE (BRIGHTNESS) RANGES. TOLERANCE COULD BE ADJUSTED.
-        upper = [pixel[0] + 30, pixel[1] + 30, pixel[2] + 30]
-        lower = [pixel[0] - 30, pixel[1] - 30, pixel[2] - 30]
+        upper = [pixel[0] + 10, pixel[1] + 10, pixel[2] + 10]
+        lower = [pixel[0] - 10, pixel[1] - 10, pixel[2] - 10]
         mask_list.append([upper, lower])
     elif event == cv2.EVENT_RBUTTONDOWN:
         if len(mask_list) > 0:

@@ -3,7 +3,7 @@ import sys
 import stream_and_save_color
 from time import sleep
 
-folder = "E:/AILU_RAW/weeds/CQL-validation/CQL-validation"
+folder = "E:/AILU_RAW/ar-codes/validation/ar-codes-validation"
 
 ser = serial.Serial("com3", 9600, timeout=0)
 sleep(2)
@@ -20,7 +20,7 @@ ser.write(bytesData)
 sleep(27)
 
 
-data = "o134\n"
+data = "o140\n"
 bytesData = data.encode()
 ser.write(bytesData)
 
@@ -37,7 +37,7 @@ bytesData = data.encode()
 ser.write(bytesData)
 sleep(19)
 
-data = "o144\n"
+data = "o151\n"
 bytesData = data.encode()
 ser.write(bytesData)
 
@@ -53,7 +53,7 @@ bytesData = data.encode()
 ser.write(bytesData)
 sleep(19)
 
-data = "o152\n"
+data = "o158\n"
 bytesData = data.encode()
 ser.write(bytesData)
 
