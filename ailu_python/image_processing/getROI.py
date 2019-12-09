@@ -34,7 +34,7 @@ def using_color(image):
         # Gets the area of each contours in the image
         area = cv2.contourArea(c)
         # save the x1, y1, x2, y2, coordinates of that contour if it's larger than 3000 pixels
-        if area > 3000:
+        if area > 1500:
             x, y, w, h = cv2.boundingRect(c)
             xy_coordinates = [x, y, x+w, y+h]
             valid_contours.append(xy_coordinates)

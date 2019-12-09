@@ -10,12 +10,11 @@ def save_images(img, rois, save_dir, object):
 
     # Use the current time in ms as name
     name = "roi" + str(time())
-
     # Saves the image
     imwrite(save_dir+name+".png", img)
 
     # folder to save the images in
-    FOLDER_NAME = "images/test"
+    FOLDER_NAME = "ar-codes/training-augmented"
 
     # This will only save the first roi, we need to make it be able so save all the rois in the future.
 
@@ -47,7 +46,7 @@ def save_images(img, rois, save_dir, object):
         y1 = roi[1]
         x2 = roi[2]
         y2 = roi[3]
-        print(x1, y1, x2, y2)
+        # print(x1, y1, x2, y2)
         # Change the name depending on what the object is
         object0 = ET.SubElement(annotation, "object")
         ET.SubElement(object0, "name").text = object
