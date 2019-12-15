@@ -53,3 +53,21 @@ def getAllRoiImage(image):
         y2 = roi[3]
         ret.append(image[y1:y2, x1:x2])
     return ret
+
+def lowerRes(image, factor):
+
+
+    height, width = image.shape[:2]
+    lowerResImage = cv2.resize(image, (int(width/factor), int(height/factor)))
+    lowerResImage = cv2.resize(image, (width, height))
+
+    return image
+
+def blurr(image, kernelSize):
+
+    if kernelSize % 2 == 0:
+        kernelSize += 1
+
+    blurred_frame = cv2.GaussianBlur(image, (kernelSize, kernelSize), cv2.BORDER_DEFAULT)
+
+    return blurred_frame

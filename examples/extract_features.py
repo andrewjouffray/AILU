@@ -32,20 +32,20 @@ except Exception as e:
     print(e)
     exit()
 
-height = 1080
-width = 1920
-fourcc = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')
-fps = 30
-video_filename = output_path + str(time()) + 'output.avi'
-out = cv2.VideoWriter(video_filename, fourcc, fps, (width, height))
-
 for filename in os.listdir(path_to_file):
 
-    try:
-        cap = cv2.VideoCapture(path_to_file+filename)
+    height = 600
+    width = 800
+    fourcc = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')
+    fps = 30
+    video_filename = output_path + str(time()) + 'output.avi'
+    out = cv2.VideoWriter(video_filename, fourcc, fps, (width, height))
 
-        while cap.isOpened():
-            ret, color_image = cap.read()
+    cap = cv2.VideoCapture(path_to_file+filename)
+
+    while cap.isOpened():
+        ret, color_image = cap.read()
+        if not color_image is None:
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
             keepl = np.asarray(bounds[0])
             keeph = np.asarray(bounds[1])
@@ -55,15 +55,16 @@ for filename in os.listdir(path_to_file):
 
             rois = getROI.using_color(image)
 
+            image = cv2.resize(image, (800,600))
+
             out.write(image)
             # display.draw_and_show(image, rois, "output")
+        else:
+            break;
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
 
-
-    except:
-        print("pass")
 
 
