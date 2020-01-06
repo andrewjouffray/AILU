@@ -152,7 +152,8 @@ def main():
             print("> Error: path not found", backgroundPath)
 
 
-
+    # TODO: fix the bug where it stops at 360 images
+    # TODO: add modifications to the image
     for file in videoFiles:
         print("\n> Processing file:", file)
         print("\n=======================================================================================================================================================\n")
