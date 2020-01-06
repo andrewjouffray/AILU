@@ -29,36 +29,44 @@ class Canvas:
     __canvas = None
     __rois = []
 
-    def __init__(self, ooi, pathToBackground, maxOoi = 10):
+    def __init__(self, ooi, pathToCanvas, background, maxOoi = 10):
 
+        # gets a random image height, aspect ration and width
         self.__height = random.randint(360, 1080)
         self.__aspectRatio = self.__listOfAspectRatios[random.randint(0, len(self.__listOfAspectRatios) - 1)]
         self.__width = int(self.__height * self.__aspectRatio)
+        self.__rois = []
+        canvas = cv2.imread(pathToCanvas)
 
-        print("height, width:", self.__height, self.__width)
+        # sets the canvas as the chosen background
+        self.__canvas = canvas[:self.__height, :self.__width]
 
-        background = cv2.imread(pathToBackground)
-        # cv2.imshow("background", background)
-
-        self.__canvas = background[:self.__height, :self.__width]
-
+        # picks a random number of objects of interest to insert into the image
         numberOfOoi = random.randint(1, maxOoi)
-        print("number of ooi:", numberOfOoi)
+        # print("number of ooi:", numberOfOoi)
 
+        # divides the image into columns, one for each object of interest (ooi)
         columnWidth = int(self.__width / numberOfOoi)
-        print("column width:", columnWidth)
+        # print("column width:", columnWidth)
 
         # creates the objects of interest
         for i in range(numberOfOoi):
+
+            # create a new object
             objectOfinterest = Ooi(ooi, columnWidth, self.__height, columnWidth * i)
             self.__objects.append(objectOfinterest)
+
+            # gets it's position
             x1, y1, x2, y2 = objectOfinterest.getPosition()
+
+            # inserts the object into the column
             try:
                 self.__canvas[y1:y2, x1:x2] = objectOfinterest.getObject()
                 self.__rois.append([x1, y1, x2, y2])
             except Exception as e:
-                print("error:", e)
-                print("x1, y1, x2, y2:", x1, y1, x2, y2)
+                pass
+
+        self.__canvas = modBackground.black_to_image(self.__canvas, background)
 
     def getCanvas(self):
 
@@ -68,17 +76,18 @@ class Canvas:
 
         return self.__rois
 
+# test using a random image as the ooi and background
 if __name__ == "__main__":
 
     start = time.time()
-    ooi = cv2.imread("C:/Users/Andrew/Pictures/box.png")
+    ooi = cv2.imread("C:/Users/Andrew/Pictures/AILU.png")
     background_image = cv2.imread("F:/Data_aug_backgrounds/1573331342.2849042.png")
-    canvas1 = Canvas(ooi, "C:/Users/Andrew/Documents/GitHub/AILU/examples/data/Image_resources_data_augmentation/canvas.png")
+    canvas1 = Canvas(ooi, "C:/Users/Andrew/Documents/GitHub/AILU/examples/data/Image_resources_data_augmentation/canvas.png", "F:/Data_aug_backgrounds/1573331342.2849042.png")
 
 
     frame_with_background = modBackground.black_to_image(canvas1.getCanvas(), background_image)
     display.draw_and_show(frame_with_background, canvas1.getRois(), "canvas")
-    # cv2.imshow("randomly generated canvas", frame_with_background)
+
     if cv2.waitKey(25) & 0xFF == ord('q'):
         exit()
     end = time.time()

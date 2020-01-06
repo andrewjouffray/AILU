@@ -60,7 +60,7 @@ class Ooi:
             print("maxXOffSet value:", maxXOffSet)
             if maxYOffSet:
                 print("maxYOffSet value:", maxYOffSet)
-            exit()
+
 
         #set the X1 Y1 positions
         self.__xAbsolutePos = xAbsolutePos + xOffSet
