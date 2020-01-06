@@ -96,7 +96,7 @@ def getRandomBackground(backgrounds):
 
 def main():
 
-    PATH_TO_CANVAS = "C:/Users/Andrew/Documents/GitHub/AILU/examples/data/Image_resources_data_augmentation/canvas.png"
+    PATH_TO_CANVAS = "./data/Image_resources_data_augmentation/canvas.png"
 
     title1 ="\n     _____              .___            __________        __  .__                   _____                                      __      \n"
     title2 ="    /  _  \   ____    __| _/______  ____\______   \ _____/  |_|__| ____   ______   /  _  \  __ __  ____   _____   ____   _____/  |_  ___________  \n"
