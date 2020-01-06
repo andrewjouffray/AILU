@@ -21,7 +21,7 @@ class Ooi:
     __yAbsolutePos = 0
     __image = None
     __maxScale = 0
-    __minScale = 0.15
+    __minScale = 0.08
 
     def __init__(self, objectOfInterest, columWidth, columnHeight, xAbsolutePos):
 
@@ -33,18 +33,34 @@ class Ooi:
 
 
         # scale the object
-        # column width divided by the width of the ooi will give us the maximum value to scale up the object
         height, width = self.__image.shape[:2]
-        self.__maxScale = (columWidth / width) - 0.1
+        maxScaleHeight = (columnHeight / height) - 0.1
+        maxScaleWidth = (columWidth / width) - 0.1
+
+        # find the maximum scale for the object to fit in the column
+        if maxScaleHeight > maxScaleWidth:
+            self.__maxScale = maxScaleWidth
+        else:
+            self.__maxScale = maxScaleHeight
+
+
         scale = random.uniform(self.__minScale, self.__maxScale)
         self.scale(scale)
 
+        try:
         # define the position of the object on the canvas within given boundaries
-        height, width = self.__image.shape[:2]
-        maxXOffSet = columWidth - width
-        maxYOffSet = columnHeight - height
-        xOffSet = random.randint(0, maxXOffSet)
-        yOffSet = random.randint(0, maxYOffSet)
+            height, width = self.__image.shape[:2]
+            maxXOffSet = columWidth - width
+            maxYOffSet = columnHeight - height
+            xOffSet = random.randint(0, maxXOffSet)
+            yOffSet = random.randint(0, maxYOffSet)
+        except Exception as e:
+            print("error: ", e)
+            print("height, width of the object: ", height, width)
+            print("maxXOffSet value:", maxXOffSet)
+            if maxYOffSet:
+                print("maxYOffSet value:", maxYOffSet)
+            exit()
 
         #set the X1 Y1 positions
         self.__xAbsolutePos = xAbsolutePos + xOffSet

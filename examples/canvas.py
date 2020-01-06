@@ -17,6 +17,7 @@ import cv2
 from ooi import Ooi
 import time
 import ailu_python.data_augmentation.modify_background as modBackground
+import ailu_python.utils.display as display
 
 class Canvas:
 
@@ -26,6 +27,7 @@ class Canvas:
     __listOfAspectRatios = [1.33, 1.66, 1.78, 1.85, 2.39]
     __objects = []
     __canvas = None
+    __rois = []
 
     def __init__(self, ooi, pathToBackground, maxOoi = 10):
 
@@ -48,27 +50,35 @@ class Canvas:
 
         # creates the objects of interest
         for i in range(numberOfOoi):
-            print("created ooi.")
             objectOfinterest = Ooi(ooi, columnWidth, self.__height, columnWidth * i)
             self.__objects.append(objectOfinterest)
             x1, y1, x2, y2 = objectOfinterest.getPosition()
-
-            self.__canvas[y1:y2, x1:x2] = objectOfinterest.getObject()
+            try:
+                self.__canvas[y1:y2, x1:x2] = objectOfinterest.getObject()
+                self.__rois.append([x1, y1, x2, y2])
+            except Exception as e:
+                print("error:", e)
+                print("x1, y1, x2, y2:", x1, y1, x2, y2)
 
     def getCanvas(self):
 
         return self.__canvas
 
+    def getRois(self):
+
+        return self.__rois
+
 if __name__ == "__main__":
 
     start = time.time()
-    ooi = cv2.imread("C:/Users/Andrew/Pictures/vid.png")
+    ooi = cv2.imread("C:/Users/Andrew/Pictures/box.png")
     background_image = cv2.imread("F:/Data_aug_backgrounds/1573331342.2849042.png")
     canvas1 = Canvas(ooi, "C:/Users/Andrew/Documents/GitHub/AILU/examples/data/Image_resources_data_augmentation/canvas.png")
 
 
     frame_with_background = modBackground.black_to_image(canvas1.getCanvas(), background_image)
-    cv2.imshow("randomly generated canvas", frame_with_background)
+    display.draw_and_show(frame_with_background, canvas1.getRois(), "canvas")
+    # cv2.imshow("randomly generated canvas", frame_with_background)
     if cv2.waitKey(25) & 0xFF == ord('q'):
         exit()
     end = time.time()
