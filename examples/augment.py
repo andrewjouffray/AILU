@@ -111,7 +111,7 @@ def main():
     # gets input path
     print("=====================================================[enter \"exit\" at anytime to exit the program]=====================================================")
     while True:
-        inputPath = input("\n> Enter Input Path: ")
+        inputPath = input("\n> Enter Path to .avi files: ")
         if not inputPath.endswith("/"):
             inputPath = inputPath+"/"
         if os.path.exists(inputPath):
@@ -151,39 +151,68 @@ def main():
         else:
             print("> Error: path not found", backgroundPath)
 
+    label = input("\n> Enter the label of the objects: ")
 
-    # TODO: fix the bug where it stops at 360 images
-    # TODO: add modifications to the image
+    while True:
+        numberOfCanvases = input("\n> Multiply image by (1 -10): ")
+        if numberOfCanvases.isnumeric():
+            numberOfCanvases = int(numberOfCanvases)
+            if numberOfCanvases >= 1 and numberOfCanvases <= 10:
+                break
+            else:
+                print("> Error: enter a number between 1 - 10", backgroundPath)
+        elif backgroundPath.lower() == "exit":
+            exit()
+        else:
+            print("> Error: enter a number between 1 - 10", backgroundPath)
+
+    imageCount = 0
+    addedTotal = 0
     for file in videoFiles:
+        print("\n\n=======================================================================================================================================================")
         print("\n> Processing file:", file)
-        print("\n=======================================================================================================================================================\n")
         cap = cv2.VideoCapture(inputPath+file)
-        imageCount = 0
-        addedTotal = 0
 
         while cap.isOpened():
 
-            imageCount += 1
+
             ret, frame = cap.read()
             if ret == True:
-                start = time.time()
                 ooi = getOoi(frame)
-                canvas1 = Canvas(ooi,PATH_TO_CANVAS,getRandomBackground(backgrounds))
-                end = time.time()
-                total = end - start
-                addedTotal = addedTotal + total
-                average = addedTotal / imageCount
-                print(str(imageCount) + " / " + str(len(videoFiles * 630)) + " images generated | " + str(round(total, 5)) + " seconds per images | average: " + str(round(average, 5)) + " seconds.", end="\r")
+                if not type(ooi)==bool:
+                    for i in range(numberOfCanvases):
+                        imageCount += 1
+                        start = time.time()
 
-                # Uncomment to see what the images look like
 
-                # display.draw_and_show(canvas1.getCanvas(), canvas1.getRois(), "canvas")
-                # if cv2.waitKey(25) & 0xFF == ord('q'):
-                #     print("\n> Exiting...")
-                #     exit()
-                # time.sleep(1)
+                        canvas1 = Canvas(ooi,PATH_TO_CANVAS,getRandomBackground(backgrounds))
+
+                        # creates a 1/3 chance to get a lower res image and a 1/10 chance to get a blurry image
+                        if random.randint(1, 3) == 1:
+                            image = func.lowerRes(canvas1.getCanvas(), random.randint(2, 3))
+                        else:
+                            if random.randint(1, 10) == 1:
+                                image = func.blurr(canvas1.getCanvas(), 7)
+                            else:
+                                image = canvas1.getCanvas()
+
+                        Workers.save_images(image, canvas1.getRois(), outPutPath, label)
+
+                        end = time.time()
+                        total = end - start
+                        addedTotal = addedTotal + total
+                        average = addedTotal / imageCount
+                        print(str(imageCount) + " / "+ str(630 * len(videoFiles) * numberOfCanvases) +" images generated | " + str(round(total, 5)) + " seconds per images | average: " + str(round(average, 5)) + " seconds.", end="\r")
+
+                        # Uncomment to see what the images look like
+
+                        # display.draw_and_show(image, canvas1.getRois(), "canvas")
+                        # if cv2.waitKey(25) & 0xFF == ord('q'):
+                        #     print("\n> Exiting...")
+                        #     exit()
+                        # time.sleep(2)
             else:
-                continue
+                break
 
 
 

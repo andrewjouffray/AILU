@@ -1,11 +1,12 @@
 import numpy as np
 import cv2
+import sys
+sys.path.insert(1, '../.')
 import ailu_python.image_processing.getROI as getROI
 import ailu_python.image_processing.getObject as getObject
 import ailu_python.utils.display as display
 from time import time, sleep
 import os
-import sys
 from tempfile import TemporaryFile
 
 bounds = [[0,0,0], [0,0,0]]

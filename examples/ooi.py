@@ -55,11 +55,14 @@ class Ooi:
             xOffSet = random.randint(0, maxXOffSet)
             yOffSet = random.randint(0, maxYOffSet)
         except Exception as e:
-            print("error: ", e)
-            print("height, width of the object: ", height, width)
-            print("maxXOffSet value:", maxXOffSet)
+            print("> Error: ", e)
+            print("> height, width of the object: ", height, width)
+            print("> maxXOffSet value:", maxXOffSet)
+            xOffSet = 1
+            yOffSet = 1
             if maxYOffSet:
-                print("maxYOffSet value:", maxYOffSet)
+                print("> maxYOffSet value:", maxYOffSet)
+
 
 
         #set the X1 Y1 positions

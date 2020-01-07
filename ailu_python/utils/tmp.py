@@ -59,9 +59,9 @@ def lowerRes(image, factor):
 
     height, width = image.shape[:2]
     lowerResImage = cv2.resize(image, (int(width/factor), int(height/factor)))
-    lowerResImage = cv2.resize(image, (width, height))
+    lowerResImage = cv2.resize(lowerResImage, (width, height))
 
-    return image
+    return lowerResImage
 
 def blurr(image, kernelSize):
 

@@ -1,11 +1,13 @@
 import numpy as np
 import cv2
+import sys
+sys.path.insert(1, '../.')
 import ailu_python.image_processing.getROI as getROI
 import ailu_python.image_processing.getObject as getObject
 import ailu_python.utils.display as display
 from time import time
 import os
-import sys
+
 
 if len(sys.argv) < 4:
 
