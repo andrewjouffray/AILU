@@ -189,7 +189,7 @@ def main():
 
                         # creates a 1/3 chance to get a lower res image and a 1/10 chance to get a blurry image
                         if random.randint(1, 3) == 1:
-                            image = func.lowerRes(canvas1.getCanvas(), random.randint(2, 3))
+                            image = func.lowerRes(canvas1.getCanvas(), random.randint(1, 2.5))
                         else:
                             if random.randint(1, 10) == 1:
                                 image = func.blurr(canvas1.getCanvas(), 7)
@@ -198,7 +198,7 @@ def main():
 
                         # randomly darkens or lightens a third of the images
                         if random.randint(1, 3) == 1:
-                            image = func.adjust_gamma(image, round(random.uniform(0.7, 2), 1))
+                            image = func.adjust_gamma(image, round(random.uniform(0.7, 2.5), 1))
 
                         Workers.save_images(image, canvas1.getRois(), outPutPath, label)
 
