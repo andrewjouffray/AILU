@@ -166,6 +166,19 @@ def main():
         else:
             print("> Error: enter a number between 1 - 10", backgroundPath)
 
+    while True:
+        maxOoi = input("\n> Enter maximum number of Objects per image (1 - 10): ")
+        if maxOoi.isnumeric():
+            maxOoi = int(maxOoi)
+            if maxOoi >= 1 and maxOoi <= 10:
+                break
+            else:
+                print("> Error: enter a number between 1 - 10", backgroundPath)
+        elif backgroundPath.lower() == "exit":
+            exit()
+        else:
+            print("> Error: enter a number between 1 - 10", backgroundPath)
+
     imageCount = 0
     addedTotal = 0
     for file in videoFiles:
@@ -184,12 +197,11 @@ def main():
                         imageCount += 1
                         start = time.time()
 
-
-                        canvas1 = Canvas(ooi,PATH_TO_CANVAS,getRandomBackground(backgrounds))
+                        canvas1 = Canvas(ooi,PATH_TO_CANVAS,getRandomBackground(backgrounds), maxOoi)
 
                         # creates a 1/3 chance to get a lower res image and a 1/10 chance to get a blurry image
                         if random.randint(1, 3) == 1:
-                            image = func.lowerRes(canvas1.getCanvas(), random.randint(1, 2.5))
+                            image = func.lowerRes(canvas1.getCanvas(), random.uniform(1, 2.5))
                         else:
                             if random.randint(1, 10) == 1:
                                 image = func.blurr(canvas1.getCanvas(), 7)
