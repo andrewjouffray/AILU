@@ -196,6 +196,10 @@ def main():
                             else:
                                 image = canvas1.getCanvas()
 
+                        # randomly darkens or lightens a third of the images
+                        if random.randint(1, 3) == 1:
+                            image = func.adjust_gamma(image, round(random.uniform(0.7, 2), 1))
+
                         Workers.save_images(image, canvas1.getRois(), outPutPath, label)
 
                         end = time.time()
