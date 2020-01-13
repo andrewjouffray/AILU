@@ -220,7 +220,7 @@ def main():
                         average = addedTotal / imageCount
                         print(str(imageCount) + " / "+ str(630 * len(videoFiles) * numberOfCanvases) +" images generated | " + str(round(total, 5)) + " seconds per images | average: " + str(round(average, 5)) + " seconds.", end="\r")
 
-                        # Uncomment to see what the images look like
+                        # Uncomment below to see what the images look like
 
                         # display.draw_and_show(image, canvas1.getRois(), "canvas")
                         # if cv2.waitKey(25) & 0xFF == ord('q'):

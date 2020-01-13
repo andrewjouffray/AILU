@@ -10,7 +10,11 @@ import os
 from tempfile import TemporaryFile
 
 bounds = [[0,0,0], [0,0,0]]
+old_bounds = []
+current_bounds = []
 mask_list = []
+keeph = [None, None, None]
+keepl = [None, None, None]
 
 if len(sys.argv) < 2:
 
@@ -34,22 +38,21 @@ def set_mask(event,x,y,_,__):
         upper = [pixel[0] + 10, pixel[1] + 10, pixel[2] + 10]
         lower = [pixel[0] - 10, pixel[1] - 10, pixel[2] - 10]
         mask_list.append([upper, lower])
+        getBounds(mask_list)
+        print(keeph, keepl)
     elif event == cv2.EVENT_RBUTTONDOWN:
         if len(mask_list) > 0:
             print("deleted", mask_list[-1])
             del mask_list[-1]
-            print(mask_list)
+            getBounds(mask_list)
+            print(keeph, keepl)
 
 def pauseVideo():
     while True:
         if cv2.waitKey(1) & 0xFF == ord('p'):
             break
 
-def apply_mask(mask_list, hsv):
-
-    # init the low and high values of the color range
-    keepl = [None,None,None]
-    keeph = [None,None,None]
+def getBounds(mask_list):
 
     for masks in mask_list:
 
@@ -74,17 +77,25 @@ def apply_mask(mask_list, hsv):
         if masks[0][2] > keeph[2]:
             keeph[2] = masks[0][2]
 
+        keepl = np.asanyarray(keepl)
+        keeph = np.asanyarray(keeph)
+
+
+
+
+def apply_mask(hsv):
+
+
+
     # blacks out everything except the values between keepl and keeph
     if keepl[0]:
-        keepl = np.asarray(keepl)
-        keeph = np.asarray(keeph)
         keep_mask = cv2.inRange(hsv, keepl, keeph)
         res = cv2.bitwise_and(hsv, hsv, mask=keep_mask)
         image = cv2.cvtColor(res, cv2.COLOR_HSV2BGR)
 
-        return image, keeph, keepl
+        return image
     image = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-    return image, keeph, keepl
+    return image
 
 for filename in os.listdir(path_to_file):
 
@@ -98,7 +109,7 @@ for filename in os.listdir(path_to_file):
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
 
             masked_image = hsv.copy()
-            masked_image, keeph, keepl = apply_mask(mask_list, masked_image)
+            masked_image = apply_mask(masked_image)
 
             bounds[0] = keepl
             bounds[1] = keeph

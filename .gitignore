@@ -1,3 +1,4 @@
 /.idea
 /examples/data/test_output/roi*
 /examples/data/realsense
+bounds.npy
