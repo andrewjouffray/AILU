@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d9421f3-2762-4818-b90a-920bd49a5e0f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/augment.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/augment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/augment_files/canvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/augment_files/canvas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/augment_files/ooi.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/augment_files/ooi.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -229,7 +227,7 @@
       <workItem from="1578412839270" duration="2607000" />
       <workItem from="1578520017232" duration="1370000" />
       <workItem from="1578938992454" duration="2000" />
-      <workItem from="1578939010966" duration="2006000" />
+      <workItem from="1578939010966" duration="3317000" />
     </task>
     <servers />
   </component>

@@ -1,2 +1,2 @@
-.idea
-./examples/data/test_output/*
+/.idea
+/examples/data/test_output/roi*
