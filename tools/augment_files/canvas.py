@@ -13,11 +13,11 @@ step8: modify the image (chance of lowering resolution or making it blurry)
 
 '''
 import sys
+sys.path.insert(1, '../.')
 import random
 import cv2
-from ooi import Ooi
+from augment_files.ooi import Ooi
 import time
-sys.path.insert(1, '../.')
 import ailu_python.data_augmentation.modify_background as modBackground
 import ailu_python.utils.display as display
 

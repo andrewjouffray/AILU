@@ -27,7 +27,7 @@ import time
 import ailu_python.utils.tmp as func
 import cv2
 from augment_files.canvas import Canvas
-import augment_files.workers as workers
+import augment_files.save_file as save_file
 import random
 import ailu_python.utils.display as display
 
@@ -212,7 +212,7 @@ def main():
                         if random.randint(1, 3) == 1:
                             image = func.adjust_gamma(image, round(random.uniform(0.7, 2.5), 1))
 
-                        workers.save_images(image, canvas1.getRois(), outPutPath, label)
+                        save_file.save_images(image, canvas1.getRois(), outPutPath, label)
 
                         end = time.time()
                         total = end - start

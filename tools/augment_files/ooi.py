@@ -10,7 +10,6 @@ step2: scale
 step3: position
 
 """
-import numpy as np
 import cv2
 import random
 
