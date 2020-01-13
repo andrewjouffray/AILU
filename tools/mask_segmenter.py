@@ -29,6 +29,7 @@ if not os.path.exists(path_to_file):
     print("could not find ", path_to_file)
     exit()
 
+
 def set_mask(event,x,y,_,__):
 
     if event == cv2.EVENT_LBUTTONDOWN:
@@ -38,26 +39,28 @@ def set_mask(event,x,y,_,__):
         upper = [pixel[0] + 10, pixel[1] + 10, pixel[2] + 10]
         lower = [pixel[0] - 10, pixel[1] - 10, pixel[2] - 10]
         mask_list.append([upper, lower])
-        getBounds(mask_list)
+        keephLocal, keeplLocal = getBounds(mask_list, keeph, keepl)
         print(keeph, keepl)
     elif event == cv2.EVENT_RBUTTONDOWN:
         if len(mask_list) > 0:
             print("deleted", mask_list[-1])
             del mask_list[-1]
-            getBounds(mask_list)
+            keephLocal, keeplLocal = getBounds(mask_list, keeph, keepl)
             print(keeph, keepl)
+
 
 def pauseVideo():
     while True:
         if cv2.waitKey(1) & 0xFF == ord('p'):
             break
 
-def getBounds(mask_list):
+
+def getBounds(mask_list, keeph, keepl):
 
     for masks in mask_list:
 
         # if the keep values are none, set them to what ever color values are in mask_list
-        if not keepl[0]:
+        if keepl[0] is None:
             keepl = masks[1]
             keeph = masks[0]
 
@@ -80,15 +83,13 @@ def getBounds(mask_list):
         keepl = np.asanyarray(keepl)
         keeph = np.asanyarray(keeph)
 
+        return keeph, keepl
 
 
-
-def apply_mask(hsv):
-
-
+def apply_mask(keeph, keepl, hsv):
 
     # blacks out everything except the values between keepl and keeph
-    if keepl[0]:
+    if not keepl[0] is None:
         keep_mask = cv2.inRange(hsv, keepl, keeph)
         res = cv2.bitwise_and(hsv, hsv, mask=keep_mask)
         image = cv2.cvtColor(res, cv2.COLOR_HSV2BGR)
@@ -96,6 +97,7 @@ def apply_mask(hsv):
         return image
     image = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
     return image
+
 
 for filename in os.listdir(path_to_file):
 
@@ -109,7 +111,7 @@ for filename in os.listdir(path_to_file):
             hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
 
             masked_image = hsv.copy()
-            masked_image = apply_mask(masked_image)
+            masked_image = apply_mask(keeph, keepl, masked_image)
 
             bounds[0] = keepl
             bounds[1] = keeph
