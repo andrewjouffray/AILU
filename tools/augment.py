@@ -26,8 +26,8 @@ sys.path.insert(1, '../.')
 import time
 import ailu_python.utils.tmp as func
 import cv2
-from canvas import Canvas
-import Workers
+from augment_files.canvas import Canvas
+import augment_files.workers as workers
 import random
 import ailu_python.utils.display as display
 
@@ -96,7 +96,7 @@ def getRandomBackground(backgrounds):
 
 def main():
 
-    PATH_TO_CANVAS = "./data/Image_resources_data_augmentation/canvas.png"
+    PATH_TO_CANVAS = "./augment_files/canvas.png"
 
     title1 ="\n     _____              .___            __________        __  .__                   _____                                      __      \n"
     title2 ="    /  _  \   ____    __| _/______  ____\______   \ _____/  |_|__| ____   ______   /  _  \  __ __  ____   _____   ____   _____/  |_  ___________  \n"
@@ -212,7 +212,7 @@ def main():
                         if random.randint(1, 3) == 1:
                             image = func.adjust_gamma(image, round(random.uniform(0.7, 2.5), 1))
 
-                        Workers.save_images(image, canvas1.getRois(), outPutPath, label)
+                        workers.save_images(image, canvas1.getRois(), outPutPath, label)
 
                         end = time.time()
                         total = end - start
