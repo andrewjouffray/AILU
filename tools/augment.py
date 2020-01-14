@@ -195,38 +195,39 @@ def main():
                 if not type(ooi)==bool:
                     for i in range(numberOfCanvases):
                         imageCount += 1
-                        start = time.time()
+                        if imageCount > 29 * numberOfCanvases:
+                            start = time.time()
 
-                        canvas1 = Canvas(ooi,PATH_TO_CANVAS,getRandomBackground(backgrounds), maxOoi)
+                            canvas1 = Canvas(ooi,PATH_TO_CANVAS,getRandomBackground(backgrounds), maxOoi)
 
-                        # creates a 1/3 chance to get a lower res image and a 1/10 chance to get a blurry image
-                        if random.randint(1, 3) == 1:
-                            image = func.lowerRes(canvas1.getCanvas(), random.uniform(1, 2.5))
-                        else:
-                            if random.randint(1, 10) == 1:
-                                image = func.blurr(canvas1.getCanvas(), 7)
+                            # creates a 1/3 chance to get a lower res image and a 1/10 chance to get a blurry image
+                            if random.randint(1, 3) == 1:
+                                image = func.lowerRes(canvas1.getCanvas(), random.uniform(1, 2.5))
                             else:
-                                image = canvas1.getCanvas()
+                                if random.randint(1, 10) == 1:
+                                    image = func.blurr(canvas1.getCanvas(), 7)
+                                else:
+                                    image = canvas1.getCanvas()
 
-                        # randomly darkens or lightens a third of the images
-                        if random.randint(1, 3) == 1:
-                            image = func.adjust_gamma(image, round(random.uniform(0.7, 2.5), 1))
+                            # randomly darkens or lightens a third of the images
+                            if random.randint(1, 3) == 1:
+                                image = func.adjust_gamma(image, round(random.uniform(0.7, 2.5), 1))
 
-                        save_file.save_images(image, canvas1.getRois(), outPutPath, label)
+                            save_file.save_images(image, canvas1.getRois(), outPutPath, label)
 
-                        end = time.time()
-                        total = end - start
-                        addedTotal = addedTotal + total
-                        average = addedTotal / imageCount
-                        print(str(imageCount) + " / "+ str(630 * len(videoFiles) * numberOfCanvases) +" images generated | " + str(round(total, 5)) + " seconds per images | average: " + str(round(average, 5)) + " seconds.", end="\r")
+                            end = time.time()
+                            total = end - start
+                            addedTotal = addedTotal + total
+                            average = addedTotal / imageCount
+                            print(str(imageCount) + " / "+ str(630 * len(videoFiles) * numberOfCanvases) +" images generated | " + str(round(total, 5)) + " seconds per images | average: " + str(round(average, 5)) + " seconds.", end="\r")
 
-                        # Uncomment below to see what the images look like
+                            # Uncomment below to see what the images look like
 
-                        # display.draw_and_show(image, canvas1.getRois(), "canvas")
-                        # if cv2.waitKey(25) & 0xFF == ord('q'):
-                        #     print("\n> Exiting...")
-                        #     exit()
-                        # time.sleep(2)
+                            # display.draw_and_show(image, canvas1.getRois(), "canvas")
+                            # if cv2.waitKey(25) & 0xFF == ord('q'):
+                            #     print("\n> Exiting...")
+                            #     exit()
+                            # time.sleep(2)
             else:
                 break
 
