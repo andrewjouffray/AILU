@@ -4,8 +4,8 @@ class Bounds:
 
     __pathToFiles = ""
     __listOfColors = []
-    __bounds = [[],[]]
-
+    __bounds = [None,None]
+    __lastBounds = [None, None]
 
     def __init__(self):
         pass
@@ -21,11 +21,12 @@ class Bounds:
     def removeColors(self):
 
         del self.__listOfColors[-1]
+        self.__bounds = self.__lastBounds
 
     def updateBounds(self):
 
-        keepl = []
-        keeph = []
+        keepl = [0,0,0]
+        keeph = [0,0,0]
 
         if len(self.__listOfColors) > 0:
 
@@ -50,6 +51,7 @@ class Bounds:
                 keepl = np.asanyarray(keepl)
                 keeph = np.asanyarray(keeph)
 
+        self.__lastBounds = self.__bounds
         self.__bounds = [keeph, keepl]
 
     def getBounds(self):
