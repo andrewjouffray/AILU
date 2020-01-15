@@ -6,14 +6,15 @@ class Bounds:
     __listOfColors = []
     __bounds = [None,None]
     __lastBounds = [None, None]
+    __precision = 10
 
     def __init__(self):
         pass
 
-    def addColors(self, precision, pixel):
+    def addColors(self, pixel):
 
-        upper = [pixel[0] + precision, pixel[1] + precision, pixel[2] + precision]
-        lower = [pixel[0] - precision, pixel[1] - precision, pixel[2] - precision]
+        upper = [pixel[0] + self.__precision, pixel[1] + self.__precision, pixel[2] + self.__precision]
+        lower = [pixel[0] - self.__precision, pixel[1] - self.__precision, pixel[2] - self.__precision]
         newColor = [upper, lower]
         self.__listOfColors.append(newColor)
         self.updateBounds()
@@ -62,3 +63,13 @@ class Bounds:
 
         pathToSave = path + 'bounds'
         np.save(pathToSave, self.__bounds)
+
+    def increasePecision(self):
+
+        self.__precision -=1
+        print("> precision margin: ", self.__precision)
+
+    def decreasePrecision(self):
+
+        self.__precision +=1
+        print("> precision margin: ", self.__precision)
