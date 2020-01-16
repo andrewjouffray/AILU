@@ -3,9 +3,29 @@ import sys
 sys.path.insert(1, '../.')
 import ailu_python.image_processing.getROI as getROI
 import cv2
-from bounds import Bounds
+from extract_files.bounds import Bounds
 import os
 import numpy as np
+import time
+
+def loadInput(path):
+    try:
+        print("> Loading input videos files...")
+        files = os.listdir(path)
+        validFiles = []
+        print("> Checking files...")
+        for file in files:
+            if file.endswith(".avi"):
+                validFiles.append(file)
+        if len(validFiles) == 0:
+            raise Exception("no valid files in directory")
+        print("> Background successfully loaded", len(validFiles), "videos files")
+    except Exception as e:
+        print("> Failed to load videos files")
+        print("> Error:", e)
+        return False
+
+    return validFiles
 
 def set_mask(event,x,y,_,hsv):
 
@@ -77,30 +97,57 @@ def play_file(cap, filename, num, totalFile, path_to_bounds_file):
             return True
 
 
+
+
+while True:
+    inputPath = input("\n> Enter Path to .avi files: ")
+    if not inputPath.endswith("/"):
+        inputPath = inputPath + "/"
+    if os.path.exists(inputPath):
+        videoFiles = loadInput(inputPath)
+        if videoFiles:
+            break
+    elif inputPath.lower() == "exit":
+        exit()
+    else:
+        print("> Error: path not found", inputPath)
+
+# gets output path
+while True:
+    outPutPath = input("\n> Enter Output Path: ")
+    if not outPutPath.endswith("/"):
+        outPutPath = outPutPath + "/"
+    if os.path.exists(outPutPath):
+        break
+    elif outPutPath.lower() == "exit":
+        exit()
+    else:
+        os.mkdir(outPutPath)
+        print("> Created path", outPutPath)
+        break
+
 bounds = Bounds()
-path_to_file = "F:/data/weeds/RP-validation/"
 path_to_bounds_file = "./extract_files/"
 bounds_file = path_to_bounds_file + "bounds.npy"
-file_list = os.listdir(path_to_file)
 num = 0
 
 while(True):
 
-    filename = file_list[num]
-    cap = cv2.VideoCapture(path_to_file+filename)
-    ret = play_file(cap, filename, num + 1, len(file_list), path_to_bounds_file)
+    filename = videoFiles[num]
+    cap = cv2.VideoCapture(inputPath+filename)
+    ret = play_file(cap, filename, num + 1, len(videoFiles), path_to_bounds_file)
 
     if not ret is None:
         if ret == False:
             num = num - 1
             cv2.destroyAllWindows()
             if num < 0:
-                num = len(file_list) - 1
+                num = len(videoFiles) - 1
                 cv2.destroyAllWindows()
         else:
             num = num + 1
             cv2.destroyAllWindows()
-            if num > len(file_list) - 1:
+            if num > len(videoFiles) - 1:
                 num = 0
                 cv2.destroyAllWindows()
 
@@ -116,16 +163,16 @@ except Exception as e:
     print(e)
     exit()
 
-for filename in os.listdir(path_to_file):
+for filename in os.listdir(inputPath):
 
     height = 600
     width = 800
     fourcc = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')
     fps = 30
-    video_filename = output_path + str(time()) + 'output.avi'
+    video_filename = outPutPath + str(time()) + 'output.avi'
     out = cv2.VideoWriter(video_filename, fourcc, fps, (width, height))
 
-    cap = cv2.VideoCapture(path_to_file+filename)
+    cap = cv2.VideoCapture(inputPath+filename)
 
     while cap.isOpened():
         ret, color_image = cap.read()
