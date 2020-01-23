@@ -48,7 +48,10 @@ def get_video(url):
             out.write(color_image)
 
             # show the blacked out image and draw the roi around the object of interest at the same time
-            display.draw_and_show(color_image, [[0,0,0,0]], "color image")
+            # display.draw_and_show(color_image, [[0,0,0,0]], "color image")
+
+            print(count)
+
 
             # stop recording and save teh video id we hit the 'q' key or reach 300 images taken
             if cv2.waitKey(1) & 0xFF == ord('q'):

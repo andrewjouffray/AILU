@@ -3,7 +3,7 @@ import sys
 import stream_and_save_color
 from time import sleep
 
-folder = "E:/AILU_RAW/ar-codes/validation/ar-codes-validation"
+folder = "C:/Users/andre/Pictures/camera_test/"
 
 ser = serial.Serial("com3", 9600, timeout=0)
 sleep(2)

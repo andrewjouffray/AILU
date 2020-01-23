@@ -107,37 +107,8 @@ void stepper(int steps, bool zDirection){
 
 void stepper2(int steps, bool xDirection){
 
-    // slowly accelerate the horizontal stepper motor 
-    for (int j = 0; j <= 2; j++) { // make two steps at slow speed
-      
-      for (int i = 0; i <= 25; i++) { // these are the actual steps needed to be made by the stepper but we count one set of 25 steps as 1 step
-    
-        digitalWrite(7,xDirection);
-        
-          digitalWrite(2,HIGH);
-          delayMicroseconds(1500);
-          digitalWrite(2,LOW);
-          delayMicroseconds(1500);
-          
-        
-        }
-     }
-         for (int j = 0; j <= 2; j++) { // make two steps at medium speed
-      
-      for (int i = 0; i <= 25; i++) {
-    
-        digitalWrite(7,xDirection);
-        
-          digitalWrite(2,HIGH);
-          delayMicroseconds(800);
-          digitalWrite(2,LOW);
-          delayMicroseconds(800);
-          
-        
-        }
-     }
 
-      for (int j = 0; j <= steps - 6; j++) { // then takes all the nessesary steps in the desired direction at full speed
+      for (int j = 0; j <= steps; j++) { // then takes all the nessesary steps in the desired direction at full speed
         // notice that this technique of accelerating slowly the mototr is not great because you need to at least make 6 steps.
       
       for (int i = 0; i <= 25; i++) {
@@ -152,20 +123,7 @@ void stepper2(int steps, bool xDirection){
         
         }
      }
-           for (int j = 0; j <= 2; j++) { // two steps to slow down
-      
-      for (int i = 0; i <= 25; i++) {
-    
-        digitalWrite(7,xDirection);
-        
-          digitalWrite(2,HIGH);
-          delayMicroseconds(1500);
-          digitalWrite(2,LOW);
-          delayMicroseconds(1500);
-          
-        
-        }
-     }
+
 //     delay(2000);
 }
 
@@ -181,6 +139,7 @@ void servoPos(int angle){
 
 void loop()
 {    
+  stepper2(0, LOW);
   if(Serial.available())  // if data available in serial port
     { 
     inByte = Serial.readStringUntil('\n'); // read data until newline

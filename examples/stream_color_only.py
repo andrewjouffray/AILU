@@ -10,19 +10,29 @@ cap = cv2.VideoCapture(0)
 
 while True:
     ret, color_image = cap.read()
+    if ret:
 
-    # color_image = cv2.resize(color_image, (640, 360))
-
-    # color_image = getObject.using_blue(color_image)
-    color_image = getObject.keep_green(color_image)
-    rois = getROI.using_color(color_image)
+        height, width, channels = color_image.shape
 
 
 
-    display.draw_and_show(color_image, [[0,0,0,0]], "blacked out image")
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+        color_image = cv2.resize(color_image, (int(width / 2), int(height / 2)))
+
+        # color_image = getObject.using_blue(color_image)
+        # color_image = getObject.keep_green(color_image)
+        # rois = getROI.using_color(color_image)
+
+
+
+        display.draw_and_show(color_image, [[0,0,0,0]], "blacked out image")
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    else:
+        print("no image")
         break
+
 
 cv2.destroyAllWindows()
 

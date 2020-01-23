@@ -20,7 +20,7 @@ def black_to_image(blacked_img_og, background_image):
     blk_mask = masks.black_mask_return_mask(blacked_img)
 
     # all pixels that were not black are going to have the blacked out image on them
-    blacked_img[blk_mask != 0] = [0, 0, 0]
+    blacked_img[blk_mask != 0] = [0, 0, 0] # possibly useless
 
     # all pixels that were black are going to have the background image on them
     background_image[blk_mask == 0] = [0, 0, 0]
