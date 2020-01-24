@@ -7,6 +7,9 @@ from extract_files.bounds import Bounds
 import os
 import numpy as np
 import time
+import ctypes
+
+user32 = ctypes.windll.user32
 
 title1 = "\n   _____              .___            __________        __  .__                  ___________         __                        __   \n"
 title2 = "  /  _  \   ____    __| _/______  ____\______   \ _____/  |_|__| ____   ______   \_   _____/__  ____/  |_____________    _____/  |_ \n"
@@ -91,6 +94,12 @@ def play_file(cap, filename, num, totalFile, path_to_bounds_file):
             images = np.hstack((color_image, masked_image))
 
             cv2.setMouseCallback(filename + " " + str(num) + "/" + str(totalFile), set_mask, hsv)
+
+            Width = user32.GetSystemMetrics(0)
+            Height = user32.GetSystemMetrics(1)
+
+            images = cv2.resize(images, (Width, int(Height/2)))
+
             cv2.imshow(filename + " " + str(num) + "/" + str(totalFile), images)
 
             k = cv2.waitKey(33)
@@ -175,7 +184,7 @@ try:
     bounds = np.load(bounds_file)
 
 except Exception as e:
-    print(e)
+    print("\n> No bounds file found. Exiting.")
     exit()
 
 for filename in os.listdir(inputPath):
@@ -184,11 +193,12 @@ for filename in os.listdir(inputPath):
     width = 800
     fourcc = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')
     fps = 30
-    video_filename = outPutPath + str(time()) + 'output.avi'
+    video_filename = outPutPath + str(time.time()) + 'output.avi'
     out = cv2.VideoWriter(video_filename, fourcc, fps, (width, height))
 
     cap = cv2.VideoCapture(inputPath+filename)
 
+    print("\n> processing file", video_filename, "...")
     while cap.isOpened():
         ret, color_image = cap.read()
         if not color_image is None:
