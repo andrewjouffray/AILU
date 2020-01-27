@@ -308,18 +308,10 @@ def main():
                 keepl = np.asarray(bounds[1])
                 keeph = np.asarray(bounds[0])
 
-                # creates the mask
-                keep_mask = cv2.inRange(hsv, keepl, keeph)
-
                 # applies the mask on the image
-                if keepForeground == True:
-                    res = cv2.bitwise_and(hsv, hsv, mask=keep_mask)
-                else:
-                    hsv[keep_mask > 0] = ([0, 0, 0])
-                    res = hsv
+                image = apply_mask(keeph, keepl, hsv, keepForeground)
 
-                # converts the image back into BGR and saves it
-                image = cv2.cvtColor(res, cv2.COLOR_HSV2BGR)
+                # saves the image
                 out.write(image)
 
             else:
