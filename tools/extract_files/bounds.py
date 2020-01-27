@@ -63,6 +63,7 @@ class Bounds:
 
         pathToSave = path + 'bounds'
         np.save(pathToSave, self.__bounds)
+        print("> Saved bounds to", pathToSave + ".npy")
 
     def increasePecision(self):
 
