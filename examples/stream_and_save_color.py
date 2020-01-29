@@ -7,6 +7,7 @@ import ailu_python.utils.display as display
 from time import time
 
 
+
 '''
 Records a .avi video file with 300 frames in it, this video is blacked out and only contains the object of interest in it.
 there are 6 things going on in this file:
@@ -56,14 +57,16 @@ def get_video(url):
             # stop recording and save teh video id we hit the 'q' key or reach 300 images taken
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
-            elif count >= 630:
+            elif count >= 400:
                 break
 
         # saves the video
         cv2.destroyAllWindows()
+        cap.release()
 
 
     finally:
         print("completed")
+        cap.release()
         # Stop streaming
         # pipeline.stop()

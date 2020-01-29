@@ -113,6 +113,11 @@ class Ooi:
 
         self.__image = rotated_mat
 
+    # TODO: add stretch
+    # TODO: add plane shift / affine transform
+    # TODO add color vibrancy mod
+    # TODO add a scale limit to avoid loosing too much data (small object made huge look all blurry)
+
     def getPosition(self):
         return self.__xAbsolutePos, self.__yAbsolutePos, self.__widthOfOoi, self.__heightOfOoi
 
