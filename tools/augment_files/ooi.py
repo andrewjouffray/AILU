@@ -114,6 +114,17 @@ class Ooi:
         self.__image = rotated_mat
 
     # TODO: add stretch
+
+    def stretch(self, direction, amplitude):
+        pass
+
+    def affineTransform(self):
+        pass
+
+
+    def changeAlpha(self):
+        pass
+
     # TODO: add plane shift / affine transform
     # TODO add color vibrancy mod
     # TODO add a scale limit to avoid loosing too much data (small object made huge look all blurry)
