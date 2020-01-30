@@ -1,6 +1,4 @@
 import cv2
-import sys
-# sys.path.insert(1, '../')
 import ailu_python.image_processing.masks as masks
 
 def black_to_image(blacked_img_og, background_image):

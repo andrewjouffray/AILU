@@ -1,5 +1,4 @@
 import cv2
-import sys
 import numpy as np
 import ailu_python.image_processing.getROI as getROI
 

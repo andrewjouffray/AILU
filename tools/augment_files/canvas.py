@@ -70,6 +70,26 @@ class Canvas:
 
         self.__canvas = modBackground.black_to_image(self.__canvas, background)
 
+
+    def lowerRes(self):
+
+        # allows to reduce the resolution more on larger images
+        if self.__height > 720:
+            factor = random.uniform(1, 2)
+        else:
+            factor = random.uniform(1, 1.5)
+        lowerResImage = cv2.resize(self.__canvas, (int(self.__width / factor), int(self.__height / factor)))
+        self.__canvas = cv2.resize(lowerResImage, (self.__width, self.__height))
+
+    def blur(self):
+
+        kernelSize = random.randint(1, 5)
+
+        if kernelSize % 2 == 0:
+            kernelSize += 1
+
+        self.__canvas = cv2.GaussianBlur(self.__canvas, (kernelSize, kernelSize), cv2.BORDER_DEFAULT)
+
     def getCanvas(self):
 
         return self.__canvas

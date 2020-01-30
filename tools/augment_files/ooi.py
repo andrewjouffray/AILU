@@ -12,6 +12,7 @@ step3: position
 """
 import cv2
 import random
+import numpy as np
 
 class Ooi:
     __heightOfOoi = 0
@@ -30,6 +31,18 @@ class Ooi:
         angle = random.randint(0, 360)
         self.rotate(angle)
 
+        if random.randint(1, 10) == 1:
+            # affine transform
+            self.affineTransform()
+
+        if random.randint(1, 3) == 1:
+            # change gamma
+            self.changeGamma()
+
+        if random.randint(1, 4) == 1:
+
+            # change saturation
+            self.changeSaturation()
 
         # scale the object
         height, width = self.__image.shape[:2]
@@ -113,21 +126,39 @@ class Ooi:
 
         self.__image = rotated_mat
 
-    # TODO: add stretch
-
-    def stretch(self, direction, amplitude):
-        pass
-
     def affineTransform(self):
-        pass
+        rows, cols, ch = self.__image.shape
 
+        bottomFactor = random.uniform(0.1, 0.4)
+        topFactor = random.uniform(0.6, 1)
 
-    def changeAlpha(self):
-        pass
+        src_points = np.float32([[0, 0], [cols - 1, 0], [0, rows - 1]])
+        dst_points = np.float32([[0, 0], [int(topFactor * (cols - 1)), 0], [int(bottomFactor * (cols - 1)), rows - 1]])
 
-    # TODO: add plane shift / affine transform
-    # TODO add color vibrancy mod
-    # TODO add a scale limit to avoid loosing too much data (small object made huge look all blurry)
+        matrix = cv2.getAffineTransform(src_points, dst_points)
+        self.__image = cv2.warpAffine(self.__image, matrix, (cols, rows))
+
+        if random.randint(1, 2) == 2:
+            src_points = np.float32([[0, 0], [cols - 1, 0], [0, rows - 1]])
+            dst_points = np.float32([[cols - 1, 0], [0, 0], [cols - 1, rows - 1]])
+            matrix = cv2.getAffineTransform(src_points, dst_points)
+            self.__image = cv2.warpAffine(self.__image, matrix, (cols, rows))
+
+    def changeGamma(self):
+
+        gamma = random.uniform(0.8, 2)
+        invGamma = 1.0 / gamma
+        table = np.array([((i / 255.0) ** invGamma) * 255 for i in np.arange(0, 256)]).astype("uint8")
+        self.__image = cv2.LUT(self.__image, table)
+
+    def changeSaturation(self):
+
+        hsv_img = cv2.cvtColor(self.__image, cv2.COLOR_BGR2HSV)
+        saturationValue = random.uniform(0.5, 1.5)
+
+        # applies random saturation values
+        hsv_img[..., 1] = hsv_img[..., 1] * saturationValue
+        self.__image = cv2.cvtColor(hsv_img, cv2.COLOR_HSV2BGR)
 
     def getPosition(self):
         return self.__xAbsolutePos, self.__yAbsolutePos, self.__widthOfOoi, self.__heightOfOoi

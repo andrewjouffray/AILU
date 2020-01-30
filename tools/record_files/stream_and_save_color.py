@@ -39,22 +39,8 @@ def get_video(url):
             # get the color image from the Sony camera
             ret, color_image = cap.read()
 
-            # process the color and depth image to isolate the object of interest, returns the "blacked out" image
-            # blacked_color_img = getObject.using_blue(color_image)
-
-            # get the region of interest from the blacked out image
-            # rois = getROI.using_color(blacked_color_img)
-
-            # add the image to the video that we are saving
             out.write(color_image)
 
-            # show the blacked out image and draw the roi around the object of interest at the same time
-            # display.draw_and_show(color_image, [[0,0,0,0]], "color image")
-
-            print(count)
-
-
-            # stop recording and save teh video id we hit the 'q' key or reach 300 images taken
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
             elif count >= 400:
@@ -68,5 +54,3 @@ def get_video(url):
     finally:
         print("completed")
         cap.release()
-        # Stop streaming
-        # pipeline.stop()
