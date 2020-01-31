@@ -20,13 +20,10 @@ print(
 print(
     "=====================================================[enter \"exit\" at anytime to exit the program]=====================================================")
 
-# get inputs and check if they are there
-
+# get inputs directory
 source = input("\n> please enter to path to the source file: ")
 
 out = input("\n> please enter to path to the destination folder: ")
-
-
 # checks the given paths for the destination and source
 if not os.listdir(out):
     # if the destination path doesn't exist, create one

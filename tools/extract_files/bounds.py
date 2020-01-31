@@ -1,5 +1,9 @@
 import numpy as np
 
+'''
+Bounds is the object that handles and contains the upper a lower color bounds to keep in the image
+'''
+
 class Bounds:
 
     __pathToFiles = ""
@@ -11,8 +15,8 @@ class Bounds:
     def __init__(self):
         pass
 
+    # addColors will add colors that the user clicked on to the list of colors that have already been clicked on.
     def addColors(self, pixel):
-
         upper = [pixel[0] + self.__precision, pixel[1] + self.__precision, pixel[2] + self.__precision]
         lower = [pixel[0] - self.__precision, pixel[1] - self.__precision, pixel[2] - self.__precision]
         newColor = [upper, lower]
@@ -24,11 +28,14 @@ class Bounds:
         del self.__listOfColors[-1]
         self.__bounds = self.__lastBounds
 
+    # this method looks at the list of all colors and keeps the highest and lowest values and sets them as keeph and keepl
     def updateBounds(self):
 
+        # inits the value
         keepl = [0,0,0]
         keeph = [0,0,0]
 
+        # checks if the list of color has been populated
         if len(self.__listOfColors) > 0:
 
             for color in self.__listOfColors:
@@ -49,6 +56,8 @@ class Bounds:
                 if color[0][2] > keeph[2]:
                     keeph[2] = color[0][2]
 
+
+                # converts these values into
                 keepl = np.asanyarray(keepl)
                 keeph = np.asanyarray(keeph)
 

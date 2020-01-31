@@ -31,6 +31,7 @@ import augment_files.save_file as save_file
 import random
 import ailu_python.utils.display as display
 
+# checks the background files and makes sure that they are valid to be used with the program
 def loadBackgrounds(path):
     try:
         print("> Loading background images...")
@@ -50,6 +51,7 @@ def loadBackgrounds(path):
 
     return validFiles
 
+# checks the path provided by the user to make sure that it has .avi files in it
 def loadInput(path):
     try:
         print("> Loading input videos files...")
@@ -69,7 +71,7 @@ def loadInput(path):
 
     return validFiles
 
-# TODO: make it so that it can use more that 1 roi
+# gets the object of interest out of the input video frame
 def getOoi(frame):
     rois_img = func.getAllRoiImage(frame)
     if rois_img[0] is None:
@@ -96,6 +98,7 @@ def getRandomBackground(backgrounds):
 
 def main():
 
+    # canvas is just a black image that serves as the background before a random background can be added
     PATH_TO_CANVAS = "./augment_files/canvas.png"
 
     title1 ="\n     _____              .___            __________        __  .__                   _____                                      __      \n"
@@ -153,6 +156,7 @@ def main():
 
     label = input("\n> Enter the label of the objects: ")
 
+    # gets the number of canvases created from one frame
     while True:
         numberOfCanvases = input("\n> Multiply image by (1 -10): ")
         if numberOfCanvases.isnumeric():
@@ -166,6 +170,7 @@ def main():
         else:
             print("> Error: enter a number between 1 - 10", backgroundPath)
 
+    # gets the number of objects that can be put on a canvas
     while True:
         maxOoi = input("\n> Enter maximum number of Objects per image (1 - 10): ")
         if maxOoi.isnumeric():
@@ -179,24 +184,40 @@ def main():
         else:
             print("> Error: enter a number between 1 - 10", backgroundPath)
 
+    # those variables are just here to keep track of how many images were processed
     imageCount = 0
     addedTotal = 0
+
+    # iterates through the .avi files in the input directory
     for file in videoFiles:
+
         print("\n\n=======================================================================================================================================================")
         print("\n> Processing file:", file)
+
+        # opens the .avi file
         cap = cv2.VideoCapture(inputPath+file)
 
+        # while the video file in opened
         while cap.isOpened():
 
-
+            # get the frame
             ret, frame = cap.read()
+
+            # if there is a frame
             if ret == True:
+
+                # extract the object of interest out of it
                 ooi = getOoi(frame)
-                if not type(ooi)==bool:
+
+                # if getOoi isn't able to obtain an object of interest, it will just return False
+                if not type(ooi) == bool:
+
+                    # creates the specified amounts of canvases for this object of interest
                     for i in range(numberOfCanvases):
                         imageCount += 1
                         start = time.time()
 
+                        # creates a canvas with the ooi
                         canvas1 = Canvas(ooi,PATH_TO_CANVAS,getRandomBackground(backgrounds), maxOoi)
 
                         # creates a 1/5 chance to get a lower res image and a 1/10 chance to get a blurry image
@@ -208,13 +229,18 @@ def main():
                             if random.randint(1, 10) == 1:
                                 canvas1.blur()
 
+                        # gets the image out of the canvas
                         image = canvas1.getCanvas()
+
+                        # saves it along with an xml file containing the object positions
                         save_file.save_images(image, canvas1.getRois(), outPutPath, label)
 
                         end = time.time()
                         total = end - start
                         addedTotal = addedTotal + total
                         average = addedTotal / imageCount
+
+                        # print out a report on the amount of time it took to create the image
                         print(str(imageCount) + " / "+ str(400 * len(videoFiles) * numberOfCanvases) +" images generated | " + str(round(total, 5)) + " seconds per images | average: " + str(round(average, 5)) + " seconds.", end="\r")
 
                         # Uncomment below to see what the images look like
