@@ -229,6 +229,10 @@ def main():
                             if random.randint(1, 10) == 1:
                                 canvas1.blur()
 
+                        if random.randint(1, 15) == 1:
+                            canvas1.tint()
+                            print("tinted Image!")
+
                         # gets the image out of the canvas
                         image = canvas1.getCanvas()
 

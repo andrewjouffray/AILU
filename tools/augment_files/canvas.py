@@ -19,7 +19,10 @@ import cv2
 from augment_files.ooi import Ooi
 import time
 import ailu_python.data_augmentation.modify_background as modBackground
+import ailu_python.data_augmentation.transforms as transforms
 import ailu_python.utils.display as display
+import PIL
+import numpy as np
 
 class Canvas:
 
@@ -89,6 +92,14 @@ class Canvas:
             kernelSize += 1
 
         self.__canvas = cv2.GaussianBlur(self.__canvas, (kernelSize, kernelSize), cv2.BORDER_DEFAULT)
+
+    def tint(self):
+
+        colors = [[0, 255, 255], [255, 255, 0], [0, 255, 0], [255,0,0], [0,0,255], [255, 0, 255]]
+        PIL_img = PIL.Image.fromarray(self.__canvas)
+        color = colors[random.randint(0, len(colors) -1)]
+        PIL_img = transforms.RGBTransform().mix_with((color[0], color[1], color[2]), factor=random.uniform(0.05, 0.3)).applied_to(PIL_img)
+        self.__canvas = np.array(PIL_img)
 
     def getCanvas(self):
 
