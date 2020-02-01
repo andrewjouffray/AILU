@@ -240,6 +240,16 @@ def main():
                         addedTotal = addedTotal + total
                         average = addedTotal / imageCount
 
+                        '''
+                        maybe we could simulate shadows by increasing the brightness value in hsv images which will loop
+                        back around and make bright stops dark again, and therefore we could make it able to work in
+                        sunlight
+                        
+                        also we need to look into slight color temperature shifts in the images
+                        by doing something like this:
+                        redImage = RGBTransform().mix_with((255, 0, 0),factor=.30).applied_to(image)                        
+                        '''
+
                         # print out a report on the amount of time it took to create the image
                         print(str(imageCount) + " / "+ str(400 * len(videoFiles) * numberOfCanvases) +" images generated | " + str(round(total, 5)) + " seconds per images | average: " + str(round(average, 5)) + " seconds.", end="\r")
 
