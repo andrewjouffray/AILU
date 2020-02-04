@@ -193,6 +193,7 @@ def main():
 
         print("\n\n=======================================================================================================================================================")
         print("\n> Processing file:", file)
+        start = time.time()
 
         # opens the .avi file
         cap = cv2.VideoCapture(inputPath+file)
@@ -215,7 +216,7 @@ def main():
                     # creates the specified amounts of canvases for this object of interest
                     for i in range(numberOfCanvases):
                         imageCount += 1
-                        start = time.time()
+
 
                         # creates a canvas with the ooi
                         canvas1 = Canvas(ooi,PATH_TO_CANVAS,getRandomBackground(backgrounds), maxOoi)
@@ -231,7 +232,6 @@ def main():
 
                         if random.randint(1, 15) == 1:
                             canvas1.tint()
-                            print("tinted Image!")
 
                         # gets the image out of the canvas
                         image = canvas1.getCanvas()
@@ -239,23 +239,15 @@ def main():
                         # saves it along with an xml file containing the object positions
                         save_file.save_images(image, canvas1.getRois(), outPutPath, label)
 
-                        end = time.time()
-                        total = end - start
-                        addedTotal = addedTotal + total
-                        average = addedTotal / imageCount
-
                         '''
                         maybe we could simulate shadows by increasing the brightness value in hsv images which will loop
                         back around and make bright stops dark again, and therefore we could make it able to work in
                         sunlight
-                        
-                        also we need to look into slight color temperature shifts in the images
-                        by doing something like this:
-                        redImage = RGBTransform().mix_with((255, 0, 0),factor=.30).applied_to(image)                        
+                                               
                         '''
 
                         # print out a report on the amount of time it took to create the image
-                        print(str(imageCount) + " / "+ str(400 * len(videoFiles) * numberOfCanvases) +" images generated | " + str(round(total, 5)) + " seconds per images | average: " + str(round(average, 5)) + " seconds.", end="\r")
+                        # print(str(imageCount) + " / "+ str(400 * len(videoFiles) * numberOfCanvases) +" images generated | " + str(round(total, 5)) + " seconds per images | average: " + str(round(average, 5)) + " seconds.", end="\r")
 
                         # Uncomment below to see what the images look like
 
@@ -263,9 +255,15 @@ def main():
                         # if cv2.waitKey(25) & 0xFF == ord('q'):
                         #     print("\n> Exiting...")
                         #     exit()
-                        # time.sleep(2)
+                        # time.sleep(0.5)
             else:
                 break
+
+        end = time.time()
+        total = end - start
+        addedTotal = addedTotal + total
+        average = addedTotal / imageCount
+        print("\n> Average process speed: ", average, "sec.")
 
 
 

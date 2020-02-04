@@ -34,28 +34,34 @@ if not os.listdir(out):
         print(e)
         exit()
 
-# open video file
-try:
-    cap = cv2.VideoCapture(source)
-except Exception as e:
-    print(e)
-    exit()
+if not source.endswith("/"):
+    source = source + "/"
 
-count = 0
-while cap.isOpened():
+if not out.endswith("/"):
+    out = out + "/"
 
-    # Starts reading the file
-    ret, frame = cap.read()
+for file in os.listdir(source):
 
-    if ret:
+    # open video file
+    cap = cv2.VideoCapture(source+file)
+    count = 0
+    while True:
 
-        # gets every 30 frames
-        if count % 30 == 0:
-
-            # creates a name and save the file
-            name = "/" + str(time.time()) + ".png"
-            cv2.imwrite(out+name, frame)
+        # Starts reading the file
+        ret, frame = cap.read()
+        if ret:
             count += 1
-            print("successfully saved", count, "images")
+
+            # gets every 30 frames
+            if count % 19 == 0:
+
+                # creates a name and save the file
+                name = str(time.time()) + ".png"
+                cv2.imwrite(out+name, frame)
+                print("successfully saved", int(count/30), "images", end="\r")
+            else:
+                pass
+        else:
+            break
 
 print("done")

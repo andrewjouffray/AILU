@@ -135,6 +135,7 @@ class Ooi:
         src_points = np.float32([[0, 0], [cols - 1, 0], [0, rows - 1]])
         dst_points = np.float32([[0, 0], [int(topFactor * (cols - 1)), 0], [int(bottomFactor * (cols - 1)), rows - 1]])
 
+        # transforms it
         matrix = cv2.getAffineTransform(src_points, dst_points)
         self.__image = cv2.warpAffine(self.__image, matrix, (cols, rows))
 

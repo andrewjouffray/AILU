@@ -21,6 +21,7 @@ import time
 import ailu_python.data_augmentation.modify_background as modBackground
 import ailu_python.data_augmentation.transforms as transforms
 import ailu_python.utils.display as display
+import ailu_python.utils.tmp as func
 import PIL
 import numpy as np
 
@@ -30,6 +31,7 @@ class Canvas:
     __height = 0
     __aspectRatio = 0
     __listOfAspectRatios = [1.33, 1.66, 1.78, 1.85, 2.39]
+    # __listOfAspectRatios = [2.39]
     __objects = []
     __canvas = None
     __rois = []
@@ -37,7 +39,8 @@ class Canvas:
     def __init__(self, ooi, pathToCanvas, background, maxOoi = 10):
 
         # gets a random image height, aspect ration and width
-        self.__height = random.randint(360, 1080)
+        self.__height = random.randint(500, 720)
+        # self.__height = 900
         self.__aspectRatio = self.__listOfAspectRatios[random.randint(0, len(self.__listOfAspectRatios) - 1)]
         self.__width = int(self.__height * self.__aspectRatio)
         self.__rois = []
@@ -54,22 +57,41 @@ class Canvas:
         columnWidth = int(self.__width / numberOfOoi)
         # print("column width:", columnWidth)
 
+        """
+        Debugging here, canvases are created without any ooi, and I am not too sure why.
+        """
+
+
         # creates the objects of interest
-        for i in range(numberOfOoi):
+        # in some cases, no ooi are created and put in the canvas, in that case, try again
+        tries = 0
+        while True:
+            tries += 1
+            for i in range(2, numberOfOoi):
 
-            # create a new object
-            objectOfinterest = Ooi(ooi, columnWidth, self.__height, columnWidth * i)
-            self.__objects.append(objectOfinterest)
+                    # create a new object
+                    objectOfinterest = Ooi(ooi, columnWidth, self.__height, columnWidth * i)
+                    self.__objects.append(objectOfinterest)
 
-            # gets it's position
-            x1, y1, x2, y2 = objectOfinterest.getPosition()
+                    # gets it's position
+                    x1, y1, x2, y2 = objectOfinterest.getPosition()
 
-            # inserts the object into the column
-            try:
-                self.__canvas[y1:y2, x1:x2] = objectOfinterest.getObject()
-                self.__rois.append([x1, y1, x2, y2])
-            except Exception as e:
-                pass
+                    # inserts the object into the column
+                    try:
+                        self.__canvas[y1:y2, x1:x2] = objectOfinterest.getObject()
+                        # self.__rois.append([x1, y1, x2, y2])
+                    except Exception as e:
+                        pass
+            self.__rois = func.getROI.using_color_on_canvas(self.__canvas)
+            # checks if ooi were created, break the loop if yes.
+            if self.__rois != [[0,0,0,0]]:
+                print("success", tries)
+                break
+            elif tries > 100:
+                self.__objects = []
+                self.__rois = []
+                print("failed", self.__rois, tries)
+                break
 
         self.__canvas = modBackground.black_to_image(self.__canvas, background)
 
