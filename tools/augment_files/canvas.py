@@ -50,16 +50,12 @@ class Canvas:
         self.__canvas = canvas[:self.__height, :self.__width]
 
         # picks a random number of objects of interest to insert into the image
-        numberOfOoi = random.randint(1, maxOoi)
+        numberOfOoi = random.randint(2, maxOoi)
         # print("number of ooi:", numberOfOoi)
 
         # divides the image into columns, one for each object of interest (ooi)
         columnWidth = int(self.__width / numberOfOoi)
         # print("column width:", columnWidth)
-
-        """
-        Debugging here, canvases are created without any ooi, and I am not too sure why.
-        """
 
 
         # creates the objects of interest
@@ -67,7 +63,7 @@ class Canvas:
         tries = 0
         while True:
             tries += 1
-            for i in range(2, numberOfOoi):
+            for i in range(numberOfOoi):
 
                     # create a new object
                     objectOfinterest = Ooi(ooi, columnWidth, self.__height, columnWidth * i)
@@ -85,7 +81,7 @@ class Canvas:
             self.__rois = func.getROI.using_color_on_canvas(self.__canvas)
             # checks if ooi were created, break the loop if yes.
             if self.__rois != [[0,0,0,0]]:
-                print("success", tries)
+                # print("success", tries)
                 break
             elif tries > 100:
                 self.__objects = []
