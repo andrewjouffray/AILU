@@ -1,5 +1,6 @@
 #include <AccelStepper.h>
 #include <MultiStepper.h>
+#include <Servo.h>
 
 #define MOTOR_A_ENABLE_PIN 6
 #define MOTOR_A_STEP_PIN 4
@@ -12,10 +13,16 @@
 #define RELAY_ON 1      // Define relay on pin state
 #define RELAY_OFF 0     // Define relay off pin state
 
+#define SERVO_PIN_LEFT 10
+#define SERVO_PIN_RIGHT 11
+
 #define RelayLeft  8
 
 AccelStepper stepper1(1, MOTOR_A_STEP_PIN, MOTOR_A_DIR_PIN);
 AccelStepper stepper2(1, MOTOR_B_STEP_PIN, MOTOR_B_DIR_PIN);
+
+Servo servoLeft;
+Servo servoRight;
 
 const int limitSwitchTop = 0;
 const int limitSwitchBottom = 7;
@@ -26,10 +33,12 @@ String command;
 int pos;
 int mSpeed2;
 int lastLimSwitch = 1;
-
+double maxTopPosition = -38407;
+double minBottomPosition = 0;
+double actualMaxTopPosition = -38407;
 bool fullRotate = true;
 
-
+// ============================================SETUP=======================================================
 
 void setup()
 {
@@ -47,17 +56,22 @@ void setup()
 
     Serial.begin(9600);
     stepper2.setMaxSpeed(300);
-//    stepper2.moveTo(-10000.0);
+
+    servoLeft.attach(SERVO_PIN_LEFT);
+    servoRight.attach(SERVO_PIN_RIGHT);
 }
 
+//========================================= HELPER FUNCTIONS ===========================================
+
 // allows the base plate to rotate 
-void rotate(int angle){
+void rotate(double angle){
 
   if(angle == 360){
       angle = 100000;
     }
    else{
-      angle = angle * 9.7
+      angle = angle * 9.7;
+      fullRotate = false;
     }
   
   stepper1.setMaxSpeed(500.0);
@@ -65,7 +79,7 @@ void rotate(int angle){
 }
 
 // stops the base plate from rotating
-void stop rotate(){
+void stopRotate(){
     stepper1.setMaxSpeed(1.0);
     stepper1.moveTo(stepper1.currentPosition());
   }
@@ -73,25 +87,42 @@ void stop rotate(){
 // allows the linear actuator to go up
 void goUp(double speedV){
   stepper2.setMaxSpeed(speedV);
-  stepper2.moveTo(-38407);
+  stepper2.moveTo(actualMaxTopPosition);
   
 }
 
 // allows the linear actuator to go down
 void goDown(double speedV){
   stepper2.setMaxSpeed(speedV);
-  stepper2.moveTo(0);
+  stepper2.moveTo(minBottomPosition);
 }
+
+
+void getHeight(){
+  double currentPos = stepper2.currentPosition();
+  float height = currentPos * 0.0097378;
+  Serial.println("Height: " + String(height));
+  }
 
 
 // gets the current height of the linear actuator
-void getCurrentHeight(){
-
-  double currentPos = stepper2.currentPosition();
+void UpdateServoAngle(){
+  // the hight is used to calculate the angle that the servos need to be at 
+  // in order to track the object
+  double currentPos = stepper2.currentPosition() - minBottomPosition;
   float height = currentPos * 0.0097378;
-  Serial.println(height);
+  int intHeight = (int) height;
+  int distanceFromCenter = 356; //mm
+  float rad = 1/(distanceFromCenter / intHeight);
+  float invDeg = rad * (180 / 3.1415);
+  float fDeg = 180 - invDeg;
+  int degreeToRotate = (int) fDeg;
+  int mappedDeg = map(degreeToRotate, 0, 270, 0, 180);
+  servoLeft.write(mappedDeg);
+  servoRight.write(180 - mappedDeg);
   
 }
+
 
 // pulses the linear actuator, allowing user to move it up or down in real time 
 void pulse(bool value){
@@ -122,6 +153,9 @@ void zeroX(){
   }
 }
 
+
+// ======================================================= MAIN LOOP ==============================================
+
 int loops = 0;
 void loop(){
 loops ++;
@@ -129,19 +163,56 @@ loops ++;
         
         inByte = Serial.readStringUntil('\n'); // read data until newline
 
-        // parses the data into strings
-        String vSpeedByte = inByte;
-        String hAngleByte = inByte;
-        String trackObjectByte = inByte;
-        String lighting = inByte;
+        if(inByte.length() >= 8){
 
-        lighting = lighting.charAt(7);
-        trackObjectByte = trackObjectByte.charAt(6);
-        hAngleByte.remove(6,7);
-        hAngleByte.remove(0,3);
-        vSpeedByte.remove(3,7);
-          
-        Serial.println(vSpeedByte + "|" + hAngleByte + "|" + trackObjectByte+ "|" + lighting);
+          // parses the data into strings
+          String vSpeedByte = inByte;
+          String hAngleByte = inByte;
+          String trackObjectByte = inByte;
+          String lightingByte = inByte;
+          String directionByte = inByte;
+    
+          lightingByte = lightingByte.charAt(7);
+          trackObjectByte = trackObjectByte.charAt(6);
+          hAngleByte.remove(6,7);
+          hAngleByte.remove(0,3);
+          vSpeedByte.remove(3,7);
+          directionByte = directionByte.charAt(8);
+            
+          Serial.println(vSpeedByte + "|" + hAngleByte + "|" + trackObjectByte+ "|" + lightingByte);
+    
+          double vSpeed = vSpeedByte.toInt();
+          double hAngle = hAngleByte.toInt();
+          double trackObject = trackObjectByte.toInt();
+          double lighting = lightingByte.toInt();
+          int dir = directionByte.toInt();
+
+        
+          rotate(hAngle);
+
+          if(dir == 1){
+              goUp(vSpeed);
+            }
+          else{
+              goDown(vSpeed);
+            }
+
+        // for one string commands 
+        }else{
+
+          // zero x axis to bottom
+          if(inByte == "z"){
+              zeroX();
+            }
+
+          // set the z axis to zero regardless of where he is.
+
+          // TODO: add some sort of method to allow the robot to know it's height even when the user enters a custom zero so that the 
+          // robot doesn't ram into the top of the linear actuator.
+          else if(inByte == "q"){    
+              minBottomPosition = stepper2.currentPosition();
+            }
+        }
 
   }
 
@@ -167,13 +238,14 @@ loops ++;
 
   }
 
-  if(loops > 5000){    
-      digitalWrite(RelayLeft, RELAY_ON);
-    }
-  if(loops > 10000){
-      loops = 0;
-      digitalWrite(RelayLeft, RELAY_OFF);
-    }
+// use somethings like this to update the servo position from time to time.
+//  if(loops > 5000){    
+//      digitalWrite(RelayLeft, RELAY_ON);
+//    }
+//  if(loops > 10000){
+//      loops = 0;
+//      digitalWrite(RelayLeft, RELAY_OFF);
+//    }
 
   // makes the base plate oscilate between two angles
   if(fullRotate == false){
