@@ -2,55 +2,94 @@
 
 ## Project description:
 
- Design a python module able to control stepper motors and servos, by sending commands to an Arduino through serial. 
+ The controls of the robot will be in 3 layers, these consist of an interface sending json requests to a python server, sending 
+ commands through serial to an Arduino script.
+ 
+#### Requirements for the Arduino script:
 
-The frimware running on the Arduino is saved under:
-/servo_controls/servo_contols.ino, 
+The script will wait for commands from the python script through serial. The arduino script should not need to
+do any calculations (except unit conversions from mm or angle to rotation position), it should just take the data and do what it needs to do. 
 
-The python script sending the commands is saved as motor-controls.py
+__The main loop__
 
-## Project requirements:
+- Waits for data and parses the commands coming through.
+- calls the function to perform the task needed.
+- makes sure the serial buffer is empty after task is done
 
-Python script should be able to control all three mototors (Horizontal, Vertical and Servo) and be able to stop them at any time. 
+How to parse the data:
 
-It would be awesome to have methods like those:
+all commands will come with two letters to identify the command that needs to be ran followed by the required parameters, 
+looking like this for example: rn0300360131 rn = run, 0300 = vertical speed, 360 = base plate rotate angle, 1 = track
+the object, 3 = light setting, 1 = go to top position.
 
-    Robot.cw() # continuously move clock-wise
-    Robot.ccw() # continuously move counter-clock-wise
-    Robot.up() # Move up 1 step
-    Robot.Down() # Move down 1 step
-    Robot.sevro(<degree>) # Move servo up or down
-    Robot.stopHorziontal()
-    Robot.stopVertical()
+__1. run(position: int, speed: int, angle:int, lights: int, tracking: boolean)__
 
-Make sure to take in consideration the limit switches, stop the motor if a limit switch is closed.
+- sets the motors speed and the position to go to (converts angles motor position)
+- starts a loop 
+- runs the vertical stepper motor
+- runs the horizontal stepper motor (if the angle is less than 360, go back and forth)
+- calls the updateServo function every n loop
+- calls the light function every n loop
+- ends loop when position is reached
+- sends 'done' back to the python server
 
-## Important Details
+__2. goTo(position: int, speed: int)__
 
-I commented the code to hopefully make it easier to understand it, but here are some important details:
+- sets the motor speed and the position to go to
+- starts a loop 
+- runs the vertical stepper motor
+- ends loop when position is reached
+- sends 'done' back to the python server
 
-1. Make sure you have Python 3 installed 
+__3. turnTo(angle: int, speed: int)__
 
-2. On my PC the serial port to comunicate with the arduino is COM7, it might be different on your PC, so check what it is and change it in the Pyhton code, (it should tell you what the COM is in the bottom right corner of the Arduino IDE). 
+- sets the motor speed and the position to go to
+- starts a loop 
+- runs the horizontal stepper motor
+- ends loop when position is reached
+- sends 'done' back to the python server
 
-3. The Python program uses a module called serial, you need to dowlnload it by running "pip install pyserial" in your power shell. 
+__4. zeroY()__
 
-4. currently the robot is controlled by sending a string like this: "a200" the first letter "a" is the direction to go: 
-    - "a" is clock-wise, 
-    - "d" is counter-clock-wise, 
-    - "w" is up, 
-    - "s" is down
-    - "o" is the servo
+- sets the motor speed and the position to go to (something like speed:2000 pos: 1000000)
+- checks to see if the bottom switch is already triggered, if not:
+- starts a loop 
+- runs the vertical stepper motor
+- ends loop when bottom switch is triggered
+- sets the motor position to zero
+- sends 'done' back to the python server
 
-    followed by a number representing steps to take for the stepper motors and the angle for the servo.
-    The Horizontal stepper axis has 355 steps, the vertical stepper axis has 350 steps, and the servo can move between 0 and 270 degree
+__5. setBottomLimit()__
 
-## Schematics
+- sets the bottomLimit to the current motor position.
+- sends 'done' back to the python server
 
-![ Breadboard Diagram](../docs/imgs/AILU_electronics_bb.png)
+__6. setCameraAngle(angle: int)__
 
-![ Schematic](../docs/imgs/AILU_electronics_schem.png)
+- sets the servoAngle
+- moves the servos to that angle
+- sends 'done' back to the python server
+ 
+__7. updateServo(verticalMotorPosition: int)__
 
+_the distance from the motors to the center of the base is about 350 mm_
+
+- converts the vertical motor pos to mm
+- compute the angle that the servos need to be at
+- sets the servos to that angle
+
+__8. lights(lightsToTurnOn: int)__
+
+_lightsToTurnOn values 1: all lights on, 2: right light, 3 left light_
+
+- sets the correct relays on
+- sets the correct relays off
+
+
+__9. getDistanceToTravel()__
+
+- calculates the distance that the camera will need to travel
+- sends it to the python script
 
 Thank you so much for working with me on this project, it will be a tone of fun, feel free to change things that you want.
 

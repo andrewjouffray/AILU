@@ -25,6 +25,8 @@ class Ooi:
 
     def __init__(self, objectOfInterest, columWidth, columnHeight, xAbsolutePos):
 
+        verbose = False
+
         self.__image = objectOfInterest
 
         # rotate the object
@@ -46,8 +48,10 @@ class Ooi:
 
         # scale the object
         height, width = self.__image.shape[:2]
-        maxScaleHeight = (columnHeight / height) - 0.1
-        maxScaleWidth = (columWidth / width) - 0.1
+        maxScaleHeight = (columnHeight / height) - 0.01
+        maxScaleWidth = (columWidth / width) - 0.01
+
+
 
         # find the maximum scale for the object to fit in the column
         if maxScaleHeight > maxScaleWidth:
@@ -55,6 +59,13 @@ class Ooi:
         else:
             self.__maxScale = maxScaleHeight
 
+        self.__minScale = self.__maxScale / 1.3
+
+        if verbose == True:
+            print("columnHeight / columWidth:", columnHeight, columWidth)
+            print("height / width:", height, width)
+            print("maxScaleHeight / maxScaleWidth:", maxScaleHeight, maxScaleWidth)
+            print("max / min:", self.__maxScale, self.__minScale)
 
         scale = random.uniform(self.__minScale, self.__maxScale)
         self.scale(scale)

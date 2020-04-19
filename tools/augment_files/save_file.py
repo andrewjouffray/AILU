@@ -6,15 +6,20 @@ import numpy as np
 
 
 # This function saves the image and write the xml file
-def save_images(img, rois, save_dir, object):
+def save_images(img, rois, save_dir, label, mask):
+
+    imDir = save_dir + "images/"
+    maskDir = save_dir + "masks/"
+    xmlDir = save_dir + "xml/"
 
     # Use the current time in ms as name
     name = "roi" + str(time())
     # Saves the image
-    imwrite(save_dir+name+".png", img)
+    imwrite(imDir+name+".png", img)
+    imwrite(maskDir+name+".png", mask)
 
     # folder to save the images in
-    FOLDER_NAME = "ar-codes/training-augmented"
+    FOLDER_NAME = "not_important"
 
     # This will only save the first roi, we need to make it be able so save all the rois in the future.
 
@@ -49,7 +54,7 @@ def save_images(img, rois, save_dir, object):
         # print(x1, y1, x2, y2)
         # Change the name depending on what the object is
         object0 = ET.SubElement(annotation, "object")
-        ET.SubElement(object0, "name").text = object
+        ET.SubElement(object0, "name").text = label
         ET.SubElement(object0, "pose").text = "Unspecified"
         ET.SubElement(object0, "truncated").text = "0"
         ET.SubElement(object0, "difficult").text = "0"
@@ -63,6 +68,6 @@ def save_images(img, rois, save_dir, object):
 
     # Writes the XML file
     tree = ET.ElementTree(annotation)
-    tree.write(save_dir + name + ".xml")
+    tree.write(xmlDir + name + ".xml")
 
     return

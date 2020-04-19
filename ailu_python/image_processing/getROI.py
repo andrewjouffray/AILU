@@ -18,7 +18,7 @@ def using_color(image):
     threshold = cv2.morphologyEx(threshold, cv2.MORPH_OPEN, rect_kernel)
 
     # Fills the black space between white pixels that are at least 60 pixels close
-    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (300, 300))
+    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (580, 580))
     threshold = cv2.morphologyEx(threshold, cv2.MORPH_CLOSE, rect_kernel)
 
     # Uncomment those two lines of you want to see what it looks like:
@@ -83,8 +83,8 @@ def using_color_on_canvas(image):
     rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (4, 4))
     threshold = cv2.morphologyEx(threshold, cv2.MORPH_OPEN, rect_kernel)
 
-    # Fills the black space between white pixels that are at least 60 pixels close
-    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (90, 90))
+    # Fills the black space between white pixels that are at least 10 pixels close
+    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (10, 10))
     threshold = cv2.morphologyEx(threshold, cv2.MORPH_CLOSE, rect_kernel)
 
     # Uncomment those two lines of you want to see what it looks like:
@@ -100,11 +100,21 @@ def using_color_on_canvas(image):
     for c in contours:
         # Gets the area of each contours in the image
         area = cv2.contourArea(c)
-        if area > 50:
-            # save the x1, y1, x2, y2, coordinates of that contour if it's larger than 3000 pixels
+        if area > 500:
             x, y, w, h = cv2.boundingRect(c)
             xy_coordinates = [x, y, x+w, y+h]
-            valid_contours.append(xy_coordinates)
+            valid = True
+            for cCompare in contours:
+                x2, y2, w2, h2 = cv2.boundingRect(cCompare)
+                xy_coordinates2 = [x2, y2, x2 + w2, y2 + h2]
+                if xy_coordinates[0] > xy_coordinates2[0] and xy_coordinates[1] > xy_coordinates2[1] and xy_coordinates2[2] > xy_coordinates[2] and xy_coordinates2[3] > xy_coordinates[3]:
+                    valid = False
+                    # print("invalid")
+                    break
+
+            if valid:
+                valid_contours.append(xy_coordinates)
+
 
 
     # checks to see if there are valid contours and returns them

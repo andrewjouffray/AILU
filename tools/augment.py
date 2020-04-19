@@ -140,6 +140,19 @@ def main():
             print("> Created path", outPutPath)
             break
 
+
+    if not os.path.exists(outPutPath+"images/"):
+        os.mkdir(outPutPath+"images/")
+        print("> Created path", outPutPath+"images/")
+
+    if not os.path.exists(outPutPath+"masks/"):
+        os.mkdir(outPutPath+"masks/")
+        print("> Created path", outPutPath+"masks/")
+
+    if not os.path.exists(outPutPath+"xml/"):
+        os.mkdir(outPutPath+"xml/")
+        print("> Created path", outPutPath+"xml/")
+
     # gets the path to the background images
     while True:
         backgroundPath = input("\n> Enter Path to Background images: ")
@@ -233,11 +246,14 @@ def main():
                         if random.randint(1, 15) == 1:
                             canvas1.tint()
 
-                        # gets the image out of the canvas
+                        # gets the image from the canvas
                         image = canvas1.getCanvas()
 
-                        # saves it along with an xml file containing the object positions
-                        save_file.save_images(image, canvas1.getRois(), outPutPath, label)
+                        # gets the mask from the canvas
+                        mask = canvas1.getMask()
+
+                        # saves them along with an xml file containing the object positions
+                        save_file.save_images(image, canvas1.getRois(), outPutPath, label, mask)
 
                         '''
                         maybe we could simulate shadows by increasing the brightness value in hsv images which will loop
@@ -251,11 +267,12 @@ def main():
 
                         # Uncomment below to see what the images look like
 
-                        # display.draw_and_show(image, canvas1.getRois(), "canvas")
-                        # if cv2.waitKey(25) & 0xFF == ord('q'):
-                        #     print("\n> Exiting...")
-                        #     exit()
-                        # time.sleep(0.5)
+                        display.draw_and_show(mask, canvas1.getRois(), "mask")
+                        display.draw_and_show(image, canvas1.getRois(), "canvas")
+                        if cv2.waitKey(25) & 0xFF == ord('q'):
+                            print("\n> Exiting...")
+                            exit()
+                        time.sleep(0.5)
             else:
                 break
 

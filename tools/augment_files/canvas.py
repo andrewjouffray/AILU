@@ -34,6 +34,7 @@ class Canvas:
     # __listOfAspectRatios = [2.39]
     __objects = []
     __canvas = None
+    __mask = None
     __rois = []
 
     def __init__(self, ooi, pathToCanvas, background, maxOoi = 10):
@@ -83,12 +84,12 @@ class Canvas:
             if self.__rois != [[0,0,0,0]]:
                 # print("success", tries)
                 break
-            elif tries > 100:
+            elif tries > 5:
                 self.__objects = []
                 self.__rois = []
                 print("failed", self.__rois, tries)
                 break
-
+        self.__mask = modBackground.create_masks(self.__canvas, background)
         self.__canvas = modBackground.black_to_image(self.__canvas, background)
 
 
@@ -122,6 +123,10 @@ class Canvas:
     def getCanvas(self):
 
         return self.__canvas
+
+    def getMask(self):
+
+        return self.__mask
 
     def getRois(self):
 
