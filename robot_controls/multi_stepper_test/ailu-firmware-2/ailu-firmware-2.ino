@@ -38,6 +38,16 @@ double minBottomPosition = 0;
 double actualMaxTopPosition = -38407;
 bool fullRotate = true;
 bool trackObject = false;
+
+/********************************* COMMANDS *************************************
+
+? Return available commands
+. Return current settings
+setStart [<h | v> <position>]
+setEnd [<h | v> <position>]
+setSpeed [<h | v> <speed>]
+
+********************************************************************************/
 // ============================================SETUP=======================================================
 
 void setup()
