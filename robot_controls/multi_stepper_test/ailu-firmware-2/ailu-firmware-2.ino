@@ -2,6 +2,9 @@
 #include <MultiStepper.h>
 #include <Servo.h>
 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #define MOTOR_A_ENABLE_PIN 6
 #define MOTOR_A_STEP_PIN 4
 #define MOTOR_A_DIR_PIN 5
@@ -43,9 +46,28 @@ bool trackObject = false;
 
 ? Return available commands
 . Return current settings
+@ Return current motor position
 setStart [<h | v> <position>]
+  h: sets bottom position, default 0
+  v:  sets start degree, default 0
 setEnd [<h | v> <position>]
+  h: sets top position
+  v: sets end degree, default none
 setSpeed [<h | v> <speed>]
+  set speed of stepper motors, 
+  h: [300-2000], default 
+run
+  runs both motors with the current settings
+end
+  stops both motors
+moveH <position>
+  move to a relative position (0-360)
+moveV <position>
+  move to a vertical position (0,-38407)  
+setMotor <h | v> <0 | 1>
+  toggles motor on or off
+setTracking <0 | 1>
+  toggles camera servo to track object
 
 ********************************************************************************/
 // ============================================SETUP=======================================================
@@ -185,10 +207,25 @@ void loop(){
 loops ++;
   if(Serial.available()){ //checks if there is data coming from the python script
     // read data
-    
+
         
-        inByte = Serial.readStringUntil('\n'); // read data until newline
+        char buf[50];
+        Serial.readBytesUntil('\n', buf, 49);
+//        buf = Serial.readStringUntil('\n'); // read data until newline
+        char *str;
+        char *comm;
+        str = strtok(buf," ");
+        switch(com){
+          case "set
+        }
+        while(com != NULL){
+          Serial.println(com);
+          str = strtok(NULL," ");
+          
+        }
+//        inByte = Serial.readStringUntil('\n'); // read data until newline
         Serial.println(inByte);
+        
         if(inByte.length() >= 8){
 
           // parses the data into strings
@@ -266,62 +303,63 @@ loops ++;
         }
 
   }
-
-  if (trackObject == true){
-      if(loops > 1000){    
-        UpdateServoAngle();
-        loops = 0;
-      }
-    }
-
-
-  if (digitalRead(limitSwitchTop) == HIGH){
-
-      if(lastLimSwitch == 2){
-        Serial.println("position: "+ String(stepper2.currentPosition()));
-        Serial.println("top limit switch reached");
-        lastLimSwitch = 1;
-      }
-
-
-  }
-  if (digitalRead(limitSwitchBottom) == HIGH){
-
-      if(lastLimSwitch == 1){
-        Serial.println("position: " + String(stepper2.currentPosition()));
-        Serial.println("bottom limit switch reached");
-        stepper2.stop();
-        lastLimSwitch = 2;
-      }
-
-  }
-
-//  if (stepper2.currentPosition() == actualMaxTopPosition){
-//      Serial.println("top");
-//    }
-//
-//  if (stepper2.currentPosition() == minBottomPosition){
-//      Serial.println("bottom");
-//    }
-
-// use somethings like this to update the servo position from time to time.
-//  if(loops > 5000){    
-//      digitalWrite(RelayLeft, RELAY_ON);
-//    }
-//  if(loops > 10000){
-//      loops = 0;
-//      digitalWrite(RelayLeft, RELAY_OFF);
-//    }
-
-  // makes the base plate oscillate between two angles
-  if(fullRotate == false){
-    if (stepper1.distanceToGo() == 0){
-        stepper1.moveTo(-stepper1.currentPosition());
-    }  
-  }
-
   stepper1.run();
   stepper2.run();
+
+//  if (trackObject == true){
+//      if(loops > 1000){    
+//        UpdateServoAngle();
+//        loops = 0;
+//      }
+//    }
+//
+//
+//  if (digitalRead(limitSwitchTop) == HIGH){
+//
+//      if(lastLimSwitch == 2){
+//        Serial.println("position: "+ String(stepper2.currentPosition()));
+//        Serial.println("top limit switch reached");
+//        lastLimSwitch = 1;
+//      }
+//
+//
+//  }
+//  if (digitalRead(limitSwitchBottom) == HIGH){
+//
+//      if(lastLimSwitch == 1){
+//        Serial.println("position: " + String(stepper2.currentPosition()));
+//        Serial.println("bottom limit switch reached");
+//        stepper2.stop();
+//        lastLimSwitch = 2;
+//      }
+//
+//  }
+//
+////  if (stepper2.currentPosition() == actualMaxTopPosition){
+////      Serial.println("top");
+////    }
+////
+////  if (stepper2.currentPosition() == minBottomPosition){
+////      Serial.println("bottom");
+////    }
+//
+//// use somethings like this to update the servo position from time to time.
+////  if(loops > 5000){    
+////      digitalWrite(RelayLeft, RELAY_ON);
+////    }
+////  if(loops > 10000){
+////      loops = 0;
+////      digitalWrite(RelayLeft, RELAY_OFF);
+////    }
+//
+//  // makes the base plate oscillate between two angles
+//  if(fullRotate == false){
+//    if (stepper1.distanceToGo() == 0){
+//        stepper1.moveTo(-stepper1.currentPosition());
+//    }  
+//  }
+
+  
 
 
   }
