@@ -43,17 +43,20 @@ class Compute(Thread):
         return speed
 
     def getFromArduino(self, message):
-        ser = serial.Serial("com6", 9600, timeout=0)
+        ser = serial.Serial("com3", 9600, timeout=0)
+        message = message
         messageByte = message.encode()
         ser.write(messageByte)
         time.sleep(1)
         responce = ser.readline()
         responce = str(responce)
         responce = responce[2:-5]
+        print(responce)
         return responce
 
     def comToArduinoWait(self, message):
-        ser = serial.Serial("com6", 9600, timeout=0)
+        ser = serial.Serial("com3", 9600, timeout=0)
+        message = message
         messageByte = message.encode()
         ser.write(messageByte)
         time.sleep(1)
@@ -62,6 +65,7 @@ class Compute(Thread):
             responce = str(responce)
             responce = responce[2:-5]
             if len(responce) > 0:
+                print(responce)
                 return responce
 
     def writeDatasetFile(self, datasetName, datasetType, bndBoxes, masks, workDir):
@@ -70,7 +74,14 @@ class Compute(Thread):
         for file in files:
             if not "." in file:
                 label.append(file)
-        data = {'name':datasetName, 'type':datasetType, 'labels': label, 'outputType': [{'masks':masks, 'boundingBoxes': bndBoxes}]}
+        data = {'name':datasetName, 
+        'type':datasetType, 
+        'labels': label, 
+        'outputType': [
+            {'masks':masks,
+            'boundingBoxes': bndBoxes
+            }]
+        }
         with open('dataset-config.json', 'w') as outfile:
             json.dump(data, outfile)
 
@@ -88,6 +99,11 @@ class Compute(Thread):
         datasetType = data["type"]
         bndBoxes = bool(data["bndBoxes"])
         masks = bool(data["bndBoxes"])
+
+        if track:
+            track = 1
+        else:
+            track = 0
 
         # setup paths
         workDir = "C:/Users/Andrew/Documents/GitHub/AILU/robot_controls/server/"+dataSetName+"/"
@@ -119,7 +135,6 @@ class Compute(Thread):
         self.recordAndSave(saveDir, images)
         
         return "done"
-
 
 
 
