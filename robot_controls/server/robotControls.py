@@ -36,105 +36,41 @@ class Compute(Thread):
         out.release()
         # return true
 
-    # calculates the exact value to set the motor speed to take the correct amount of images
-    def getMotorSpeed(self, images, lowLimit):
-        distanceToTravel = 396 - lowLimit
-        speed = ((distanceToTravel*30) + (0.49 * images)) / (0.0097*images)
-        return speed
+    def stream(self, Images):
+        # we use this video to simulate the camera stream
+        cap = cv2.VideoCapture("./rp-lighting-no-light.avi")
+        frameNumber = 0
+        while cap.isOpened():
+            ret, frame = cap.read()
+            if ret:
+                frameNumber +=1
+                cv2.imshow('AILU_feed', frame)
+                try:
+                    # the video file we use, only has 630 frames so we limit it manually
+                    if (cv2.waitKey(1) & 0xFF == ord('q')) or frameNumber == 600:
+                        break
 
-    def getFromArduino(self, message):
-        ser = serial.Serial("com3", 9600, timeout=0)
-        message = message
-        messageByte = message.encode()
-        ser.write(messageByte)
-        time.sleep(1)
-        responce = ser.readline()
-        responce = str(responce)
-        responce = responce[2:-5]
-        print(responce)
-        return responce
+                except Exception:
+                    print(Exception)
+            
+        try:
+            cap.release()
+            cv2.destroyWindow('AILU_feed') 
 
-    def comToArduinoWait(self, message):
-        ser = serial.Serial("com3", 9600, timeout=0)
-        message = message
-        messageByte = message.encode()
-        ser.write(messageByte)
-        time.sleep(1)
-        while true:
-            responce = ser.readline()
-            responce = str(responce)
-            responce = responce[2:-5]
-            if len(responce) > 0:
-                print(responce)
-                return responce
-
-    def writeDatasetFile(self, datasetName, datasetType, bndBoxes, masks, workDir):
-        files = os.listdir(workDir)
-        label = []
-        for file in files:
-            if not "." in file:
-                label.append(file)
-        data = {'name':datasetName, 
-        'type':datasetType, 
-        'labels': label, 
-        'outputType': [
-            {'masks':masks,
-            'boundingBoxes': bndBoxes
-            }]
-        }
-        with open('dataset-config.json', 'w') as outfile:
-            json.dump(data, outfile)
+        except Exception:
+            print(Exception)
 
 
     def run(self):
 
-        data = self.request.form
-        dataSetName = data["dataSetName"]
-        label = data["label"]
-        images = int(data["images"])
-        track = bool(data["track"])
-        lowerLimit = int(data["lowerLimit"])
-        rotateLimit = int(data["rotateLimit"])
-        lights = int(data["lights"])
-        datasetType = data["type"]
-        bndBoxes = bool(data["bndBoxes"])
-        masks = bool(data["bndBoxes"])
+        data = self.request
 
-        if track:
-            track = 1
+        if data[0] == "stream":
+            self.stream(data[2])
         else:
-            track = 0
-
-        # setup paths
-        workDir = "C:/Users/Andrew/Documents/GitHub/AILU/robot_controls/server/"+dataSetName+"/"
-        saveDir = workDir+label
-
-        #create a directory to save the rawData
-        if not os.path.isdir(workDir):
-            os.mkdir(workDir)
-
-        #create a directory to save the rawData
-        if not os.path.isdir(saveDir):
-            os.mkdir(saveDir)
-
-        speed = self.getMotorSpeed(images, lowerLimit)
-
-        #position = getFromArduino("position")
-        position = "bottom"
-
-        if position == "top":
-            direction = 0 #go down
-        else:
-            direction = 1 #go up
-
-        #this is a dummy for the ser.write function
-        print(speed, rotateLimit, track, lights, direction)
-
-        self.writeDatasetFile(dataSetName, datasetType, bndBoxes, masks, workDir)
-
-        self.recordAndSave(saveDir, images)
-        
-        return "done"
+            self.recordAndSave(data[1], data[2])
+            
+            return "done"
 
 
 

@@ -1,4 +1,12 @@
-String variable = "0";
+
+int Vspeed = 0;
+int Vlimit = 0;
+int Hlimit = 360;
+bool tracking = true;
+int lightingPreSet = 0;
+String currentPosition = "bottom";
+
+
 String inByte;
 void setup() {
   // put your setup code here, to run once:
@@ -6,56 +14,93 @@ void setup() {
 
 }
 
+// Vlim = set bottom limit | value 0, -38407
+// Hlim = set rotation limit | value 0 , 3492
+// trac = track the object of interest | value 0, 1
+// ligh = sets the lighting settigs | value 1, 3
+// runD = runs the robot down (base rotates, lights go on, camera goes down and tracks) | value <speed of the motor>
+// runU = runs the robot up (base rotates, lights go on, camera goes up and tracks) | value <speed of the motor>
+// getP = returns the current position of the camera | value is not impotant 
+// goHo = go horizontal, rotates the robot to a specific position | value 0 , 3492 
+// goVe = go vertical, brings the camera up / down to a specific position | value 0, -38407
+// anything = gets returns all the settings | value is not important 
+
 void loop() {
-  // put your main code here, to run repeatedly:
   if(Serial.available()){ //checks if there is data coming from the python script
-    // read data
-    
-        
         inByte = Serial.readStringUntil('\n'); // read data until newline
-        if(inByte.length() >= 8){
+        String command =  inByte.substring(0,4); // first 4 char are the command
+        inByte.remove(0,4);
+        int value = inByte.toInt(); // the rest of the message is the value (speed, position, settings etc...)
 
-          // parses the data into strings
-          String vSpeedByte = inByte;
-          String hAngleByte = inByte;
-          String trackObjectByte = inByte;
-          String lightingByte = inByte;
-          String directionByte = inByte;
-    
-          lightingByte = lightingByte.charAt(7);
-          trackObjectByte = trackObjectByte.charAt(6);
-          hAngleByte.remove(6,7);
-          hAngleByte.remove(0,3);
-          vSpeedByte.remove(3,7);
-          directionByte = directionByte.charAt(8);
-            
-          Serial.println(vSpeedByte + "|" + hAngleByte + "|" + trackObjectByte+ "|" + lightingByte);
-
-        }else{
-          String all = inByte;
-          char message = all.charAt(0);
-          if(message == 'm'){
-            delay(1000);
-            Serial.println("responce after delay!");
+          // sets the lower limit
+          if(command == "Vlim"){
+            Vlimit = value;
+            Serial.println("Vertical limit set to: " + String(value));
             
             }
-          else if(message == 'n'){
 
-            Serial.println("emidiate responce");
+          // sets the rotation limit 
+          else if (command == "Hlim"){
+            Hlimit = value;
+            Serial.println("Horizontal limit set to: " + String(value));
+            }
+
+          // sets the track object boolean
+          else if (command == "trac"){
+                if(value != 1){
+                    tracking = false;
+                  }else{
+                  tracking = true;   
+                 }
+                Serial.println("object tracking set to: " + String(tracking));
             
             }
-          else if (message == 's'){
-            inByte.remove(0);
-            variable = inByte;
-            Serial.println(variable);
-            }
 
-          else if (message == 'g'){
-
-                Serial.println(variable);
+          // sets the lights settings 
+          else if (command == "ligh"){
+             lightingPreSet = value;
+             Serial.println("lighting pre-set, set to: " + String(value));
             
             }
-        }
+
+          // run down, runs the robot and makes the camera go down
+          else if (command == "runD"){
+            currentPosition = "bottom";
+            Serial.println("going down at speed" + String(value));
+            // here you would run everything at the given speed
+            
+            }
+
+          // run Up, runs the robot and makes the camera go up
+          else if (command == "runU"){
+            currentPosition = "top";
+            Serial.println("going up at speed" + String(value));
+            }
+            
+          //prints current position
+          else if (command == "getP"){
+            Serial.println(currentPosition);
+            
+            }
+            
+          // rotates to a position
+          else if (command == "goHo"){
+            // we will use a constant speeed of 2000
+            Serial.println("rotating to" + String(value));
+            }
+
+          // goes to a position
+          else if (command == "goVe"){
+            // we will use a constant speeed of 2000
+            Serial.println("going to" + String(value));
+            }
+
+           // prints all the settings
+           else{
+              Serial.println(String(Vspeed) + "," + String(Vlimit) + "," +  String(Hlimit) + "," + String(tracking) + "," + String(lightingPreSet));
+            }
+
+
 
   }
 
