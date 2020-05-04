@@ -34,15 +34,17 @@ void loop() {
 
           // sets the lower limit
           if(command == "Vlim"){
+            value = value / (0.0097378 * -1);
             Vlimit = value;
-            Serial.println("Vertical limit set to: " + String(value));
+            Serial.println("Vertical limit set to : " + String(value));
             
             }
 
           // sets the rotation limit 
           else if (command == "Hlim"){
+            value = value * 9.7;
             Hlimit = value;
-            Serial.println("Horizontal limit set to: " + String(value));
+            Serial.println("Horizontal limit set to : " + String(value));
             }
 
           // sets the track object boolean
@@ -52,21 +54,21 @@ void loop() {
                   }else{
                   tracking = true;   
                  }
-                Serial.println("object tracking set to: " + String(tracking));
+                Serial.println("object tracking set to : " + String(tracking));
             
             }
 
           // sets the lights settings 
           else if (command == "ligh"){
              lightingPreSet = value;
-             Serial.println("lighting pre-set, set to: " + String(value));
+             Serial.println("lighting pre-set, set to : " + String(value));
             
             }
 
           // run down, runs the robot and makes the camera go down
           else if (command == "runD"){
             currentPosition = "bottom";
-            Serial.println("going down at speed" + String(value));
+            Serial.println("going down at speed " + String(value));
             // here you would run everything at the given speed
             
             }
@@ -74,7 +76,7 @@ void loop() {
           // run Up, runs the robot and makes the camera go up
           else if (command == "runU"){
             currentPosition = "top";
-            Serial.println("going up at speed" + String(value));
+            Serial.println("going up at speed " + String(value));
             }
             
           //prints current position
@@ -86,13 +88,15 @@ void loop() {
           // rotates to a position
           else if (command == "goHo"){
             // we will use a constant speeed of 2000
-            Serial.println("rotating to" + String(value));
+            value = value * 9.7;
+            Serial.println("rotating to " + String(value));
             }
 
           // goes to a position
           else if (command == "goVe"){
             // we will use a constant speeed of 2000
-            Serial.println("going to" + String(value));
+            value = value / (0.0097378 * -1);
+            Serial.println("going to " + String(value));
             }
 
            // prints all the settings

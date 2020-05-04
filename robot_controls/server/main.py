@@ -5,6 +5,7 @@ import serial
 import time 
 import json
 import robotControls as robot
+import os
 
 ROBOT_NAME = "AILU_0001"
 
@@ -37,7 +38,7 @@ def comToArduino(message):
 def getMotorSpeed(images, lowLimit):
     distanceToTravel = 396 - lowLimit
     speed = ((distanceToTravel*30) + (0.49 * images)) / (0.0097*images)
-    return speed
+    return int(speed)
 
 
 def writeDatasetFile(datasetName, datasetType, bndBoxes, masks, workDir):
@@ -87,7 +88,7 @@ def run():
         thread_a.start()
 
         responce = {"message":"quick check in progress"}
-        return responce, 200
+        return responce, 201
     else:
 
         dataSetName = data["dataSetName"]
@@ -98,6 +99,7 @@ def run():
         datasetType = data["type"]
         bndBoxes = bool(data["bndBoxes"])
         masks = bool(data["masks"])
+        lowerLimit = int(data["lowerLimit"])
 
         workDir = "C:/Users/Andrew/Documents/GitHub/AILU/robot_controls/server/"+dataSetName+"/"
         saveDir = workDir+label
@@ -127,14 +129,14 @@ def run():
         thread_a.start()
 
         # writes the command to the arduino
-        command = command+speed
+        command = command+str(speed)
         comToArduino(command)
 
         # writes the dataset config file
         writeDatasetFile(dataSetName, datasetType, bndBoxes, masks, workDir)
 
         responce = {"message":"imaging in progress"}
-        return responce, 200
+        return responce, 201
 
 @app.route('/set', methods = ['POST'])
 def setSettings():
@@ -152,11 +154,11 @@ def getSettings():
     messageList = message.split(",")
     print(messageList)
     responce = {"Vspeed":messageList[0], "Vlimit": messageList[1], "Hlimit": messageList[2], "tracking": messageList[3], "lighting":messageList[4]}
-    return responce, 200
+    return responce, 201
 
 @app.route('/status', methods = ['GET'])
 def getStatus():
     responce = {"message":"ready"}
-    return responce, 200
+    return responce, 201
 
 app.run()

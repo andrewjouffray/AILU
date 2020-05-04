@@ -1,1 +1,0 @@
-{"name": "testDataset", "type": "objectDetection", "labels": ["cars", "train"], "outputType": [{"masks": true, "boundingBoxes": true}]}
