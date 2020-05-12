@@ -1,30 +1,32 @@
 /********************************* COMMANDS *************************************
-
-  ? Return available commands
-  . Return current settings
-  getP
-  Return current motor position
-  setVLimit [<position>]
-  sets bottom limit, default 0 (0, -38407)
-  setHLimit [<position>]
-  sets rotation limit, default 0 (0, 3492)
-  setSpeed [<h | v> <speed>]
-  set speed of stepper motors,
-  h: [300-2000], default
-  setMotor <h | v> <0 | 1>
-  toggles motor on or off
-  setTracking <0 | 1>
-  toggles camera servo to track object
-  runD
-  runs both motors up with the current settings
-  runU
-  runs both motors up with current settings
-  moveH <position>
-  move to a relative position (0, 3492)
-  moveV <position>
-  move to a vertical position (0,-38407)
-  end
-  stops both motors
+*
+*  ? Return available commands
+*  . Return current settings
+*  getP
+*   Return current motor position
+*  setVLimit [<position>]
+*   sets bottom limit, default 0 (0, -38407)
+*  setHLimit [<position>]
+*   sets rotation limit, default 0 (0, 3492)
+*  setSpeed [<h | v> <speed>]
+*   set speed of stepper motors,
+*   h: [300-2000], default
+*  setMotor <h | v> <0 | 1>
+*   toggles motor on or off
+*  setTracking <0 | 1>
+*   toggles camera servo to track object
+*  runD
+*   runs both motors down with the current settings
+*  runU
+*   runs both motors up with current settings
+*  moveH <position>
+*   move to a relative position (0, 3492)
+*  moveV <position>
+*   move to a vertical position (0,-38407)
+*  end
+*   stops both motors
+*  setLighting
+*   both always on, alternating between the two, "both on, this one off"
 
 ********************************************************************************/
 
@@ -60,18 +62,21 @@ void printCommands()
   */
 }
 
-int getPosition()
+void getPosition()
 {
-  return stepperV.currentPosition();
+  Serial.readStringUntil('\n'); // flush the buffer
+  Serial.print("Current position: ");
+  Serial.println(stepperV.currentPosition());
+//  return stepperV.currentPosition();
 }
 
 
 // TODO: finish this
 void printSettings() 
 {
-  Serial.print("Current Position: ");
-  Serial.println(getPosition());
-  Serial.print("");
+//  getPosition();
+  Serial.readStringUntil('\n'); // flush the buffer
+  Serial.println("Settings");
 }
 
 
@@ -79,6 +84,36 @@ void printSettings()
 void setLighting(){
   // TODO
   Serial.println("not implemented");
+}
+
+void setZero()
+{
+  Serial.readStringUntil('\n');
+  stepperV.setCurrentPosition(0);
+}
+
+void reset()
+{
+  // reset speed and limits
+  Serial.readStringUntil('\n');
+  endRun();
+
+  // Reset all default values
+  angle = 100000;  // Set horizontal motor to rotate without stopping
+  fullRotate = true;
+  angle;
+  maxTopPosition = -38407;
+  minBottomPosition = 0;
+  lighting = 1;
+  speedV = 2000.0;
+  speedH = 1000.0;
+  tracking = 0;
+  startRun = false;
+  fullRotate = true;
+  up = false;
+  stepperH.setMaxSpeed(speedH);
+  stepperV.setMaxSpeed(speedV);
+  zeroV();
 }
 
 void setVLimit()
@@ -139,6 +174,7 @@ void runD()
   stepperV.setMaxSpeed(speed);
   positions[STEPPER_V] = minBottomPosition;
   steppers.moveTo(positions);
+  up = false;
   startRun = true;
 }
 
@@ -148,7 +184,10 @@ void runU()
   int speed = param.toInt();
   stepperV.setMaxSpeed(speed);
   positions[STEPPER_V] = maxTopPosition;
+  steppers.addStepper(stepperH);
+  steppers.addStepper(stepperV);
   steppers.moveTo(positions);
+  up = true;
   startRun = true;
 }
 
@@ -166,12 +205,19 @@ void moveH()
 
 void moveV()
 {
+  
   param = Serial.readStringUntil(' ');	// get speed
   int speed = param.toInt();
-  stepperH.setMaxSpeed(speed);
+  stepperV.setMaxSpeed(speed);
   param = Serial.readStringUntil('\n');	// get position
+  Serial.println("this is the position as a String: " + param);
+  long dest = param.toInt();
+  up = abs(dest) > abs(stepperV.currentPosition()) ? true : false;  // set direction to up or down
+  //Serial.print("up = ");
+  //Serial.println(up);
+  Serial.println("speed " + String(speed) + " to position " + String(dest));
   positions[STEPPER_H] = stepperH.currentPosition();
-  positions[STEPPER_V] = param.toInt();
+  positions[STEPPER_V] = dest;
   steppers.moveTo(positions);
   startRun = true;
 }
@@ -179,6 +225,7 @@ void moveV()
 void endRun()
 {
   // Stop both motors
+  up = false;
   startRun = false;
   stepperH.stop();
   stepperH.runToPosition();

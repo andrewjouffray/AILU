@@ -32,11 +32,24 @@ void rotate()
 bool limitReached()
 {
   // Check if the top or bottom limits have been reached
-  int pos = stepperV.currentPosition();
-  if((digitalRead(limitSwitchTop) == HIGH) || (pos >= maxTopPosition))
+  long pos = abs(stepperV.currentPosition());
+  if(up) // check direction
   {
-    Serial.println("Top limit reached");
-    return true;
+//    if((digitalRead(limitSwitchTop) == HIGH))
+//    {
+//      Serial.println("Top limit switch reached");
+//      return true;
+//    }
+//    if((pos >= abs(maxTopPosition)))
+//    {
+//      Serial.println("Max Top position reached");
+//      return true;
+//    }
+    if((digitalRead(limitSwitchTop) == HIGH) || (pos >= abs(maxTopPosition)))
+    {
+      Serial.println("Top limit reached");
+      return true;
+    }
   }
   else if((digitalRead(limitSwitchBottom) == HIGH) || (pos <= minBottomPosition))
   {
@@ -44,6 +57,19 @@ bool limitReached()
     return true;
   }
   return false;
+}
+
+void zeroV()
+{
+  // Zero the vertical axis
+  Serial.println("Zeroing vertical axis");
+  stepperV.moveTo(1000000);
+  while(digitalRead(limitSwitchBottom) != HIGH)
+    stepperV.run();
+    
+  stepperV.stop();
+  stepperV.runToPosition();
+  stepperV.setCurrentPosition(0);
 }
 
 /************** OLD FUNCTIONS ************

@@ -16,8 +16,10 @@
 #define RELAY_ON 1      // Define relay on pin state
 #define RELAY_OFF 0     // Define relay off pin state
 
-#define SERVO_PIN_LEFT 10
-#define SERVO_PIN_RIGHT 11
+//#define SERVO_PIN_LEFT 10
+//#define SERVO_PIN_RIGHT 11
+#define LIGHT_LEFT 11
+#define LIGHT_RIGHT 12
 
 #define STEPPER_H 0
 #define STEPPER_V 1
@@ -39,9 +41,8 @@ const int limitSwitchBottom = 7;
 String command;
 String param;
 int angle;
-int maxTopPosition = -38407;
+long maxTopPosition = -38407;
 int minBottomPosition = 0;
-int actualMaxTopPosition = -38407;
 int lighting = 1;
 double speedV = 2000.0;
 double speedH = 1000.0;
@@ -49,6 +50,8 @@ int tracking = 0;
 long positions[2] = {100000, 0};
 bool startRun = false;
 bool fullRotate = true;
+bool up = false;
+bool down = false;
 
 // Commands enum
 enum cmd {
@@ -65,7 +68,10 @@ enum cmd {
   eRunU,
   eMoveH,
   eMoveV,
-  eEnd  
+  eEnd,
+  eSetZero,
+  eReset,
+  eUnknown  
 };
 
 // function prototypes
@@ -80,8 +86,11 @@ void setup()
     pinMode(limitSwitchTop, INPUT);
     pinMode(limitSwitchBottom, INPUT);
 
-    digitalWrite(RelayLeft, RELAY_OFF);
-    pinMode(RelayLeft, OUTPUT);
+    pinMode(LIGHT_LEFT, OUTPUT);
+    pinMode(LIGHT_RIGHT, OUTPUT);
+    digitalWrite(LIGHT_LEFT, RELAY_OFF);
+    digitalWrite(LIGHT_RIGHT, RELAY_OFF);
+    
     delay(1000);
 
     Serial.begin(9600);
@@ -93,15 +102,21 @@ void setup()
     steppers.addStepper(stepperH);
     steppers.addStepper(stepperV);
 
-    servoLeft.attach(SERVO_PIN_LEFT);
-    servoRight.attach(SERVO_PIN_RIGHT);
+//    servoLeft.attach(SERVO_PIN_LEFT);
+//    servoRight.attach(SERVO_PIN_RIGHT);
 
+    Serial.println("Let's not run this into the ground eh?");
+    zeroV();
     Serial.println("AILU Robot 0001 Ready");
 }
 
 int loops = 0;
 void loop()
 {
+  //if(digitalRead(limitSwitchBottom) == HIGH)
+  //  Serial.println("bottom limit switch on");
+  //else
+    //Serial.println("bottom limit switch off");
   loops++;
   if(Serial.available()) //checks if there is data coming from the python script
   { 

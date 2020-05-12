@@ -1,5 +1,7 @@
 // return enum of corresponding command
 cmd hashit(String command){
+  Serial.print("Command: ");
+  Serial.println(command);
   if(command == "?") return eQ;
   if(command == ".") return eSettings;
   if(command == "getP") return eGetP;
@@ -14,6 +16,9 @@ cmd hashit(String command){
   if(command == "moveH") return eMoveH;
   if(command == "moveV") return eMoveV;
   if(command == "end") return eEnd;
+  if(command ==  "setZero") return eSetZero;
+  if(command ==  "zeroV") return eReset;
+  return eUnknown; // command not found
 }
 
 // parse command and call corresponding handler
@@ -30,7 +35,7 @@ void handleSerial()
       printSettings();
       break;
     case eGetP:
-      Serial.println(getPosition());
+      getPosition();
       break;
     case eSetLighting:
       setLighting();
@@ -65,6 +70,13 @@ void handleSerial()
     case eEnd:
       endRun();
       break;
+    case eSetZero:
+      setZero();
+      break;
+    case eReset:
+      reset();
+      break;
+    case eUnknown:
     default:
       Serial.println("Error: Unknown command");
       break;     
