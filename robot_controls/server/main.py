@@ -67,16 +67,16 @@ def run():
     if data["runType"] == "test":
 
         images = int(data["images"])
-        position = comToArduino("getPosition")
+        position = comToArduino("getP ")
         print("position from arduino: ", position)
 
-        if position == "top":
+        if int(position) > 30000:
             command = "runD" #go down
         else:
             command = "runU" #go up
 
         # constamt speed for quick checks
-        speed = "2000"
+        speed = " 2000"
 
         command = command+speed
         comToArduino(command)
