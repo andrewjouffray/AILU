@@ -1,5 +1,5 @@
 #include <AccelStepper.h>
-#include <MultiStepper.h>
+//#include <MultiStepper.h>
 #include <Servo.h>
 
 #include <stdio.h>
@@ -26,7 +26,7 @@
 
 #define RelayLeft  8
 
-MultiStepper steppers;
+//MultiStepper steppers;
 
 AccelStepper stepperH(MOTOR_A_ENABLE_PIN, MOTOR_A_STEP_PIN, MOTOR_A_DIR_PIN); // Turntable motor
 AccelStepper stepperV(MOTOR_B_ENABLE_PIN, MOTOR_B_STEP_PIN, MOTOR_B_DIR_PIN); // Vertical motor
@@ -61,7 +61,8 @@ enum cmd {
   eSetLighting,
   eSetVLimit,
   eSetHLimit,
-  eSetSpeed,
+  eSetVSpeed,
+  eSetHSpeed,
   eSetMotor,
   eSetTracking,
   eRunD,
@@ -99,8 +100,8 @@ void setup()
     stepperV.setAcceleration(5000.0);
     stepperH.setMaxSpeed(speedH);
     stepperV.setMaxSpeed(speedV);
-    steppers.addStepper(stepperH);
-    steppers.addStepper(stepperV);
+//    steppers.addStepper(stepperH);
+//    steppers.addStepper(stepperV);
 
 //    servoLeft.attach(SERVO_PIN_LEFT);
 //    servoRight.attach(SERVO_PIN_RIGHT);
@@ -113,10 +114,10 @@ void setup()
 int loops = 0;
 void loop()
 {
-  //if(digitalRead(limitSwitchBottom) == HIGH)
-  //  Serial.println("bottom limit switch on");
-  //else
-    //Serial.println("bottom limit switch off");
+//  if(digitalRead(limitSwitchBottom) == HIGH)
+//    Serial.println("bottom limit switch on");
+//  else
+//    Serial.println("bottom limit switch off");
   loops++;
   if(Serial.available()) //checks if there is data coming from the python script
   { 
@@ -131,17 +132,24 @@ void loop()
       {
         updateServoAngle();
         loops = 0;
-      } 
+      }
+      
     }
 
-    rotate();
+    if(!fullRotate)
+      {
+        checkRotateLimit();
+        stepperH.run();
+      }
+     
     
     // check limit switches and position
     if(limitReached())
     {
       endRun();
     }
-
-    steppers.run();
+    stepperV.run();
+    stepperH.run();
+//    steppers.run();
   }
 }

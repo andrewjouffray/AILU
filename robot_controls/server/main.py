@@ -9,7 +9,7 @@ import os
 
 ROBOT_NAME = "AILU_0001"
 
-com = "COM3"
+com = "COM6"
 app = Flask(__name__)
 ser = serial.Serial(com, 9600, timeout=.1)
 time.sleep(2)
@@ -61,7 +61,10 @@ def writeDatasetFile(datasetName, datasetType, bndBoxes, masks, workDir):
 @app.route('/run', methods = ['POST'])
 def run():
 
-    data = json.loads(request.data.decode())
+    #data = json.loads(request.data.decode())
+    data = request.form
+    print(data)
+    
 
     # handles quick checks
     if data["runType"] == "test":
@@ -70,7 +73,7 @@ def run():
         position = comToArduino("getP ")
         print("position from arduino: ", position)
 
-        if int(position) > 30000:
+        if int(position) < -30000:
             command = "runD" #go down
         else:
             command = "runU" #go up
@@ -101,7 +104,7 @@ def run():
         masks = bool(data["masks"])
         lowerLimit = int(data["lowerLimit"])
 
-        workDir = "C:/Users/Andrew/Documents/GitHub/AILU/robot_controls/server/"+dataSetName+"/"
+        workDir = "C:/Users/LattePanda/Documents/GitHub/AILU/robot_controls/server/"+dataSetName+"/"
         saveDir = workDir+label
 
         #create a directory to save the rawData
@@ -114,13 +117,13 @@ def run():
 
         speed = getMotorSpeed(images, lowerLimit)
 
-        position = comToArduino("getPosition")
+        position = comToArduino("getP ")
         print("position from arduino: ", position)
 
-        if position == "top":
-            command = "runD" #go down
+        if int(position) < -30000:
+            command = "runD " #go down
         else:
-            command = "runU" #go up
+            command = "runU " #go up
 
         imagingConfig = ["save", saveDir, images]
 

@@ -1,14 +1,15 @@
 // return enum of corresponding command
 cmd hashit(String command){
-  Serial.print("Command: ");
-  Serial.println(command);
+//  Serial.print("Command: ");
+//  Serial.println(command);
   if(command == "?") return eQ;
   if(command == ".") return eSettings;
   if(command == "getP") return eGetP;
   if(command == "setLighting") return eSetLighting;
   if(command == "setVLimit") return eSetVLimit;
   if(command == "setHLimit") return eSetHLimit;
-  if(command == "setSpeed") return eSetSpeed; // consider deleting?
+  if(command == "setVSpeed") return eSetVSpeed; // consider deleting?
+  if(command == "setHSpeed") return eSetHSpeed; // consider deleting?
   if(command == "setMotor") return eSetMotor;
   if(command == "setTracking") return eSetTracking;
   if(command == "runD") return eRunD;
@@ -46,8 +47,11 @@ void handleSerial()
     case eSetHLimit:
       setHLimit();
       break;
-    case eSetSpeed:
-      setSpeed();
+    case eSetVSpeed:
+      setVSpeed();
+      break;
+    case eSetHSpeed:
+      setHSpeed();
       break;
     case eSetMotor:
       setMotor();

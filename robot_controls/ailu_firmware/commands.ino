@@ -65,7 +65,7 @@ void printCommands()
 void getPosition()
 {
   Serial.readStringUntil('\n'); // flush the buffer
-  Serial.print("Current position: ");
+//  Serial.print("Current position: ");
   Serial.println(stepperV.currentPosition());
 //  return stepperV.currentPosition();
 }
@@ -101,7 +101,6 @@ void reset()
   // Reset all default values
   angle = 100000;  // Set horizontal motor to rotate without stopping
   fullRotate = true;
-  angle;
   maxTopPosition = -38407;
   minBottomPosition = 0;
   lighting = 1;
@@ -134,7 +133,7 @@ void setHLimit()
 {
   param = Serial.readStringUntil('\n');
   int hLimit = param.toInt();
-  if (angle >= 3492)
+  if (hLimit >= 3492)
   {
     angle = 100000;	// Set horizontal motor to rotate without stopping
     fullRotate = true;
@@ -150,9 +149,18 @@ void setHLimit()
 // TODO: Finish (or scrap) this
 // Possibly have setHSpeed and setVSpeed
 // Do we only care about vertical speed? Is horizontal speed always the same?
-void setSpeed()
+void setVSpeed()
 {
   param = Serial.readStringUntil('\n');
+  long speed = param.toInt();
+  stepperV.setMaxSpeed(speed);
+}
+
+void setHSpeed()
+{
+  param = Serial.readStringUntil('\n');
+  long speed = param.toInt();
+  stepperH.setMaxSpeed(speed);
 }
 
 //TODO: Add setMotor
@@ -172,8 +180,10 @@ void runD()
   param = Serial.readStringUntil('\n');
   int speed = param.toInt();
   stepperV.setMaxSpeed(speed);
+  stepperH.setMaxSpeed(2000);
   positions[STEPPER_V] = minBottomPosition;
-  steppers.moveTo(positions);
+  stepperH.moveTo(angle);
+  stepperV.moveTo(minBottomPosition);
   up = false;
   startRun = true;
 }
@@ -183,10 +193,12 @@ void runU()
   param = Serial.readStringUntil('\n');
   int speed = param.toInt();
   stepperV.setMaxSpeed(speed);
+  stepperH.setMaxSpeed(2000.0);
+  Serial.println("stepperH at: " + String(stepperH.currentPosition()));
   positions[STEPPER_V] = maxTopPosition;
-  steppers.addStepper(stepperH);
-  steppers.addStepper(stepperV);
-  steppers.moveTo(positions);
+  Serial.println("stepperH moving at speed " + String(stepperH.maxSpeed()) + " going to " + angle);
+  stepperH.moveTo(angle);
+  stepperV.moveTo(maxTopPosition);
   up = true;
   startRun = true;
 }
@@ -197,9 +209,11 @@ void moveH()
   int speed = param.toInt();
   stepperH.setMaxSpeed(speed);
   param = Serial.readStringUntil('\n');	// get position
-  positions[STEPPER_H] = param.toInt();
-  positions[STEPPER_V] = stepperV.currentPosition();
-  steppers.moveTo(positions);
+  long dest = param.toInt();
+//  positions[STEPPER_H] = dest;
+//  positions[STEPPER_V] = stepperV.currentPosition();
+//  steppers.moveTo(positions);
+  stepperH.moveTo(dest);
   startRun = true;
 }
 
@@ -216,9 +230,10 @@ void moveV()
   //Serial.print("up = ");
   //Serial.println(up);
   Serial.println("speed " + String(speed) + " to position " + String(dest));
-  positions[STEPPER_H] = stepperH.currentPosition();
-  positions[STEPPER_V] = dest;
-  steppers.moveTo(positions);
+//  positions[STEPPER_H] = stepperH.currentPosition();
+//  positions[STEPPER_V] = dest;
+//  steppers.moveTo(positions);
+  stepperV.moveTo(dest);
   startRun = true;
 }
 

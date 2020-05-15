@@ -15,18 +15,15 @@ void updateServoAngle(){
   
 }
 
-void rotate()
+void checkRotateLimit()
 {
-  if(!fullRotate)
-  {
-    // makes the base plate oscillate between two angles
-    if(stepperH.distanceToGo() == 0)
-    {
-      // positions[STEPPER_H] = -stepperH.currentPosition(); // do we need this instead of just updating the one?
-      // steppers.moveTo(positions);
-      stepperH.moveTo(-stepperH.currentPosition());
-    }
-  }
+
+
+    if (stepperH.distanceToGo() == 0)
+        Serial.println("currentPos: " + String(stepperH.currentPosition()));
+        Serial.println("distance to go: " + String(stepperH.distanceToGo()));
+        Serial.println("next position: " + String(-stepperH.distanceToGo()));
+        stepperH.moveTo(-stepperH.currentPosition());
 }
 
 bool limitReached()
