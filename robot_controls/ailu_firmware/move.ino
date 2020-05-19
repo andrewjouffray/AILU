@@ -17,13 +17,10 @@ void updateServoAngle(){
 
 void checkRotateLimit()
 {
-
-
-    if (stepperH.distanceToGo() == 0)
-        Serial.println("currentPos: " + String(stepperH.currentPosition()));
-        Serial.println("distance to go: " + String(stepperH.distanceToGo()));
-        Serial.println("next position: " + String(-stepperH.distanceToGo()));
-        stepperH.moveTo(-stepperH.currentPosition());
+    if (stepperH.currentPosition() == angle)
+        Serial.println("stopped: "+String(stepperH.currentPosition()) + " Hlimit: " + String(angle));
+        angle = angle * -1;
+        stepperH.moveTo(angle);
 }
 
 bool limitReached()
@@ -58,15 +55,50 @@ bool limitReached()
 
 void zeroV()
 {
+  Serial.println("ZeroV");
   // Zero the vertical axis
   Serial.println("Zeroing vertical axis");
   stepperV.moveTo(1000000);
   while(digitalRead(limitSwitchBottom) != HIGH)
-    stepperV.run();
+  stepperV.run();
     
   stepperV.stop();
   stepperV.runToPosition();
   stepperV.setCurrentPosition(0);
+  
+}
+
+void runLights()
+{
+  if(toggleLights)
+  {
+    if(lighting == 1) // both lights on
+    {
+      digitalWrite(LIGHT_LEFT, RELAY_ON);
+      digitalWrite(LIGHT_RIGHT, RELAY_ON);
+      toggleLights = false;
+    }
+    else if(lighting == 2) // alternate between lights
+    {
+      lightCount++;
+      if(lightCount > 6000)
+      {
+        if(lightCount > 12000)
+        {
+          digitalWrite(LIGHT_LEFT, RELAY_OFF);
+          digitalWrite(LIGHT_RIGHT, RELAY_ON);
+          lightCount = 0;
+        }
+        else
+        {
+          digitalWrite(LIGHT_LEFT, RELAY_ON);
+          digitalWrite(LIGHT_RIGHT, RELAY_OFF);
+        }
+      }
+      
+    }
+  }
+  
 }
 
 /************** OLD FUNCTIONS ************

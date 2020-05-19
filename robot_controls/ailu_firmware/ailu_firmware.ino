@@ -6,8 +6,8 @@
 #include <string.h>
 #include <stdlib.h>
 #define MOTOR_A_ENABLE_PIN 6
-#define MOTOR_A_STEP_PIN 4
-#define MOTOR_A_DIR_PIN 5
+#define MOTOR_A_STEP_PIN 5
+#define MOTOR_A_DIR_PIN 8
 
 #define MOTOR_B_ENABLE_PIN 1
 #define MOTOR_B_STEP_PIN 3
@@ -38,11 +38,20 @@ Servo servoRight;
 const int limitSwitchTop = 0;
 const int limitSwitchBottom = 7;
 
+const long hZeroPosition = 40000; // default position of stepperH (it can't go into negative positions)
+const long oneRotation = 20930; // position to do one full rotation
+const double convertionMultiplication = oneRotation / 360; // multiply degrees by this number to get position
+
 String command;
 String param;
-int angle;
+long angle = 2000000;
+long hLimitMin = 0;
+long hLimitPlus = 0;
+
 long maxTopPosition = -38407;
 int minBottomPosition = 0;
+long lightCount = 0;
+bool toggleLights = true;
 int lighting = 1;
 double speedV = 2000.0;
 double speedH = 1000.0;
@@ -52,6 +61,7 @@ bool startRun = false;
 bool fullRotate = true;
 bool up = false;
 bool down = false;
+bool zeroHAtEnd = false;
 
 // Commands enum
 enum cmd {
@@ -81,6 +91,7 @@ void updateServoAngle();
 void rotate();
 bool limitReached();
 void endRun();
+void runLights();
 
 void setup()
 {
@@ -96,12 +107,13 @@ void setup()
 
     Serial.begin(9600);
 
-    stepperH.setAcceleration(500.0); 
+    stepperH.setAcceleration(2000.0); 
     stepperV.setAcceleration(5000.0);
     stepperH.setMaxSpeed(speedH);
     stepperV.setMaxSpeed(speedV);
 //    steppers.addStepper(stepperH);
 //    steppers.addStepper(stepperV);
+    stepperH.setCurrentPosition(hZeroPosition);
 
 //    servoLeft.attach(SERVO_PIN_LEFT);
 //    servoRight.attach(SERVO_PIN_RIGHT);
@@ -138,18 +150,30 @@ void loop()
 
     if(!fullRotate)
       {
-        checkRotateLimit();
-        stepperH.run();
+        long Hpos = stepperH.currentPosition();
+        
+        if (Hpos == hLimitPlus){
+            Serial.println("stopped at max: "+String(Hpos) + " Hlimit: " + String(hLimitPlus));
+            stepperH.moveTo(hLimitMin);
+        }else if (Hpos == hLimitMin){
+            Serial.println("stopped at min: "+String(Hpos) + " Hlimit: " + String(hLimitMin));
+            stepperH.moveTo(hLimitPlus);
+        }
+
+//        checkRotateLimit();
       }
      
     
     // check limit switches and position
+
+    stepperV.run();
+    stepperH.run();
+//    steppers.run();
+
     if(limitReached())
     {
       endRun();
     }
-    stepperV.run();
-    stepperH.run();
-//    steppers.run();
+    runLights();
   }
 }
