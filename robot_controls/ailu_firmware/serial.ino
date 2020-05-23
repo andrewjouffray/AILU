@@ -19,6 +19,7 @@ cmd hashit(String command){
   if(command == "end") return eEnd;
   if(command ==  "setZero") return eSetZero;
   if(command ==  "zeroV") return eReset;
+  if(command == "servo") return eServo;
   return eUnknown; // command not found
 }
 
@@ -76,6 +77,9 @@ void handleSerial()
       break;
     case eSetZero:
       setZero();
+      break;
+    case eServo:
+      servo();
       break;
     case eReset:
       reset();

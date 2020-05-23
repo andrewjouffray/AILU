@@ -148,6 +148,11 @@ void setHLimit()
   }
 }
 
+void servo(){
+  param = Serial.readStringUntil('\n');
+  long pos = param.toInt();
+  moveServos(pos);
+  }
 
 // TODO: Finish (or scrap) this
 // Possibly have setHSpeed and setVSpeed
@@ -181,10 +186,6 @@ void setTracking()
 void runD()
 {
   zeroHAtEnd = true;
-//  param = Serial.readStringUntil('\n');
-//  int speed = param.toInt();
-//  stepperV.setMaxSpeed(speed);
-//  stepperH.setMaxSpeed(2000);
   Serial.println("stepperH at: " + String(stepperH.currentPosition()));
   positions[STEPPER_V] = minBottomPosition;
   Serial.println("stepperH moving at speed " + String(stepperH.maxSpeed()) + " going to " + angle);
@@ -197,10 +198,6 @@ void runD()
 void runU()
 {
   zeroHAtEnd = true;
-//  param = Serial.readStringUntil('\n');
-//  int speed = param.toInt();
-//  stepperV.setMaxSpeed(speed);
-//  stepperH.setMaxSpeed(2000);
   Serial.println("stepperH at: " + String(stepperH.currentPosition()));
   positions[STEPPER_V] = maxTopPosition;
   Serial.println("stepperH moving at speed " + String(stepperH.maxSpeed()) + " going to " + angle);
@@ -247,6 +244,7 @@ void moveV()
 
 void zeroH(){
 
+
   long currentPosH = stepperH.currentPosition();
   double timesAround = currentPosH / oneRotation;
   double closestPos = oneRotation * timesAround;
@@ -260,16 +258,22 @@ void zeroH(){
   stepperH.setMaxSpeed(2000);
   if(!fullRotate){
     stepperH.moveTo(hZeroPosition);
+      while(stepperH.currentPosition() != hZeroPosition){
+        stepperH.run();
+      }
     }
   else{
     stepperH.moveTo(closestPos);
+      while(stepperH.currentPosition() != closestPos){
+        stepperH.run();
+      }
     }
-  while(stepperH.currentPosition() != closestPos){
-    stepperH.run();
-    }
+
   stepperH.setCurrentPosition(hZeroPosition);
   Serial.println("H is zeroed");
   zeroHAtEnd = false;
+  digitalWrite(LIGHT_LEFT, RELAY_OFF);
+  digitalWrite(LIGHT_RIGHT, RELAY_OFF);
   }
 
 void endRun()

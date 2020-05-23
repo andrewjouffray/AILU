@@ -1,20 +1,32 @@
+
+
 void updateServoAngle(){
+ 
   // the height is used to calculate the angle that the servos need to be at 
   // in order to track the object
   double currentPos = stepperV.currentPosition() - minBottomPosition;
-  float height = currentPos * 0.0097378;
-  int intHeight = (int) height;
-  int distanceFromCenter = 356; //mm
-  float rad = 1/(distanceFromCenter / intHeight);
-  float invDeg = rad * (180 / 3.1415);
-  float fDeg = 180 - invDeg;
+  double height = currentPos * 0.0100878;
+  double intHeight = height *-1.0;
+  double distanceFromCenter = 356.0; //mm
+
+  double tangeant = distanceFromCenter / intHeight;
+  double rad = atan(tangeant);
+  double invDeg =  round( atan(tangeant) * 180/3.14159265 );
+//  Serial.println("invDeg " + String(invDeg) + "tan: " + String(tangeant));
+  double fDeg = 180 - invDeg;
   int degreeToRotate = (int) fDeg;
-  int mappedDeg = map(degreeToRotate, 0, 270, 0, 180);
-  servoLeft.write(mappedDeg);
-  servoRight.write(180 - mappedDeg);
+  moveServos(degreeToRotate);
+
   
 }
 
+void moveServos(int servoPosition){
+//   Serial.println("updating servo position to " + String(servoPosition));
+  int mappedDeg = map(servoPosition, 0, 270, 0, 180);
+  servoLeft.write(mappedDeg);
+  servoRight.write(180 - mappedDeg);
+  }
+  
 void checkRotateLimit()
 {
     if (stepperH.currentPosition() == angle)
@@ -27,30 +39,28 @@ bool limitReached()
 {
   // Check if the top or bottom limits have been reached
   long pos = abs(stepperV.currentPosition());
-  if(up) // check direction
-  {
-//    if((digitalRead(limitSwitchTop) == HIGH))
-//    {
-//      Serial.println("Top limit switch reached");
-//      return true;
-//    }
-//    if((pos >= abs(maxTopPosition)))
-//    {
-//      Serial.println("Max Top position reached");
-//      return true;
-//    }
-    if((digitalRead(limitSwitchTop) == HIGH) || (pos >= abs(maxTopPosition)))
-    {
-      Serial.println("Top limit reached");
-      return true;
+
+  switch(up){
+    case(true):
+      if((digitalRead(limitSwitchTop) == HIGH) || (pos >= abs(maxTopPosition)))
+      {
+        Serial.println("Top limit reached");
+        return true;
+      }
+      return false;
+      break;
+    case(false):
+      if((digitalRead(limitSwitchBottom) == HIGH) || (pos <= minBottomPosition))
+      {
+        Serial.println("Bottom limit reached");
+        return true;
+      }
+      return false;
+      break;
+    
     }
-  }
-  else if((digitalRead(limitSwitchBottom) == HIGH) || (pos <= minBottomPosition))
-  {
-    Serial.println("Bottom limit reached");
-    return true;
-  }
-  return false;
+
+  
 }
 
 void zeroV()

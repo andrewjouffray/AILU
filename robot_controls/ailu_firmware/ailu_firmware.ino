@@ -1,6 +1,7 @@
 #include <AccelStepper.h>
 //#include <MultiStepper.h>
 #include <Servo.h>
+#include <math.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -16,8 +17,8 @@
 #define RELAY_ON 1      // Define relay on pin state
 #define RELAY_OFF 0     // Define relay off pin state
 
-//#define SERVO_PIN_LEFT 10
-//#define SERVO_PIN_RIGHT 11
+#define SERVO_PIN_LEFT 9
+#define SERVO_PIN_RIGHT 10
 #define LIGHT_LEFT 11
 #define LIGHT_RIGHT 12
 
@@ -39,7 +40,7 @@ const int limitSwitchTop = 0;
 const int limitSwitchBottom = 7;
 
 const long hZeroPosition = 40000; // default position of stepperH (it can't go into negative positions)
-const long oneRotation = 20930; // position to do one full rotation
+const long oneRotation = 20920; // position to do one full rotation
 const double convertionMultiplication = oneRotation / 360; // multiply degrees by this number to get position
 
 String command;
@@ -55,13 +56,15 @@ bool toggleLights = true;
 int lighting = 1;
 double speedV = 2000.0;
 double speedH = 1000.0;
-int tracking = 0;
+int tracking = 1;
 long positions[2] = {100000, 0};
 bool startRun = false;
 bool fullRotate = true;
 bool up = false;
 bool down = false;
 bool zeroHAtEnd = false;
+long lastPos = 0;
+long Hpos = 0;
 
 // Commands enum
 enum cmd {
@@ -81,6 +84,7 @@ enum cmd {
   eMoveV,
   eEnd,
   eSetZero,
+  eServo,
   eReset,
   eUnknown  
 };
@@ -111,69 +115,68 @@ void setup()
     stepperV.setAcceleration(5000.0);
     stepperH.setMaxSpeed(speedH);
     stepperV.setMaxSpeed(speedV);
-//    steppers.addStepper(stepperH);
-//    steppers.addStepper(stepperV);
     stepperH.setCurrentPosition(hZeroPosition);
 
-//    servoLeft.attach(SERVO_PIN_LEFT);
-//    servoRight.attach(SERVO_PIN_RIGHT);
+    servoLeft.attach(SERVO_PIN_LEFT);
+    servoRight.attach(SERVO_PIN_RIGHT);
 
-    Serial.println("Let's not run this into the ground eh?");
+    moveServos(95);
+
+    Serial.println("setting up AILU");
     zeroV();
     Serial.println("AILU Robot 0001 Ready");
 }
 
-int loops = 0;
+int countToServoUpdate = 0;
 void loop()
 {
-//  if(digitalRead(limitSwitchBottom) == HIGH)
-//    Serial.println("bottom limit switch on");
-//  else
-//    Serial.println("bottom limit switch off");
-  loops++;
+  
   if(Serial.available()) //checks if there is data coming from the python script
   { 
     handleSerial();
   }
 
   if(startRun)
+  
   { 
-    if(loops > 1000)  // update camera servo every once in a while
+    runLights();
+    countToServoUpdate++;
+    if(countToServoUpdate > 500)  // update camera servo every once in a while
     {
       if(tracking)
       {
+        countToServoUpdate = 0;
         updateServoAngle();
-        loops = 0;
+        
       }
       
     }
 
     if(!fullRotate)
       {
-        long Hpos = stepperH.currentPosition();
-        
-        if (Hpos == hLimitPlus){
-            Serial.println("stopped at max: "+String(Hpos) + " Hlimit: " + String(hLimitPlus));
-            stepperH.moveTo(hLimitMin);
-        }else if (Hpos == hLimitMin){
-            Serial.println("stopped at min: "+String(Hpos) + " Hlimit: " + String(hLimitMin));
-            stepperH.moveTo(hLimitPlus);
-        }
+        Hpos = stepperH.currentPosition();
+            if(Hpos == hLimitPlus){
+              if(lastPos != Hpos){
+               stepperH.moveTo(hLimitMin);
+               lastPos = Hpos;
+              }
+            }
 
-//        checkRotateLimit();
-      }
-     
-    
-    // check limit switches and position
+            if(Hpos == hLimitMin){
+              if(lastPos != Hpos){
+                stepperH.moveTo(hLimitPlus);
+                lastPos = Hpos;
+            }
+          }
+        }
 
     stepperV.run();
     stepperH.run();
-//    steppers.run();
 
     if(limitReached())
     {
       endRun();
     }
-    runLights();
+
   }
 }
