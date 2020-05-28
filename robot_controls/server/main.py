@@ -15,14 +15,16 @@ ser = serial.Serial(com, 9600, timeout=.1)
 time.sleep(2)
 
 def send(message):
-    message = message+"\n"
+    #message = message+"\n"
     messageByte = message.encode()
+    print("sending ", messageByte)
     ser.write(messageByte)
 
 def flush():
     while ser.readline():
         responce = ser.readline()
-        pass
+        print("flushin: ", responce)
+    print("flushing ended")
 
 def comToArduino(message):
     send(message)
@@ -36,7 +38,7 @@ def comToArduino(message):
             return responce
 
 def getMotorSpeed(images, lowLimit):
-    distanceToTravel = 396 - lowLimit
+    distanceToTravel = 384 - lowLimit
     speed = ((distanceToTravel*30) + (0.49 * images)) / (0.0097*images)
     return int(speed)
 
@@ -97,8 +99,6 @@ def run():
         dataSetName = data["dataSetName"]
         label = data["label"]
         images = int(data["images"])
-        track = bool(data["track"])
-        lights = int(data["lights"])
         datasetType = data["type"]
         bndBoxes = bool(data["bndBoxes"])
         masks = bool(data["masks"])
@@ -107,11 +107,11 @@ def run():
         workDir = "C:/Users/LattePanda/Documents/GitHub/AILU/robot_controls/server/"+dataSetName+"/"
         saveDir = workDir+label
 
-        #create a directory to save the rawData
+        #create a directory for the dataset
         if not os.path.isdir(workDir):
             os.mkdir(workDir)
 
-        #create a directory to save the rawData
+        #create a directory for the class to save the rawData
         if not os.path.isdir(saveDir):
             os.mkdir(saveDir)
 
@@ -132,7 +132,9 @@ def run():
         thread_a.start()
 
         # writes the command to the arduino
-        command = command+str(speed)
+        
+        vSpeedCommand = "setVSpeed "+str(speed)
+        comToArduino(vSpeedCommand)
         comToArduino(command)
 
         # writes the dataset config file
@@ -143,11 +145,21 @@ def run():
 
 @app.route('/set', methods = ['POST'])
 def setSettings():
-    data = json.loads(request.data.decode())
-
+    #data = json.loads(request.data.decode())
+    data = request.form
     command = data["command"]
-    value = data["value"]
-    message = comToArduino(command+value)
+    message = ""
+    try:
+        if data["value"] == "none":
+            print(command)
+            message = comToArduino(command)
+        else:
+            value = data["value"]
+            print(command+value)
+            message = comToArduino(command+value)
+    except Exception as e:
+        print(e)
+        
     responce = {"message":message}
     return responce, 201
 

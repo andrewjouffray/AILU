@@ -30,7 +30,6 @@ void moveServos(int servoPosition){
 void checkRotateLimit()
 {
     if (stepperH.currentPosition() == angle)
-        Serial.println("stopped: "+String(stepperH.currentPosition()) + " Hlimit: " + String(angle));
         angle = angle * -1;
         stepperH.moveTo(angle);
 }
@@ -44,7 +43,6 @@ bool limitReached()
     case(true):
       if((digitalRead(limitSwitchTop) == HIGH) || (pos >= abs(maxTopPosition)))
       {
-        Serial.println("Top limit reached");
         return true;
       }
       return false;
@@ -52,7 +50,6 @@ bool limitReached()
     case(false):
       if((digitalRead(limitSwitchBottom) == HIGH) || (pos <= minBottomPosition))
       {
-        Serial.println("Bottom limit reached");
         return true;
       }
       return false;
@@ -109,6 +106,11 @@ void runLights()
     }
   }
   
+}
+
+void flush(){
+
+  Serial.flush();
 }
 
 /************** OLD FUNCTIONS ************

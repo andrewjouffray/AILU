@@ -8,8 +8,8 @@ cmd hashit(String command){
   if(command == "setLighting") return eSetLighting;
   if(command == "setVLimit") return eSetVLimit;
   if(command == "setHLimit") return eSetHLimit;
-  if(command == "setVSpeed") return eSetVSpeed; // consider deleting?
-  if(command == "setHSpeed") return eSetHSpeed; // consider deleting?
+  if(command == "setVSpeed") return eSetVSpeed; 
+  if(command == "setHSpeed") return eSetHSpeed; 
   if(command == "setMotor") return eSetMotor;
   if(command == "setTracking") return eSetTracking;
   if(command == "runD") return eRunD;
@@ -27,8 +27,7 @@ cmd hashit(String command){
 void handleSerial()
 {
   // Get command
-  command = Serial.readStringUntil(' ');  
-
+  command = Serial.readStringUntil(' ');
   switch(hashit(command)){
     case eQ:
       printCommands();
@@ -87,6 +86,7 @@ void handleSerial()
     case eUnknown:
     default:
       Serial.println("Error: Unknown command");
+      flush();
       break;     
   }
 }
