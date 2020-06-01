@@ -83,7 +83,32 @@ void runLights()
 {
   if(toggleLights)
   {
-    if(lighting == 1) // both lights on
+//    switch(lighting)
+//    {
+//      case 0: // lights off
+//        digitalWrite(LIGHT_LEFT, RELAY_OFF);
+//        digitalWrite(LIGHT_RIGHT, RELAY_OFF);
+//        break;
+//       case 1: // both lights on
+//        digitalWrite(LIGHT_LEFT, RELAY_ON);
+//        digitalWrite(LIGHT_RIGHT, RELAY_ON);
+//        toggleLights = false;
+//        break;
+//       case 2: // alternate between lights
+//        alternateLighting();
+//        break;
+//       case 3: // both on, one off pattern
+//        
+//        break;
+//    }
+    lightCount++;
+    if (lighting == 0)
+    {
+      digitalWrite(LIGHT_LEFT, RELAY_OFF);
+      digitalWrite(LIGHT_RIGHT, RELAY_OFF);
+      toggleLights = false;
+    }
+    else if(lighting == 1) // both lights on
     {
       digitalWrite(LIGHT_LEFT, RELAY_ON);
       digitalWrite(LIGHT_RIGHT, RELAY_ON);
@@ -91,22 +116,52 @@ void runLights()
     }
     else if(lighting == 2) // alternate between lights
     {
-      lightCount++;
-      if(lightCount > 6000)
+      if(lightCount > alternateCount)
       {
-        if(lightCount > 12000)
+        if(lightsOn == 1)   // check which light to alternate
         {
           digitalWrite(LIGHT_LEFT, RELAY_OFF);
           digitalWrite(LIGHT_RIGHT, RELAY_ON);
-          lightCount = 0;
         }
         else
         {
-          digitalWrite(LIGHT_LEFT, RELAY_ON);
-          digitalWrite(LIGHT_RIGHT, RELAY_OFF);
+          digitalWrite(LIGHT_LEFT, RELAY_OFF);
+          digitalWrite(LIGHT_RIGHT, RELAY_ON);
         }
+        lightCount = 0;
+        leftLight = !leftLight;
       }
-      
+    }
+    else if(lighting == 3)
+    {
+//      if(lightCount > alternateCount)
+//      {
+//        if(ligh == 1 || lastLighting == 2)
+//        {
+//          digitalWrite(LIGHT_LEFT, RELAY_ON);
+//          digitalWrite(LIGHT_RIGHT, RELAY_ON);
+//        }
+//        else if(lastLighting == 
+//        if(lightsOn == 1)
+//        if(lightCount > 2*alternateCount) // 
+//        {
+//          digitalWrite(LIGHT_LEFT, RELAY_ON);
+//          digitalWrite(LIGHT_RIGHT, RELAY_ON);
+//          lightCount = 0;
+//        }
+//        else if(leftLight)
+//        {
+//          digitalWrite(LIGHT_LEFT, RELAY_OFF);
+//          digitalWrite(LIGHT_RIGHT, RELAY_ON);
+//          leftLight = !leftLight;
+//        }
+//        else
+//        {
+//          digitalWrite(LIGHT_LEFT, RELAY_ON);
+//          digitalWrite(LIGHT_RIGHT, RELAY_OFF);
+//          leftLight = !leftLight;
+//        }
+//      }
     }
   }
   
