@@ -117,8 +117,8 @@ void setup()
     stepperV.setMaxSpeed(speedV);
     stepperH.setCurrentPosition(hZeroPosition);
 
-    servoLeft.attach(SERVO_PIN_LEFT);
-    servoRight.attach(SERVO_PIN_RIGHT);
+    servoLeft.attach(SERVO_PIN_LEFT, 500, 2500);
+    servoRight.attach(SERVO_PIN_RIGHT, 500, 2500);
 
     moveServos(95);
 

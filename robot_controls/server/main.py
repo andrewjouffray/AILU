@@ -146,7 +146,9 @@ def run():
 @app.route('/set', methods = ['POST'])
 def setSettings():
     #data = json.loads(request.data.decode())
+    
     data = request.form
+    print("got your command", data)
     command = data["command"]
     message = ""
     try:
@@ -176,4 +178,4 @@ def getStatus():
     responce = {"message":"ready"}
     return responce, 201
 
-app.run()
+app.run(host= '0.0.0.0')

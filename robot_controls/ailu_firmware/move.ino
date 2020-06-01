@@ -22,9 +22,13 @@ void updateServoAngle(){
 
 void moveServos(int servoPosition){
 //   Serial.println("updating servo position to " + String(servoPosition));
-  int mappedDeg = map(servoPosition, 0, 270, 0, 180);
-  servoLeft.write(mappedDeg);
-  servoRight.write(180 - mappedDeg);
+
+  int mappedDeg = map(angle, 0, 270, 500, 2500);
+  servoLeft.writeMicroseconds(map(angle, 0, 270, 500, 2500));
+  servoRight.writeMicroseconds(map(180 - angle, 0, 270, 500, 2500));
+  
+  //servoLeft.writeMicroseconds(mappedDeg);
+  //servoRight.writeMicrosecondste(180 - mappedDeg);
   }
   
 void checkRotateLimit()

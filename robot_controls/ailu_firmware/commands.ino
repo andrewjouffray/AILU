@@ -295,7 +295,7 @@ void zeroH(){
 
 void endRun()
 {
-  Serial.println("endRun");
+  //Serial.println("endRun");
   // Turn off lights so you don't get blinded
   digitalWrite(LIGHT_LEFT, RELAY_OFF);
   digitalWrite(LIGHT_RIGHT, RELAY_OFF);
