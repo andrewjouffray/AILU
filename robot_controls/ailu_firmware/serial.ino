@@ -10,7 +10,6 @@ cmd hashit(String command){
   if(command == "setHLimit") return eSetHLimit;
   if(command == "setVSpeed") return eSetVSpeed; 
   if(command == "setHSpeed") return eSetHSpeed; 
-  if(command == "setMotor") return eSetMotor;
   if(command == "setTracking") return eSetTracking;
   if(command == "runD") return eRunD;
   if(command == "runU") return eRunU;
@@ -53,9 +52,6 @@ void handleSerial()
     case eSetHSpeed:
       setHSpeed();
       break;
-    case eSetMotor:
-      setMotor();
-      break;
     case eSetTracking:
       setTracking();
       break;
@@ -72,6 +68,7 @@ void handleSerial()
       moveV();
       break;
     case eEnd:
+      flush();
       endRun();
       break;
     case eSetZero:

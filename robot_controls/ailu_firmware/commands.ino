@@ -11,8 +11,6 @@
 *  setSpeed [<h | v> <speed>]
 *   set speed of stepper motors,
 *   h: [300-2000], default
-*  setMotor <h | v> <0 | 1>
-*   toggles motor on or off
 *  setTracking <0 | 1>
 *   toggles camera servo to track object
 *  runD
@@ -26,8 +24,10 @@
 *  end
 *   stops both motors
 *  setLighting <0 | 1 | 2 | 3>
-*   both always on, alternating between the two, "both on, this one off"
-
+*   0 - both off
+*   1 - both on
+*   2 - alternate between the two
+*   3 - both on, left off right on, both on, right off left on
 ********************************************************************************/
 
 void printCommands() 
@@ -60,6 +60,11 @@ void printCommands()
 
     Serial.println(commands);
   */
+}
+
+void resetGlobals()
+{
+  
 }
 
 void getPosition()
@@ -171,15 +176,13 @@ void servo(){
   Serial.println("moving servos");
   moveServos(pos);
   flush();
-  }
+}
 
-// TODO: Finish (or scrap) this
-// Possibly have setHSpeed and setVSpeed
-// Do we only care about vertical speed? Is horizontal speed always the same?
 void setVSpeed()
 {
   param = Serial.readStringUntil('\n');
   long speed = param.toInt();
+  alternateCount = speed;
   Serial.println("vert speed set");
   stepperV.setMaxSpeed(speed);
   flush();
@@ -194,12 +197,6 @@ void setHSpeed()
   flush();
 }
 
-//TODO: Add setMotor
-void setMotor()
-{
-
-}
-
 void setTracking()
 {
   param = Serial.readStringUntil('\n');
@@ -212,7 +209,6 @@ void runD()
 {
   zeroHAtEnd = true;
   Serial.println("runD");
-  positions[STEPPER_V] = minBottomPosition;
   stepperH.moveTo(angle);
   stepperV.moveTo(minBottomPosition);
   up = false;
@@ -235,7 +231,7 @@ void runU()
 void moveH()
 {
   fullRotate = true;
-  Serial.println("MoveH");
+  Serial.println("moveH");
   param = Serial.readStringUntil(' ');	// get speed
   int speed = param.toInt();
   stepperH.setMaxSpeed(speed);
@@ -262,9 +258,8 @@ void moveV()
   flush();
 }
 
-void zeroH(){
-
-
+void zeroH()
+{
   long currentPosH = stepperH.currentPosition();
   double timesAround = currentPosH / oneRotation;
   double closestPos = oneRotation * timesAround;
@@ -291,7 +286,7 @@ void zeroH(){
   zeroHAtEnd = false;
   digitalWrite(LIGHT_LEFT, RELAY_OFF);
   digitalWrite(LIGHT_RIGHT, RELAY_OFF);
-  }
+}
 
 void endRun()
 {
@@ -301,6 +296,7 @@ void endRun()
   digitalWrite(LIGHT_RIGHT, RELAY_OFF);
   toggleLights = true;
   lightCount = 0;
+  lightState = 0;
   // Stop both motors
   up = false;
   startRun = false;

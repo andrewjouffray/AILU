@@ -53,11 +53,9 @@ long hLimitPlus = 0;
 //lights
 long lightCount = 0;
 bool toggleLights = true;
-bool leftLight = true;
-int lastLighting = 0; 
-int lightsOn = 0;  // 0=off, 1=left on, 2=right on, 3=both on
-int lighting = 1;
+int lightState = 0; 
 int alternateCount = 6000;
+int lighting = 1;
 
 long maxTopPosition = -38407;
 int minBottomPosition = 0;
@@ -83,7 +81,6 @@ enum cmd {
   eSetHLimit,
   eSetVSpeed,
   eSetHSpeed,
-  eSetMotor,
   eSetTracking,
   eRunD,
   eRunU,
@@ -128,8 +125,6 @@ void setup()
     servoRight.attach(SERVO_PIN_RIGHT, 500, 2500);
 
     moveServos(95);
-
-    Serial.println("setting up AILU");
     zeroV();
     Serial.println("AILU Robot 0001 Ready");
 }

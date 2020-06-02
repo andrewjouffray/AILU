@@ -9,27 +9,20 @@ void updateServoAngle(){
   double intHeight = height *-1.0;
   double distanceFromCenter = 356.0; //mm
 
-  double tangeant = distanceFromCenter / intHeight;
-  double rad = atan(tangeant);
-  double invDeg =  round( atan(tangeant) * 180/3.14159265 );
+  double tangent = distanceFromCenter / intHeight;
+  double rad = atan(tangent);
+  double invDeg =  round( rad * 180/3.14159265 );
 //  Serial.println("invDeg " + String(invDeg) + "tan: " + String(tangeant));
   double fDeg = 180 - invDeg;
-  int degreeToRotate = (int) fDeg;
-  moveServos(degreeToRotate);
+  moveServos(fDeg);
 
   
 }
 
-void moveServos(int servoPosition){
-//   Serial.println("updating servo position to " + String(servoPosition));
-
-  int mappedDeg = map(angle, 0, 270, 500, 2500);
-  servoLeft.writeMicroseconds(map(angle, 0, 270, 500, 2500));
-  servoRight.writeMicroseconds(map(180 - angle, 0, 270, 500, 2500));
-  
-  //servoLeft.writeMicroseconds(mappedDeg);
-  //servoRight.writeMicrosecondste(180 - mappedDeg);
-  }
+void moveServos(double servoPosition){
+  servoLeft.writeMicroseconds(map(servoPosition, 0, 270, 500, 2500));
+  servoRight.writeMicroseconds(map(180 - servoPosition, 0, 270, 500, 2500));
+}
   
 void checkRotateLimit()
 {
@@ -66,7 +59,6 @@ bool limitReached()
 
 void zeroV()
 {
-  Serial.println("ZeroV");
   // Zero the vertical axis
   Serial.println("Zeroing vertical axis");
   stepperV.moveTo(1000000);
@@ -79,96 +71,86 @@ void zeroV()
   
 }
 
+void alternateLighting()
+{
+  if(lightCount > alternateCount)
+  {
+    if(lightState == 0)   // check which light to alternate
+    {
+      Serial.println("Left off right on");
+      digitalWrite(LIGHT_LEFT, RELAY_OFF);
+      digitalWrite(LIGHT_RIGHT, RELAY_ON);
+      lightState++;
+    }
+    else
+    {
+      Serial.println("Left on right off");
+      digitalWrite(LIGHT_LEFT, RELAY_ON);
+      digitalWrite(LIGHT_RIGHT, RELAY_OFF);
+      lightState--;
+    }
+    lightCount = 0;
+  }
+}
+
+void alternateLighting2()
+{
+  if(lightCount > alternateCount)
+  {
+    switch(lightState)
+    {
+      case 0:   // both on
+        digitalWrite(LIGHT_LEFT, RELAY_ON);
+        digitalWrite(LIGHT_RIGHT, RELAY_ON);
+        lightState++;
+        break;
+      case 1: // left on right off
+        digitalWrite(LIGHT_LEFT, RELAY_ON);
+        digitalWrite(LIGHT_RIGHT, RELAY_OFF);
+        lightState++;
+        break;
+      case 2: // both on
+        digitalWrite(LIGHT_LEFT, RELAY_ON);
+        digitalWrite(LIGHT_RIGHT, RELAY_ON);
+        lightState++;
+        break;
+      case 3: // left off right on
+        digitalWrite(LIGHT_LEFT, RELAY_OFF);
+        digitalWrite(LIGHT_RIGHT, RELAY_ON);
+        lightState = 0;
+        break;
+    }
+    lightCount = 0;
+  }
+}
+
 void runLights()
 {
   if(toggleLights)
   {
-//    switch(lighting)
-//    {
-//      case 0: // lights off
-//        digitalWrite(LIGHT_LEFT, RELAY_OFF);
-//        digitalWrite(LIGHT_RIGHT, RELAY_OFF);
-//        break;
-//       case 1: // both lights on
-//        digitalWrite(LIGHT_LEFT, RELAY_ON);
-//        digitalWrite(LIGHT_RIGHT, RELAY_ON);
-//        toggleLights = false;
-//        break;
-//       case 2: // alternate between lights
-//        alternateLighting();
-//        break;
-//       case 3: // both on, one off pattern
-//        
-//        break;
-//    }
+    switch(lighting)
+    {
+      case 0: // lights off
+        digitalWrite(LIGHT_LEFT, RELAY_OFF);
+        digitalWrite(LIGHT_RIGHT, RELAY_OFF);
+        break;
+       case 1: // both lights on
+        digitalWrite(LIGHT_LEFT, RELAY_ON);
+        digitalWrite(LIGHT_RIGHT, RELAY_ON);
+        toggleLights = false;
+        break;
+       case 2: // alternate between lights
+        alternateLighting();
+        break;
+       case 3: // both on, one off pattern
+        alternateLighting2();
+        break;
+    }
     lightCount++;
-    if (lighting == 0)
-    {
-      digitalWrite(LIGHT_LEFT, RELAY_OFF);
-      digitalWrite(LIGHT_RIGHT, RELAY_OFF);
-      toggleLights = false;
-    }
-    else if(lighting == 1) // both lights on
-    {
-      digitalWrite(LIGHT_LEFT, RELAY_ON);
-      digitalWrite(LIGHT_RIGHT, RELAY_ON);
-      toggleLights = false;
-    }
-    else if(lighting == 2) // alternate between lights
-    {
-      if(lightCount > alternateCount)
-      {
-        if(lightsOn == 1)   // check which light to alternate
-        {
-          digitalWrite(LIGHT_LEFT, RELAY_OFF);
-          digitalWrite(LIGHT_RIGHT, RELAY_ON);
-        }
-        else
-        {
-          digitalWrite(LIGHT_LEFT, RELAY_OFF);
-          digitalWrite(LIGHT_RIGHT, RELAY_ON);
-        }
-        lightCount = 0;
-        leftLight = !leftLight;
-      }
-    }
-    else if(lighting == 3)
-    {
-//      if(lightCount > alternateCount)
-//      {
-//        if(ligh == 1 || lastLighting == 2)
-//        {
-//          digitalWrite(LIGHT_LEFT, RELAY_ON);
-//          digitalWrite(LIGHT_RIGHT, RELAY_ON);
-//        }
-//        else if(lastLighting == 
-//        if(lightsOn == 1)
-//        if(lightCount > 2*alternateCount) // 
-//        {
-//          digitalWrite(LIGHT_LEFT, RELAY_ON);
-//          digitalWrite(LIGHT_RIGHT, RELAY_ON);
-//          lightCount = 0;
-//        }
-//        else if(leftLight)
-//        {
-//          digitalWrite(LIGHT_LEFT, RELAY_OFF);
-//          digitalWrite(LIGHT_RIGHT, RELAY_ON);
-//          leftLight = !leftLight;
-//        }
-//        else
-//        {
-//          digitalWrite(LIGHT_LEFT, RELAY_ON);
-//          digitalWrite(LIGHT_RIGHT, RELAY_OFF);
-//          leftLight = !leftLight;
-//        }
-//      }
-    }
   }
-  
 }
 
 void flush(){
-
   Serial.flush();
 }
 
