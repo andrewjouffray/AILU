@@ -25,7 +25,7 @@
 *   move to a vertical position (0,-38407)
 *  end
 *   stops both motors
-*  setLighting
+*  setLighting <0 | 1 | 2 | 3>
 *   both always on, alternating between the two, "both on, this one off"
 
 ********************************************************************************/

@@ -49,11 +49,18 @@ long angle = 2000000;
 long hLimitMin = 0;
 long hLimitPlus = 0;
 
-long maxTopPosition = -38407;
-int minBottomPosition = 0;
+
+//lights
 long lightCount = 0;
 bool toggleLights = true;
+bool leftLight = true;
+int lastLighting = 0; 
+int lightsOn = 0;  // 0=off, 1=left on, 2=right on, 3=both on
 int lighting = 1;
+int alternateCount = 6000;
+
+long maxTopPosition = -38407;
+int minBottomPosition = 0;
 double speedV = 2000.0;
 double speedH = 1000.0;
 int tracking = 1;
