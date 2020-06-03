@@ -1,11 +1,12 @@
 #include <AccelStepper.h>
 //#include <MultiStepper.h>
 #include <Servo.h>
-#include <math.h>
 
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
 #define MOTOR_A_ENABLE_PIN 6
 #define MOTOR_A_STEP_PIN 5
 #define MOTOR_A_DIR_PIN 8
@@ -14,62 +15,53 @@
 #define MOTOR_B_STEP_PIN 3
 #define MOTOR_B_DIR_PIN 2
 
+#define LIGHT_LEFT 11
+#define LIGHT_RIGHT 12
 #define RELAY_ON 1      // Define relay on pin state
 #define RELAY_OFF 0     // Define relay off pin state
 
 #define SERVO_PIN_LEFT 9
 #define SERVO_PIN_RIGHT 10
-#define LIGHT_LEFT 11
-#define LIGHT_RIGHT 12
 
-#define STEPPER_H 0
-#define STEPPER_V 1
-
-#define RelayLeft  8
-
-//MultiStepper steppers;
-
-AccelStepper stepperH(MOTOR_A_ENABLE_PIN, MOTOR_A_STEP_PIN, MOTOR_A_DIR_PIN); // Turntable motor
-AccelStepper stepperV(MOTOR_B_ENABLE_PIN, MOTOR_B_STEP_PIN, MOTOR_B_DIR_PIN); // Vertical motor
-
-Servo servoLeft;
-Servo servoRight;
-
+// Vertical stepper
+AccelStepper stepperH(MOTOR_A_ENABLE_PIN, MOTOR_A_STEP_PIN, MOTOR_A_DIR_PIN); 
+const long maxTopPosition = -38407;
+long minBottomPosition = 0;
+double speedV = 2000.0;
+bool startRun = false;
+bool up = false;
 // limit switches for vertical stepper motor
 const int limitSwitchTop = 0;
 const int limitSwitchBottom = 7;
 
+// Horizontal stepper (turntable)
+AccelStepper stepperV(MOTOR_B_ENABLE_PIN, MOTOR_B_STEP_PIN, MOTOR_B_DIR_PIN); 
 const long hZeroPosition = 40000; // default position of stepperH (it can't go into negative positions)
 const long oneRotation = 20920; // position to do one full rotation
 const double convertionMultiplication = oneRotation / 360; // multiply degrees by this number to get position
-
-String command;
-String param;
+bool zeroHAtEnd = false;
 long angle = 2000000;
 long hLimitMin = 0;
-long hLimitPlus = 0;
+long hLimitMax = 0;
+long lastPos = 0;
+long Hpos = 0;
+double speedH = 1000.0;
+bool fullRotate = true;
 
+// Servos
+Servo servoLeft;
+Servo servoRight;
+int tracking = 1;
 
 //lights
 long lightCount = 0;
+long alternateCount = 6000;
 bool toggleLights = true;
 int lightState = 0; 
-int alternateCount = 6000;
 int lighting = 1;
 
-long maxTopPosition = -38407;
-int minBottomPosition = 0;
-double speedV = 2000.0;
-double speedH = 1000.0;
-int tracking = 1;
-long positions[2] = {100000, 0};
-bool startRun = false;
-bool fullRotate = true;
-bool up = false;
-bool down = false;
-bool zeroHAtEnd = false;
-long lastPos = 0;
-long Hpos = 0;
+String command;
+String param;
 
 // Commands enum
 enum cmd {
@@ -88,8 +80,9 @@ enum cmd {
   eMoveV,
   eEnd,
   eSetZero,
-  eServo,
+  eMoveS,
   eReset,
+  eZeroV,
   eUnknown  
 };
 
@@ -139,7 +132,6 @@ void loop()
   }
 
   if(startRun)
-  
   { 
     runLights();
     countToServoUpdate++;
@@ -155,22 +147,21 @@ void loop()
     }
 
     if(!fullRotate)
-      {
-        Hpos = stepperH.currentPosition();
-            if(Hpos == hLimitPlus){
-              if(lastPos != Hpos){
-               stepperH.moveTo(hLimitMin);
-               lastPos = Hpos;
-              }
-            }
-
-            if(Hpos == hLimitMin){
-              if(lastPos != Hpos){
-                stepperH.moveTo(hLimitPlus);
-                lastPos = Hpos;
-            }
+    {
+      Hpos = stepperH.currentPosition();
+        if(Hpos == hLimitMax){
+          if(lastPos != Hpos){
+            stepperH.moveTo(hLimitMin);
+            lastPos = Hpos;
           }
         }
+        else if(Hpos == hLimitMin){
+          if(lastPos != Hpos){
+            stepperH.moveTo(hLimitMax);
+            lastPos = Hpos;
+          }
+        }
+      }
 
     stepperV.run();
     stepperH.run();

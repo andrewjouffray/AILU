@@ -1,7 +1,7 @@
 
 
-void updateServoAngle(){
- 
+void updateServoAngle()
+{
   // the height is used to calculate the angle that the servos need to be at 
   // in order to track the object
   double currentPos = stepperV.currentPosition() - minBottomPosition;
@@ -19,7 +19,8 @@ void updateServoAngle(){
   
 }
 
-void moveServos(double servoPosition){
+void moveServos(double servoPosition)
+{
   servoLeft.writeMicroseconds(map(servoPosition, 0, 270, 500, 2500));
   servoRight.writeMicroseconds(map(180 - servoPosition, 0, 270, 500, 2500));
 }

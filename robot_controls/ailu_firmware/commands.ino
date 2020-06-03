@@ -90,10 +90,10 @@ void printSettings()
 
 
 
-void setLighting(){
-  // TODO
+void setLighting()
+{
   Serial.println("Lighting set");
-  String param = Serial.readStringUntil('\n');
+  param = Serial.readStringUntil('\n');
   lighting = param.toInt();
 
   flush();
@@ -101,7 +101,7 @@ void setLighting(){
 
 void setZero()
 {
-  Serial.readStringUntil('\n');
+  // Serial.readStringUntil('\n');
   stepperV.setCurrentPosition(0);
 
   flush();
@@ -110,10 +110,32 @@ void setZero()
 void reset()
 {
   // reset speed and limits
-  Serial.readStringUntil('\n');
+  // Serial.readStringUntil('\n');
   endRun();
 
   // Reset all default values
+  bool zeroHAtEnd = false;
+  long angle = 2000000;
+  long hLimitMin = 0;
+  long hLimitMax = 0;
+  long lastPos = 0;
+  long Hpos = 0;
+  double speedH = 1000.0;
+  bool fullRotate = true;
+
+  //lights
+  long lightCount = 0;
+  long alternateCount = 6000;
+  bool toggleLights = true;
+  int lightState = 0; 
+  int lighting = 1;
+
+  // Vertical stepper
+  int minBottomPosition = 0;
+  double speedV = 2000.0;
+  bool startRun = false;
+  bool up = false;
+
   angle = 100000;  // Set horizontal motor to rotate without stopping
   fullRotate = true;
   maxTopPosition = -38407;
@@ -153,9 +175,9 @@ void setHLimit()
 {
   param = Serial.readStringUntil('\n');
   long hLimit = param.toInt();
-  hLimitPlus = hZeroPosition + hLimit * convertionMultiplication; // converts degrees to motor position
+  hLimitMax = hZeroPosition + hLimit * convertionMultiplication; // converts degrees to motor position
   hLimitMin = hZeroPosition - hLimit * convertionMultiplication;
-  if (hLimitPlus >= hZeroPosition + oneRotation)
+  if (hLimitMax >= hZeroPosition + oneRotation)
   {
     angle = hZeroPosition + 10000000;	// Set horizontal motor to rotate without stopping
     fullRotate = true;
@@ -170,7 +192,7 @@ void setHLimit()
   flush();
 }
 
-void servo(){
+void moveS(){
   param = Serial.readStringUntil('\n');
   long pos = param.toInt();
   Serial.println("moving servos");
@@ -182,7 +204,7 @@ void setVSpeed()
 {
   param = Serial.readStringUntil('\n');
   long speed = param.toInt();
-  alternateCount = speed;
+  alternateCount = 12000000/speed;
   Serial.println("vert speed set");
   stepperV.setMaxSpeed(speed);
   flush();
@@ -220,7 +242,6 @@ void runU()
 {
   zeroHAtEnd = true;
   Serial.println("runU");
-  positions[STEPPER_V] = maxTopPosition;
   stepperH.moveTo(angle);
   stepperV.moveTo(maxTopPosition);
   up = true;
@@ -306,6 +327,6 @@ void endRun()
   stepperV.runToPosition();
   if(zeroHAtEnd){
     zeroH();
-    }
+  }
   
 }
