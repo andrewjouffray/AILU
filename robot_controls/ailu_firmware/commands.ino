@@ -114,39 +114,32 @@ void reset()
   endRun();
 
   // Reset all default values
-  bool zeroHAtEnd = false;
-  long angle = 2000000;
-  long hLimitMin = 0;
-  long hLimitMax = 0;
-  long lastPos = 0;
-  long Hpos = 0;
-  double speedH = 1000.0;
-  bool fullRotate = true;
+  // zeroHAtEnd = false;
+  angle = 2000000;
+  // hLimitMin = 0;
+  // hLimitMax = 0;
+  // lastPos = 0;
+  // Hpos = 0;
+  speedH = 1000.0;
+  fullRotate = true;
+  speedH = 1000.0;
 
   //lights
-  long lightCount = 0;
-  long alternateCount = 6000;
-  bool toggleLights = true;
-  int lightState = 0; 
-  int lighting = 1;
+  lightCount = 0;
+  alternateCount = 6000;
+  toggleLights = true;
+  lightState = 0; 
+  lighting = 1;
 
   // Vertical stepper
-  int minBottomPosition = 0;
-  double speedV = 2000.0;
-  bool startRun = false;
-  bool up = false;
-
-  angle = 100000;  // Set horizontal motor to rotate without stopping
-  fullRotate = true;
-  maxTopPosition = -38407;
   minBottomPosition = 0;
-  lighting = 1;
   speedV = 2000.0;
-  speedH = 1000.0;
-  tracking = 0;
   startRun = false;
-  fullRotate = true;
   up = false;
+  speedV = 2000.0
+
+  tracking = 1;
+  startRun = false;
   stepperH.setMaxSpeed(speedH);
   stepperV.setMaxSpeed(speedV);
   zeroV();
