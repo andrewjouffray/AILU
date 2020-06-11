@@ -136,7 +136,7 @@ void reset()
   speedV = 2000.0;
   startRun = false;
   up = false;
-  speedV = 2000.0
+  speedV = 2000.0;
 
   tracking = 1;
   startRun = false;

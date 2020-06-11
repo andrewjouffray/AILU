@@ -21,7 +21,7 @@
 #define RELAY_OFF 0     // Define relay off pin state
 
 #define SERVO_PIN_LEFT 9
-#define SERVO_PIN_RIGHT 10
+#define SERVO_PIN_RIGHT A3
 
 // Vertical stepper
 AccelStepper stepperH(MOTOR_A_ENABLE_PIN, MOTOR_A_STEP_PIN, MOTOR_A_DIR_PIN); 

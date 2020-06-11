@@ -11,8 +11,8 @@ void updateServoAngle()
 
   double tangent = distanceFromCenter / intHeight;
   double rad = atan(tangent);
-  double invDeg =  round( rad * 180/3.14159265 );
-//  Serial.println("invDeg " + String(invDeg) + "tan: " + String(tangeant));
+  double invDeg =   rad * 180/3.14159265;
+  //Serial.println("invDeg " + String(invDeg) + "tan: " + String(tangent));
   double fDeg = 180 - invDeg;
   moveServos(fDeg);
 
