@@ -6,8 +6,8 @@ void updateServoAngle()
   // in order to track the object
   double currentPos = stepperV.currentPosition() - minBottomPosition;
   double height = currentPos * 0.0100878;
-  double intHeight = height *-1.0;
-  double distanceFromCenter = 356.0; //mm
+  double intHeight = (height *-1.0) + 100;
+  double distanceFromCenter = 301.0; //mm was 431 fot the macro lense 
 
   double tangent = distanceFromCenter / intHeight;
   double rad = atan(tangent);

@@ -2,14 +2,14 @@ from flask import Flask
 from flask import request
 from robotControls import Compute
 import serial
-import time 
+import time
 import json
 import robotControls as robot
 import os
 
 ROBOT_NAME = "AILU_0001"
 
-com = "COM6"
+com = "COM4"
 app = Flask(__name__)
 ser = serial.Serial(com, 9600, timeout=.1)
 time.sleep(2)
@@ -49,9 +49,9 @@ def writeDatasetFile(datasetName, datasetType, bndBoxes, masks, workDir):
     for file in files:
         if not "." in file:
             label.append(file)
-    data = {'name':datasetName, 
-    'type':datasetType, 
-    'labels': label, 
+    data = {'name':datasetName,
+    'type':datasetType,
+    'labels': label,
     'outputType': [
         {'masks':masks,
         'boundingBoxes': bndBoxes
@@ -66,7 +66,7 @@ def run():
     #data = json.loads(request.data.decode())
     data = request.form
     print(data)
-    
+
 
     # handles quick checks
     if data["runType"] == "test":
@@ -99,12 +99,13 @@ def run():
         dataSetName = data["dataSetName"]
         label = data["label"]
         images = int(data["images"])
+        timeToTake = int(data["timeToTake"])
         datasetType = data["type"]
         bndBoxes = bool(data["bndBoxes"])
         masks = bool(data["masks"])
         lowerLimit = int(data["lowerLimit"])
 
-        workDir = "C:/Users/LattePanda/Documents/GitHub/AILU/robot_controls/server/"+dataSetName+"/"
+        workDir = "D:/"+dataSetName+"/"
         saveDir = workDir+label
 
         #create a directory for the dataset
@@ -115,7 +116,7 @@ def run():
         if not os.path.isdir(saveDir):
             os.mkdir(saveDir)
 
-        speed = getMotorSpeed(images, lowerLimit)
+        speed = getMotorSpeed(timeToTake, lowerLimit)
 
         position = comToArduino("getP ")
         print("position from arduino: ", position)
@@ -132,7 +133,7 @@ def run():
         thread_a.start()
 
         # writes the command to the arduino
-        
+
         vSpeedCommand = "setVSpeed "+str(speed)
         comToArduino(vSpeedCommand)
         comToArduino(command)
@@ -146,7 +147,7 @@ def run():
 @app.route('/set', methods = ['POST'])
 def setSettings():
     #data = json.loads(request.data.decode())
-    
+
     data = request.form
     print("got your command", data)
     command = data["command"]
@@ -161,7 +162,7 @@ def setSettings():
             message = comToArduino(command+value)
     except Exception as e:
         print(e)
-        
+
     responce = {"message":message}
     return responce, 201
 
