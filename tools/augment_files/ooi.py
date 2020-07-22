@@ -37,9 +37,9 @@ class Ooi:
             # affine transform
             self.affineTransform()
 
-        if random.randint(1, 3) == 1:
+        #if random.randint(1, 3) == 1:
             # change gamma
-            self.changeGamma()
+           # self.changeGamma()
 
         if random.randint(1, 4) == 1:
 
@@ -78,13 +78,14 @@ class Ooi:
             xOffSet = random.randint(0, maxXOffSet)
             yOffSet = random.randint(0, maxYOffSet)
         except Exception as e:
-            print("> Error: ", e)
-            print("> height, width of the object: ", height, width)
-            print("> maxXOffSet value:", maxXOffSet)
+            #print("> Error: ", e)
+            #print("> height, width of the object: ", height, width)
+            #print("> maxXOffSet value:", maxXOffSet)
             xOffSet = 1
             yOffSet = 1
-            if maxYOffSet:
-                print("> maxYOffSet value:", maxYOffSet)
+            #if maxYOffSet:
+            #    print("> maxYOffSet value:", maxYOffSet)
+            pass
 
 
 

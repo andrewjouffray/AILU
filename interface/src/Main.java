@@ -1,5 +1,3 @@
-package sample;
-
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.beans.property.*;

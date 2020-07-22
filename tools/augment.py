@@ -59,7 +59,7 @@ def loadInput(path):
         validFiles = []
         print("> Checking files...")
         for file in files:
-            if file.endswith(".avi"):
+            if file.endswith(".avi") or file.endswith(".mp4"):
                 validFiles.append(file)
         if len(validFiles) == 0:
             raise Exception("no valid files in directory")
@@ -80,7 +80,6 @@ def getOoi(frame):
     if rois_img[0].any() < 1 and len(rois_img) > 2:
         rois_img[0] = rois_img[1]
     elif rois_img[0].any() < 1:
-        print("> Error: no roi in the frame")
         return False
     return rois_img[0]
 
@@ -114,7 +113,7 @@ def main():
     # gets input path
     print("=====================================================[enter \"exit\" at anytime to exit the program]=====================================================")
     while True:
-        inputPath = input("\n> Enter Path to .avi files: ")
+        inputPath = input("\n> Enter Path to .avi & .mp4 files: ")
         if not inputPath.endswith("/"):
             inputPath = inputPath+"/"
         if os.path.exists(inputPath):
@@ -242,6 +241,9 @@ def main():
                         else:
                             if random.randint(1, 10) == 1:
                                 canvas1.blur()
+                        
+                        if random.randint(1, 4) == 1:
+                            canvas1.changeGamma()
 
                         if random.randint(1, 15) == 1:
                             canvas1.tint()
@@ -267,12 +269,12 @@ def main():
 
                         # Uncomment below to see what the images look like
 
-                        display.draw_and_show(mask, canvas1.getRois(), "mask")
-                        display.draw_and_show(image, canvas1.getRois(), "canvas")
-                        if cv2.waitKey(25) & 0xFF == ord('q'):
-                            print("\n> Exiting...")
-                            exit()
-                        time.sleep(0.5)
+                        #display.draw_and_show(mask, canvas1.getRois(), "mask")
+                        #display.draw_and_show(image, canvas1.getRois(), "canvas")
+                        #if cv2.waitKey(25) & 0xFF == ord('q'):
+                        #    print("\n> Exiting...")
+                        #    exit()
+                        #time.sleep(0.5)
             else:
                 break
 

@@ -120,6 +120,14 @@ class Canvas:
         PIL_img = transforms.RGBTransform().mix_with((color[0], color[1], color[2]), factor=random.uniform(0.05, 0.3)).applied_to(PIL_img)
         self.__canvas = np.array(PIL_img)
 
+    # changes the gamma (brightness of the image)
+    def changeGamma(self):
+
+        gamma = random.uniform(0.8, 2)
+        invGamma = 1.0 / gamma
+        table = np.array([((i / 255.0) ** invGamma) * 255 for i in np.arange(0, 256)]).astype("uint8")
+        self.__canvas = cv2.LUT(self.__canvas, table)
+
     def getCanvas(self):
 
         return self.__canvas
