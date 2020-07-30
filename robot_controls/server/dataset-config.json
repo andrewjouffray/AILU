@@ -1,1 +1,1 @@
-{"name": "testDataset", "type": "objectDetection", "labels": ["cars"], "outputType": [{"masks": true, "boundingBoxes": true}]}
+{"name": "Weeds2", "type": "objectDetection", "labels": ["pigweed", "nenuphare"], "outputType": [{"masks": true, "boundingBoxes": true}]}
