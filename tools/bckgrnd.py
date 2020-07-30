@@ -26,13 +26,14 @@ source = input("\n> please enter to path to the source file: ")
 out = input("\n> please enter to path to the destination folder: ")
 # checks the given paths for the destination and source
 if not os.listdir(out):
+    print("path does not exist, creating it...")
     # if the destination path doesn't exist, create one
     try:
         os.mkdir(out)
 
     except Exception as e:
         print(e)
-        exit()
+        
 
 if not source.endswith("/"):
     source = source + "/"
@@ -56,7 +57,7 @@ for file in os.listdir(source):
             if count % 19 == 0:
 
                 # creates a name and save the file
-                name = str(time.time()) + ".png"
+                name = str(time.time()) + ".jpg"
                 cv2.imwrite(out+name, frame)
                 print("successfully saved", int(count/30), "images", end="\r")
             else:

@@ -15,8 +15,8 @@ def save_images(img, rois, save_dir, label, mask):
     # Use the current time in ms as name
     name = "roi" + str(time())
     # Saves the image
-    imwrite(imDir+name+".png", img)
-    imwrite(maskDir+name+".png", mask)
+    imwrite(imDir+name+".jpg", img)
+    imwrite(maskDir+name+".jpg", mask)
 
     # folder to save the images in
     FOLDER_NAME = "not_important"

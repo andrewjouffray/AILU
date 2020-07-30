@@ -58,37 +58,33 @@ class Canvas:
         columnWidth = int(self.__width / numberOfOoi)
         # print("column width:", columnWidth)
 
-
+        self.__objects = []
         # creates the objects of interest
-        # in some cases, no ooi are created and put in the canvas, in that case, try again
-        tries = 0
-        while True:
-            tries += 1
-            for i in range(numberOfOoi):
+        for i in range(numberOfOoi):
 
-                    # create a new object
-                    objectOfinterest = Ooi(ooi, columnWidth, self.__height, columnWidth * i)
-                    self.__objects.append(objectOfinterest)
+                 # create a new object
+                objectOfinterest = Ooi(ooi, columnWidth, self.__height, columnWidth * i)
+                self.__objects.append(objectOfinterest)
+                #print("total number of objects:", len(self.__objects))
+                #print(self.__objects)
 
-                    # gets it's position
-                    x1, y1, x2, y2 = objectOfinterest.getPosition()
+                # gets it's position
+                x1, y1, x2, y2 = objectOfinterest.getPosition()
 
-                    # inserts the object into the column
-                    try:
-                        self.__canvas[y1:y2, x1:x2] = objectOfinterest.getObject()
+                # inserts the object into the column
+                try:
+                    self.__canvas[y1:y2, x1:x2] = objectOfinterest.getObject()
                         # self.__rois.append([x1, y1, x2, y2])
-                    except Exception as e:
-                        pass
-            self.__rois = func.getROI.using_color_on_canvas(self.__canvas)
-            # checks if ooi were created, break the loop if yes.
-            if self.__rois != [[0,0,0,0]]:
-                # print("success", tries)
-                break
-            elif tries > 5:
-                self.__objects = []
-                self.__rois = []
-                print("failed", self.__rois, tries)
-                break
+                except Exception as e:
+                    #print (">Error: failed to insert object into canvas")
+                    #print (">Positions: x1:", x1, "y1:", y1, "x2:", x2, "y2:", y2)
+                    pass
+                self.__rois = func.getROI.using_color_on_canvas(self.__canvas)
+
+        #if self.__rois == [[0, 0, 0, 0,]]:
+            #print (">Error: no rois from objects")
+            #print (">Objects created: ", len(self.__objects))
+
         self.__mask = modBackground.create_masks(self.__canvas, background)
         self.__canvas = modBackground.black_to_image(self.__canvas, background)
 

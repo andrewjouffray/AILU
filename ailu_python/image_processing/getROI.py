@@ -11,7 +11,7 @@ def using_color(image):
 
     gray_image = cv2.GaussianBlur(gray_image, (3, 3), cv2.BORDER_DEFAULT)
     # All the pixels that are not black, become white
-    ret, threshold1 = cv2.threshold(gray_image,10,255,cv2.THRESH_BINARY)
+    ret, threshold1 = cv2.threshold(gray_image,23,255,cv2.THRESH_BINARY)
 
     # All white specs that are smaller than 10 by 10 are removed
     rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 15))
