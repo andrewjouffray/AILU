@@ -1,7 +1,4 @@
 # AILU
-
-_The information disclosed in the document is confidential and you are not allowed to
- share or distribute it with anyone._
  
 ## Description:
 
